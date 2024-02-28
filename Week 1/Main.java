@@ -8,9 +8,9 @@ import java.lang.Math;
 
 public class Main {
     public static void main(String[] args){
-        // Program1 p1 = new Program1();
-        // Program2 p2 = new Program2();
-        // Program3 p3 = new Program3();
+        Program1 p1 = new Program1();
+        Program2 p2 = new Program2();
+        Program3 p3 = new Program3();
         Program4 p4 = new Program4();
     }
 }
@@ -38,20 +38,13 @@ class Program1 {
     }
 
     public void ValidateGuess(int userInput){
-        //correct
         if(userInput == this.magicNumber){
             System.out.println(guessCorrect + this.magicNumber);
-        //too low
         } else if(userInput < this.magicNumber){
             System.out.println(guessLowMessage);
-        //too high
         } else if(userInput > this.magicNumber){
             System.out.println(guessHighMessage);
         }
-    }
-
-    public void Debug(String log){
-        System.out.println("DEBUG: " + log);
     }
 }
 
