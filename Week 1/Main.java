@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args){
         // Program1 p1 = new Program1();
         Program2 p2 = new Program2();
+        Program3 p3 = new Program3();
     }
 }
 
@@ -78,6 +79,24 @@ class Program2 {
     }
 }
 
-class Program3 {}
-class Program4 {}
+class Program3 {
+    public Program3(){
+        int rows;
+        Scanner scn = new Scanner(System.in);
+        System.out.print("How many rows you want in this pattern: ");
+        rows = Integer.parseInt(scn.nextLine());
+        System.out.println("Here is your pattern!");
+        for(int row=1; row <= rows; row++){
+            for(int col=1; col <= row; col++){
+                System.out.print(col + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+class Program4 {
+
+}
+
 class Program5 {}
