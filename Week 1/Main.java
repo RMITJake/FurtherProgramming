@@ -4,10 +4,12 @@
 */
 import java.util.Random;
 import java.util.Scanner;
+import java.lang.Math;
 
 public class Main {
     public static void main(String[] args){
-        Program1 p1 = new Program1();
+        // Program1 p1 = new Program1();
+        Program2 p2 = new Program2();
     }
 }
 
@@ -52,7 +54,28 @@ class Program1 {
 }
 
 class Program2 {
+    double degrees;
+    double radians;
+    double sine;
+    double cosine;
+    double tangent;
 
+    public Program2(){
+        System.out.printf("%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "Degrees", "Radians", "Sine", "Cosine", "Tangent");
+        // System.out.printf("%-10.0f\t%-10.4f\t%-10.4f\t%-10.4f\t%-10.4f\n", degrees, radians, sine, cosine, tangent);
+        Formatter(30.0);
+        Formatter(60.0);
+    }
+
+    public void Formatter(double deg){
+        this.degrees = deg;
+        this.radians = Math.toRadians(degrees);
+        this.sine = Math.sin(radians);
+        this.cosine = Math.cos(radians);
+        this.tangent = Math.tan(radians);
+
+        System.out.printf("%-10.0f\t%-10.4f\t%-10.4f\t%-10.4f\t%-10.4f\n", this.degrees, this.radians, this.sine, this.cosine, this.tangent);
+    }
 }
 
 class Program3 {}
