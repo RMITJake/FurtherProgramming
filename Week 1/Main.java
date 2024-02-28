@@ -9,8 +9,9 @@ import java.lang.Math;
 public class Main {
     public static void main(String[] args){
         // Program1 p1 = new Program1();
-        Program2 p2 = new Program2();
-        Program3 p3 = new Program3();
+        // Program2 p2 = new Program2();
+        // Program3 p3 = new Program3();
+        Program4 p4 = new Program4();
     }
 }
 
@@ -96,7 +97,21 @@ class Program3 {
 }
 
 class Program4 {
+    String name;
+    String[] nameSplit;
+    String initials = "";
 
+    public Program4(){
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Enter your name: ");
+        name = scn.nextLine();
+        System.out.println("your name is " + name);
+        nameSplit = name.split(" ", 5);
+
+        for(String ch : nameSplit){
+            initials += ch.charAt(0);
+        }
+
+        System.out.println("your initials are " + initials);
+    }
 }
-
-class Program5 {}
