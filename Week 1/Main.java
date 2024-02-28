@@ -57,7 +57,6 @@ class Program2 {
 
     public Program2(){
         System.out.printf("%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "Degrees", "Radians", "Sine", "Cosine", "Tangent");
-        // System.out.printf("%-10.0f\t%-10.4f\t%-10.4f\t%-10.4f\t%-10.4f\n", degrees, radians, sine, cosine, tangent);
         Formatter(30.0);
         Formatter(60.0);
     }
