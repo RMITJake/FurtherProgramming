@@ -6,6 +6,6 @@ class Main {
     public static void main(String[] args){
         System.out.println("Main.main()");
         MenuHandler menu = new MenuHandler();
-        menu.displayMenu();
+        menu.menuLoop();
     }
 }

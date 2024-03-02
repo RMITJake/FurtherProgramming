@@ -15,8 +15,10 @@ public class MenuHandler {
 
     public int menuLoop(){
         applicationLoop = 0;
-        displayMenu();
-        applicationLoop = in.mainMenuInput();
+        do{
+            displayMenu();
+            applicationLoop = in.mainMenuInput();
+        } while (applicationLoop != 6);
 
         return applicationLoop;
     }
