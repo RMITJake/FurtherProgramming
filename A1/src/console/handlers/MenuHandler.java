@@ -7,9 +7,19 @@ import console.ui.MenuUI;
 
 public class MenuHandler {
     MenuUI ui = new MenuUI();
+    InputHandler in = new InputHandler();
     Event[] eventList;
     Venue[] venueList;
     Order[] orderList;
+    int applicationLoop;
+
+    public int menuLoop(){
+        applicationLoop = 0;
+        displayMenu();
+        applicationLoop = in.mainMenuInput();
+
+        return applicationLoop;
+    }
 
     public void displayMenu(){
         System.out.println(ui.getMainMenu());

@@ -1,15 +1,14 @@
 package console.ui;
 public class MenuUI {
-    private String banner;
-    private String mainMenu;
+    private String menuText;
 
     public String getBanner(){
-        banner = "welcome to Venue Matcher";
-        return banner;
+        menuText = "welcome to Venue Matcher";
+        return menuText;
     }
 
     public String getMainMenu(){
-        mainMenu = ""
+        menuText = ""
         +"---------------\n"
         +"> Select from main menu\n"
         +"---------------\n"
@@ -20,6 +19,6 @@ public class MenuUI {
         +"5) Show order summary\n"
         +"6) Exit\n"
         +"Please select: ";
-        return mainMenu;
+        return menuText;
     }
 }
