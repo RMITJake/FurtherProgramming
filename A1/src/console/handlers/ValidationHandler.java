@@ -1,13 +1,19 @@
 package console.handlers;
+import java.util.regex.*;
 
 class ValidationHandler {
+    String mainMenuRegex = "^[1-6]$";
+
+    boolean regexMatch(String regex, String input){
+        return Pattern.matches(regex, input);
+    }
+
     boolean validateInt(String input){
         try {
             Integer.parseInt(input);
         } catch (Exception e){
-            System.out.println("Int validation failed");
             return false;
         }
-        return true;
+        return regexMatch(mainMenuRegex, input);
     }    
 }

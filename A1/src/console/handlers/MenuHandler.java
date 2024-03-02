@@ -8,6 +8,7 @@ import console.ui.MenuUI;
 public class MenuHandler {
     MenuUI ui = new MenuUI();
     InputHandler in = new InputHandler();
+    FileHandler file = new FileHandler();
     Event[] eventList;
     Venue[] venueList;
     Order[] orderList;
@@ -18,16 +19,23 @@ public class MenuHandler {
         do{
             displayMenu();
             applicationLoop = in.mainMenuInput();
+            if(applicationLoop == 1){
+                listjobRequests();
+            }
         } while (applicationLoop != 6);
 
         return applicationLoop;
     }
 
     public void displayMenu(){
-        System.out.println(ui.getMainMenu());
+        System.out.print(ui.getMainMenu());
     }
     public void displaySubmenu(){}
-    public void listjobRequests(){}
+
+    public void listjobRequests(){
+        file.readCSV("requests.csv");
+    }
+
     public void browseVenue(){}
     public void searchVenue(){}
     public void autoMatch(){}

@@ -4,7 +4,7 @@ public class Venue{
     String name;
     int capacity;
     String suitableFor;
-    String catefory;
+    String category;
 
     public String toString(String input){
         return input + "";

@@ -7,15 +7,13 @@ class InputHandler {
     String userInput;
     
     public int mainMenuInput(){
-        System.out.println("InputHandler.mainMenuInput()");
         userInput = scn.nextLine();
 
         if(!validator.validateInt(userInput)){
-            System.out.println("validateInt failed.");
+            System.out.println("Please select a valid menu option.");
             return -1;
         }
         
-        System.out.println("validateInt success.");
         return Integer.parseInt(userInput);
     }
 }
