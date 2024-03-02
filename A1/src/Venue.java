@@ -1,5 +1,3 @@
-package src;
-
 class Venue{
     String name;
     int capacity;

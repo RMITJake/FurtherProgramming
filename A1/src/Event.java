@@ -1,5 +1,3 @@
-package src;
-
 class Event{
     String client;
     String title;

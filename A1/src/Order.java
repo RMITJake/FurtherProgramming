@@ -1,5 +1,3 @@
-package src;
-
 class Order{
     double discountAmount;
 

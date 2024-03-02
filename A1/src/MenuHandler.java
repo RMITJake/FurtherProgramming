@@ -1,5 +1,3 @@
-package src;
-
 import src.Event;
 import src.Venue;
 import src.Order;
