@@ -8,7 +8,7 @@ import console.ui.MenuUI;
 public class MenuHandler {
     MenuUI ui = new MenuUI();
     InputHandler in = new InputHandler();
-    FileHandler file = new FileHandler();
+    RequestHandler request = new RequestHandler();
     Event[] eventList;
     Venue[] venueList;
     Order[] orderList;
@@ -33,7 +33,7 @@ public class MenuHandler {
     public void displaySubmenu(){}
 
     public void listjobRequests(){
-        file.readCSV("requests.csv");
+       request.listRequests();
     }
 
     public void browseVenue(){}

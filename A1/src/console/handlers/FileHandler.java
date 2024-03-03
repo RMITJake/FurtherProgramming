@@ -23,7 +23,7 @@ class FileHandler {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        System.out.println(fileContents);
+        System.out.println("DEBUG: " + fileContents);
         return fileContents;
     }
 }
