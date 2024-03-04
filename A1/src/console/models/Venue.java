@@ -1,10 +1,10 @@
 package console.models;
 
 public class Venue{
-    String name;
-    int capacity;
-    String suitableFor;
-    String category;
+    public String name;
+    public int capacity;
+    public String suitableFor;
+    public String category;
 
     public Venue(String name, int capacity, String suitableFor, String category){
         this.name = name;

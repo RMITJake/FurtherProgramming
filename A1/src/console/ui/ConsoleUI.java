@@ -31,13 +31,13 @@ public class ConsoleUI {
         System.out.println(string);
     }
 
-    public void print(ArrayList<Event> eventsList){
+    public void printEvents(ArrayList<Event> eventsList){
         for (Event event : eventsList) {
             System.out.println(event.client);
         }
     }
 
-    public void printV(ArrayList<Venue> venuesList){
+    public void printVenues(ArrayList<Venue> venuesList){
         for (Venue venue : venuesList) {
             System.out.println(venue.name);
         }

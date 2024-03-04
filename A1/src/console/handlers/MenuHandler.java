@@ -37,11 +37,11 @@ public class MenuHandler {
     public void displaySubmenu(){}
 
     public void listjobRequests(){
-       ui.print(request.listRequests());
+       ui.printEvents(request.listRequests());
     }
 
     public void browseVenue(){
-        ui.printV(venue.listVenues());
+        ui.printVenues(venue.listVenues());
     }
     public void searchVenue(){}
     public void autoMatch(){}

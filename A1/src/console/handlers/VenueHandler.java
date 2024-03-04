@@ -4,6 +4,7 @@ import console.models.Venue;
 
 public class VenueHandler {
     FileHandler file;
+    String headers;
 
     public VenueHandler(FileHandler file){
         this.file = file;
@@ -11,8 +12,13 @@ public class VenueHandler {
 
     public ArrayList<Venue> listVenues(){
         ArrayList<Venue> venueList = new ArrayList<Venue>();
+        headers = "";
         for (String line : this.file.readCSV("venues.csv")){
-            venueList.add(deserialiseVenue(line));
+            if(headers == ""){
+                headers = line;
+            } else {
+                venueList.add(deserialiseVenue(line));
+            }
         }
         return venueList;
     }

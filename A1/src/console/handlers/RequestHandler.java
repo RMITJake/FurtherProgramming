@@ -5,6 +5,7 @@ import console.models.Event;
 
 class RequestHandler {
     FileHandler file;
+    String headers;
 
     public RequestHandler(FileHandler file){
         this.file = file;
@@ -12,8 +13,13 @@ class RequestHandler {
 
     public ArrayList<Event> listRequests(){
         ArrayList<Event> eventsList = new ArrayList<Event>();
+        headers = "";
         for (String line : this.file.readCSV("requests.csv")){
-            eventsList.add(deserialiseRequest(line));
+            if(headers == ""){
+                headers = line;
+            } else {
+                eventsList.add(deserialiseRequest(line));
+            }
         }
         return eventsList;
     }
