@@ -2,6 +2,7 @@ package console.ui;
 
 import java.util.ArrayList;
 import console.models.Event;
+import console.models.Venue;
 
 public class ConsoleUI {
     private String menuText;
@@ -33,6 +34,12 @@ public class ConsoleUI {
     public void print(ArrayList<Event> eventsList){
         for (Event event : eventsList) {
             System.out.println(event.client);
+        }
+    }
+
+    public void printV(ArrayList<Venue> venuesList){
+        for (Venue venue : venuesList) {
+            System.out.println(venue.name);
         }
     }
 }

@@ -1,15 +1,18 @@
 package console.handlers;
 import java.util.ArrayList;
 
-import console.models.*;
+import console.models.Event;
 
 class RequestHandler {
-    FileHandler file = new FileHandler();
+    FileHandler file;
+
+    public RequestHandler(FileHandler file){
+        this.file = file;
+    }
 
     public ArrayList<Event> listRequests(){
-        // file.readCSV("requests.csv");
         ArrayList<Event> eventsList = new ArrayList<Event>();
-        for (String line : file.readCSV("requests.csv")){
+        for (String line : this.file.readCSV("requests.csv")){
             eventsList.add(deserialiseRequest(line));
         }
         return eventsList;

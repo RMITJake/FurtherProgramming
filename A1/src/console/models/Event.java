@@ -2,11 +2,11 @@ package console.models;
 
 public class Event{
     public String client;
-    String title;
+    public String title;
     public String artist;
-    String date;
-    String time;
-    String target;
+    public String date;
+    public String time;
+    public String target;
     public String type;
     public String category;
 
