@@ -3,10 +3,10 @@ package console.handlers;
 import console.models.Event;
 import console.models.Venue;
 import console.models.Order;
-import console.ui.MenuUI;
+import console.ui.ConsoleUI;
 
 public class MenuHandler {
-    MenuUI ui = new MenuUI();
+    ConsoleUI ui = new ConsoleUI();
     InputHandler in = new InputHandler();
     RequestHandler request = new RequestHandler();
     Event[] eventList;
@@ -28,12 +28,12 @@ public class MenuHandler {
     }
 
     public void displayMenu(){
-        System.out.print(ui.getMainMenu());
+        ui.getMainMenu();
     }
     public void displaySubmenu(){}
 
     public void listjobRequests(){
-       request.listRequests();
+       ui.print(request.listRequests());
     }
 
     public void browseVenue(){}

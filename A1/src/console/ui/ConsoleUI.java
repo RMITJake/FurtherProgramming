@@ -1,13 +1,17 @@
 package console.ui;
-public class MenuUI {
+
+import java.util.ArrayList;
+import console.models.Event;
+
+public class ConsoleUI {
     private String menuText;
 
-    public String getBanner(){
+    public void getBanner(){
         menuText = "welcome to Venue Matcher";
-        return menuText;
+        print(menuText);
     }
 
-    public String getMainMenu(){
+    public void getMainMenu(){
         menuText = ""
         +"---------------\n"
         +"> Select from main menu\n"
@@ -19,6 +23,16 @@ public class MenuUI {
         +"5) Show order summary\n"
         +"6) Exit\n"
         +"Please select: ";
-        return menuText;
+        print(menuText);
+    }
+
+    public void print(String string){
+        System.out.println(string);
+    }
+
+    public void print(ArrayList<Event> eventsList){
+        for (Event event : eventsList) {
+            System.out.println(event.client);
+        }
     }
 }

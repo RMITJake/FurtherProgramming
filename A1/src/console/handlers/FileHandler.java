@@ -19,11 +19,9 @@ class FileHandler {
                 fileContents.add(line);
             }
             reader.close();
-            // return fileContents;
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        System.out.println("DEBUG: " + fileContents);
         return fileContents;
     }
 }
