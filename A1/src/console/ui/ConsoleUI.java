@@ -1,8 +1,6 @@
 package console.ui;
 
-import java.util.ArrayList;
-import console.models.Event;
-import console.models.Venue;
+import console.models.*;
 
 public class ConsoleUI {
     private String menuText;
@@ -31,13 +29,13 @@ public class ConsoleUI {
         System.out.println(string);
     }
 
-    public void printEvents(ArrayList<Event> eventsList){
+    public void print(EventArray eventsList){
         for (Event event : eventsList) {
             System.out.println(event.client);
         }
     }
 
-    public void printVenues(ArrayList<Venue> venuesList){
+    public void print(VenueArray venuesList){
         for (Venue venue : venuesList) {
             System.out.println(venue.name);
         }

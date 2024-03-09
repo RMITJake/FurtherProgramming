@@ -1,6 +1,6 @@
 package console.handlers;
-import java.util.ArrayList;
 import console.models.Venue;
+import console.models.VenueArray;
 
 public class VenueHandler {
     FileHandler file;
@@ -10,8 +10,8 @@ public class VenueHandler {
         this.file = file;
     }
 
-    public ArrayList<Venue> listVenues(){
-        ArrayList<Venue> venueList = new ArrayList<Venue>();
+    public VenueArray listVenues(){
+        VenueArray venueList = new VenueArray();
         headers = "";
         for (String line : this.file.readCSV("venues.csv")){
             if(headers == ""){

@@ -1,8 +1,6 @@
 package console.handlers;
 
-import console.models.Event;
-import console.models.Venue;
-import console.models.Order;
+import console.models.*;
 import console.ui.ConsoleUI;
 
 public class MenuHandler {
@@ -37,11 +35,11 @@ public class MenuHandler {
     public void displaySubmenu(){}
 
     public void listjobRequests(){
-       ui.printEvents(request.listRequests());
+       ui.print(request.listRequests());
     }
 
     public void browseVenue(){
-        ui.printVenues(venue.listVenues());
+        ui.print(venue.listVenues());
     }
     public void searchVenue(){}
     public void autoMatch(){}

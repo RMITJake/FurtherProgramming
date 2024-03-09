@@ -1,7 +1,6 @@
 package console.handlers;
-import java.util.ArrayList;
-
 import console.models.Event;
+import console.models.EventArray;
 
 class RequestHandler {
     FileHandler file;
@@ -11,8 +10,8 @@ class RequestHandler {
         this.file = file;
     }
 
-    public ArrayList<Event> listRequests(){
-        ArrayList<Event> eventsList = new ArrayList<Event>();
+    public EventArray listRequests(){
+        EventArray eventsList = new EventArray();
         headers = "";
         for (String line : this.file.readCSV("requests.csv")){
             if(headers == ""){

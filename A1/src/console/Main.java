@@ -1,5 +1,4 @@
 package console;
-import java.util.Scanner;
 import console.handlers.*;
 
 class Main {
