@@ -14,6 +14,6 @@ public class Venue{
     }
 
     public String toString(){
-        return name + " " + capacity + " " + suitableFor + " " + category;
+        return "> " + name + "\nCapacity: " + capacity + "\nSuitable For: " + suitableFor + "\nCategory: " + category;
     }
 }
