@@ -1,5 +1,6 @@
 package console.handlers;
 
+import java.util.ArrayList;
 import console.models.*;
 import console.ui.ConsoleUI;
 
@@ -37,9 +38,9 @@ public class MenuHandler {
         do{
             selectCategory();
             applicationLoop = in.mainMenuInput();
-            VenueArray venueList = new VenueArray();
+            ArrayList<String> venueList = new ArrayList<String>();
             try {
-                venueList = venue.getVenueByCategory(applicationLoop);
+                venueList = venue.getVenueNameByCategory(applicationLoop);
                 ui.print(venueList);
             } finally {
             }

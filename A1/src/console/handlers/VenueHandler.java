@@ -53,4 +53,13 @@ public class VenueHandler {
         }
         return venueByCategory;
     }
+
+    ArrayList<String> getVenueNameByCategory(int category){
+        VenueArray venues = getVenueByCategory(category);
+        ArrayList<String> venueNames = new ArrayList<String>();
+        for (Venue venue : venues){
+            venueNames.add(venue.name);
+        }
+        return venueNames;
+    }
 }
