@@ -6,6 +6,7 @@ import console.models.*;
 public class ConsoleUI {
     private String menuText;
     private String selectPrompt = "Please select: ";
+    private String lineBreak = "---------------\n";
 
     public void getBanner(){
         menuText = "welcome to Venue Matcher";
@@ -14,9 +15,9 @@ public class ConsoleUI {
 
     public void getMainMenu(){
         menuText = ""
-        +"---------------\n"
+        +lineBreak
         +"> Select from main menu\n"
-        +"---------------\n"
+        +lineBreak
         +"1) List current job requests\n"
         +"2) Browse venue by category\n"
         +"3) Search venue by name\n"
@@ -29,9 +30,9 @@ public class ConsoleUI {
 
     public void printSelect(String selection){
         menuText = ""
-        +"---------------\n"
+        +lineBreak
         +"> Select from " + selection + "\n"
-        +"---------------\n";
+        +lineBreak;
         print(menuText);
     }
 
@@ -63,5 +64,13 @@ public class ConsoleUI {
 
     public void print(Venue venue){
         System.out.println(venue.toString());
+    }
+
+    public void hireMenu(Venue venue){
+        menuText = ""
+        +lineBreak
+        +"1) Hire for $" + 550.00 + "\n"
+        +"2) Back to venue list";
+        System.out.println(menuText);
     }
 }

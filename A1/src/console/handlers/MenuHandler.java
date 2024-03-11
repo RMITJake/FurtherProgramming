@@ -60,12 +60,13 @@ public class MenuHandler {
                 try {
                     Venue searchVenue = venue.getVenueByName(applicationLoop, venueList);
                     ui.print(searchVenue);
+                    ui.hireMenu(searchVenue);
                 } finally {
                 }
             } while (applicationLoop != exitCode);
         return 0;
     }
-    
+
     public int venueSelect(ArrayList<String> venueList){
             ui.printSelect("venue list");
             ui.print(venueList);
