@@ -27,6 +27,14 @@ public class ConsoleUI {
         print(selectPrompt);
     }
 
+    public void printSelect(String selection){
+        menuText = ""
+        +"---------------\n"
+        +"> Select from " + selection + "\n"
+        +"---------------\n";
+        print(menuText);
+    }
+
     public void print(String string){
         System.out.print(string);
     }
@@ -51,5 +59,9 @@ public class ConsoleUI {
             System.out.println(stringList.get(i));
         }
         print(selectPrompt);
+    }
+
+    public void print(Venue venue){
+        System.out.println(venue.toString());
     }
 }

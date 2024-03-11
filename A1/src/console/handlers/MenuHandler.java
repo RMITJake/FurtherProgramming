@@ -36,17 +36,40 @@ public class MenuHandler {
         exitCode = 9;
         applicationLoop = 0;
         do{
+            ui.printSelect("category");
             selectCategory();
             applicationLoop = in.mainMenuInput();
             ArrayList<String> venueList = new ArrayList<String>();
             try {
                 venueList = venue.getVenueNameByCategory(applicationLoop);
-                ui.print(venueList);
             } finally {
+                if(venueList.size() > 0){
+                    venueSelectLoop(venueList);
+                }
             }
         } while (applicationLoop != exitCode);
-
+        
         return exitCode;
+    }
+    
+    public int venueSelectLoop(ArrayList<String> venueList){
+            exitCode = 9;
+            do{
+                venueSelect(venueList);
+                applicationLoop = in.mainMenuInput();
+                try {
+                    Venue searchVenue = venue.getVenueByName(applicationLoop, venueList);
+                    ui.print(searchVenue);
+                } finally {
+                }
+            } while (applicationLoop != exitCode);
+        return 0;
+    }
+    
+    public int venueSelect(ArrayList<String> venueList){
+            ui.printSelect("venue list");
+            ui.print(venueList);
+        return 0;
     }
 
     public void displayMenu(){

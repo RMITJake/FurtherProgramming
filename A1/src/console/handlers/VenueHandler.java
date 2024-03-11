@@ -62,4 +62,18 @@ public class VenueHandler {
         }
         return venueNames;
     }
+    
+    Venue getVenueByName(int index, ArrayList<String> venueList){
+        return getVenueByName(venueList.get(index-1));
+    }
+
+    Venue getVenueByName(String searchName){
+        VenueArray venueList = listVenues();
+        for (Venue venue : venueList) {
+            if(venue.name.equals(searchName)){
+                return venue;
+            }
+        }
+        return null;
+    }
 }
