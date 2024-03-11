@@ -1,4 +1,6 @@
 package console.handlers;
+import java.util.ArrayList;
+
 import console.models.Venue;
 import console.models.VenueArray;
 
@@ -27,5 +29,28 @@ public class VenueHandler {
         String[] splitString = csv.split(",");
         Venue venue = new Venue(splitString[0], Integer.parseInt(splitString[1]), splitString[2], splitString[3]);
         return venue;
+    }
+
+    ArrayList<String> listCategories(){
+        VenueArray venueList = listVenues();
+        ArrayList<String> categoryList = new ArrayList<String>();
+        for (Venue venue : venueList) {
+            if(!categoryList.contains(venue.category)){
+                categoryList.add(venue.category);
+            }
+        }
+        return categoryList;
+    }
+
+    VenueArray getVenueByCategory(int category){
+        VenueArray venueList = listVenues();
+        ArrayList<String> categoryList = listCategories();
+        VenueArray venueByCategory = new VenueArray();
+        for (Venue venue : venueList) {
+            if(venue.category.equals(categoryList.get(category-1))){
+                venueByCategory.add(venue);
+            }
+        }
+        return venueByCategory;
     }
 }

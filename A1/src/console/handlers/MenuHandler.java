@@ -13,20 +13,39 @@ public class MenuHandler {
     Venue[] venueList;
     Order[] orderList;
     int applicationLoop;
+    private int exitCode;
 
     public int menuLoop(){
         do{
+            exitCode = 6;
             applicationLoop = 0;
             displayMenu();
             applicationLoop = in.mainMenuInput();
             if(applicationLoop == 1){
                 listjobRequests();
             } else if (applicationLoop == 2){
-                browseVenue();
+                venueByCategoryLoop();
             }
-        } while (applicationLoop != 6);
+        } while (applicationLoop != exitCode);
 
         return applicationLoop;
+    }
+
+    public int venueByCategoryLoop(){
+        exitCode = 9;
+        applicationLoop = 0;
+        do{
+            selectCategory();
+            applicationLoop = in.mainMenuInput();
+            VenueArray venueList = new VenueArray();
+            try {
+                venueList = venue.getVenueByCategory(applicationLoop);
+                ui.print(venueList);
+            } finally {
+            }
+        } while (applicationLoop != exitCode);
+
+        return exitCode;
     }
 
     public void displayMenu(){
@@ -41,6 +60,11 @@ public class MenuHandler {
     public void browseVenue(){
         ui.print(venue.listVenues());
     }
+    
+    void selectCategory(){
+        ui.print(venue.listCategories());
+    }
+
     public void searchVenue(){}
     public void autoMatch(){}
     public void showOrderSummary(){}

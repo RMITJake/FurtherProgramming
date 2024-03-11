@@ -13,7 +13,7 @@ public class Venue{
         this.category = category;
     }
 
-    public String toString(String input){
-        return input + "";
+    public String toString(){
+        return name + " " + capacity + " " + suitableFor + " " + category;
     }
 }

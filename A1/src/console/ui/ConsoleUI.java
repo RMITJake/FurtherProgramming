@@ -1,9 +1,11 @@
 package console.ui;
 
+import java.util.ArrayList;
 import console.models.*;
 
 public class ConsoleUI {
     private String menuText;
+    private String selectPrompt = "Please select: ";
 
     public void getBanner(){
         menuText = "welcome to Venue Matcher";
@@ -20,13 +22,13 @@ public class ConsoleUI {
         +"3) Search venue by name\n"
         +"4) Auto-match events with suitable venues\n"
         +"5) Show order summary\n"
-        +"6) Exit\n"
-        +"Please select: ";
+        +"6) Exit\n";
         print(menuText);
+        print(selectPrompt);
     }
 
     public void print(String string){
-        System.out.println(string);
+        System.out.print(string);
     }
 
     public void print(EventArray eventsList){
@@ -36,8 +38,18 @@ public class ConsoleUI {
     }
 
     public void print(VenueArray venuesList){
-        for (Venue venue : venuesList) {
-            System.out.println(venue.name);
+        for (int i=0; i < venuesList.size(); i++){
+            System.out.print((i+1) + ") ");
+            System.out.println(venuesList.get(i).toString());
         }
+        print(selectPrompt);
+    }
+
+    public void print(ArrayList<String> stringList){
+        for (int i=0; i < stringList.size(); i++){
+            System.out.print((i+1) + ") ");
+            System.out.println(stringList.get(i));
+        }
+        print(selectPrompt);
     }
 }
