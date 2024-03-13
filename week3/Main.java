@@ -4,6 +4,7 @@ class Main{
     public static void main(String[] args){
         ProgramOne one = new ProgramOne();
         ProgramTwo two = new ProgramTwo();
+        ProgramThree Three = new ProgramThree();
     }
 }
 
@@ -39,7 +40,6 @@ class ProgramOne{
     }
 }
 
-
 class ProgramTwo{
     Map<String, String> accountsMap = new HashMap<String, String>();
     Map<String, String> quotaMap = new HashMap <String, String>();
@@ -72,20 +72,65 @@ class ProgramTwo{
 }
 
 class ProgramThree{
+    ProgramThree(){
+        GenericLibrary<Video> myVideos = new GenericLibrary<Video>();
+        GenericLibrary<Book> myBooks = new GenericLibrary<Book>();
+
+        myVideos.addMedia(new Video("Video 1"));
+        myVideos.addMedia(new Video("Video 2"));
+        myVideos.addMedia(new Video("Video 3"));
+        System.out.println(myVideos.retrieveLastMedia().getName());
+
+        myBooks.addMedia(new Book("Book 1"));
+        myBooks.addMedia(new Book("Book 2"));
+        System.out.println(myBooks.retrieveLastMedia().getName());
+    }
+
+    class Media {
+        private String name;
+    
+        public Media(String name){
+            this.name = name;
+        }
+    
+        public String getName(){
+            return this.name;
+        }
+    }
+    
     class Video extends Media{
         Video(String name){
             super(name);
         }
     }
-
+    
     class Book extends Media{
         Book(String name){
             super(name);
         }
     }
-
+    
     class GenericLibrary<E extends Media>{
-        ArrayList<GenericLibrary<E>> library = new ArrayList<>();
-        GenericLibrary(){}
+       private List<E> resources = new ArrayList<E>();
+    
+       public void addMedia(E media) {
+           resources.add(media);
+       }
+    
+       public E retrieveLastMedia() {
+           int size = resources.size();
+           if(size > 0){
+               return resources.get(size - 1);
+           }
+           return null;
+       }
     }
 }
+
+class ProgramFour{
+
+}
+
+class ProgramFive{}
+
+class ProgramSix{}
