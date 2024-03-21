@@ -53,9 +53,11 @@ public class Main {
 			// ASSESSED WEEK4: add the above new Panda into 'pandas' List.
 			// Write your code below
 			//.......
+            recordNo++;
+            pandas.add(new Panda(recordNo, record.get(0), record.get(1), Integer.parseInt(record.get(2))));
 		}
 
-		// System.out.println(pandas);
+		System.out.println(pandas);
 
 		// Print all Pandas, elegantly
 		System.out.printf("%-3s%-10s%-20s%s\n", "ID", "Name", "Colour", "Age");
@@ -72,7 +74,11 @@ public class Main {
 		//HINT: The field should contain the searched colour
 		//Write your code below
 		//......
-		
+		for (Panda panda : pandas) {
+            if(panda.getColour().contains("blue")){
+			    System.out.printf("%-3d%-10s%-20s%d\n", panda.getID(), panda.getName(), panda.getColour(), panda.getAge());
+            }
+        }
 		
 		//Additional Exercise: NOT ASSESSED in Week 4
 		//ADD a Generic List of Animals that allows for all kinds of animals to be added.
@@ -149,12 +155,30 @@ abstract class Animal {
 
 	
 	public abstract void makeSound();
-	public void eat() { System.out.println(getName() + " is eating"); }
-	public void sleep() { System.out.println(getName() + " is sleeping"); }
-	public String getName() { return name; }
-	public String getColour() { return colour; }
-	public int getAge() { return age; }
-	public void setName(String name) { this.name = name; }
+
+	public void eat() {
+        System.out.println(getName() + " is eating");
+    }
+
+	public void sleep() {
+        System.out.println(getName() + " is sleeping");
+    }
+
+	public String getName() {
+        return name;
+    }
+
+	public String getColour() {
+        return colour;
+    }
+
+	public int getAge() {
+        return age;
+    }
+    
+	public void setName(String name) {
+        this.name = name;
+    }
 	
 	/*
 	 * WEEK 4 ASSSESSED
@@ -162,7 +186,9 @@ abstract class Animal {
 	 * write your code below
 	 */ 
 	//....
-    public void setID(int id) { this.id = id; }
+    public void setID(int id) {
+        this.id = id;
+    }
 	
 	/*
 	 * WEEK 4 ASSSESSED
@@ -170,7 +196,9 @@ abstract class Animal {
 	 * write your code below
 	 */ 
 	//....
-    public int getID() { return this.id; }
+    public int getID() {
+        return this.id;
+    }
 
 	/*
 	 * Quick and dirty string to check content of object.
@@ -194,7 +222,6 @@ class CSVReader {
             rowScanner.useDelimiter(COMMA_DELIMITER);
             while (rowScanner.hasNext()) {
                 values.add(rowScanner.next());
-            
             }
         }
         return values;
