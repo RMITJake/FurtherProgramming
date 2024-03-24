@@ -48,13 +48,13 @@ public class Main {
 			// ASSESSED WEEK4: create a temp Panda object whilst taking in recordNo, name,
 			// colour, and age;
 			// Write your code below
-			Panda aPanda = new Panda(recordNo, "Perry", "Red", 2);//.......
+            recordNo++;
+			Panda aPanda = new Panda(recordNo, record.get(0), record.get(1), Integer.parseInt(record.get(2)));//.......
 					
 			// ASSESSED WEEK4: add the above new Panda into 'pandas' List.
 			// Write your code below
 			//.......
-            recordNo++;
-            pandas.add(new Panda(recordNo, record.get(0), record.get(1), Integer.parseInt(record.get(2))));
+            pandas.add(aPanda);
 		}
 
 		System.out.println(pandas);
@@ -123,10 +123,10 @@ abstract class Animal {
 	 * write your code below
 	 */
 	public Animal() {
-		//....
-		//....
+		id = 0;
+		name = "new animal";
 		colour = "";
-		//....
+		age = 0;
 	}
 	
 	/*
@@ -197,7 +197,7 @@ abstract class Animal {
 	 */ 
 	//....
     public int getID() {
-        return this.id;
+        return id;
     }
 
 	/*
