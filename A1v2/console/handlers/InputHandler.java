@@ -18,6 +18,11 @@ class InputHandler {
         return Integer.parseInt(userInput);
     }
 
+    public String userInput(){
+        userInput = scn.nextLine();
+        return userInput;
+    }
+
     public String hireDetailsHoursInput(){
         regex = "";
         userInput = scn.nextLine();

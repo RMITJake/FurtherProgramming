@@ -8,6 +8,7 @@ import console.models.Venue;
 public class MenuHandler {
     ConsoleUI ui = new ConsoleUI();
     InputHandler in = new InputHandler();
+    ValidationHandler validate = new ValidationHandler();
     FileHandler file = new FileHandler();
     // EventHandler event = new EventHandler(file);
     VenueHandler venue = new VenueHandler(file);
@@ -76,25 +77,41 @@ public class MenuHandler {
         }
 
         ui.hireDetails();
-        ui.hireDetailsHours();
-        input = in.hireDetailsHoursInput();
+        do{
+            ui.hireDetailsHours();
+            input = in.userInput();
+        } while(!validate.validateInt(input));
 
-        ui.hireDetailsDate();
-        input = in.hireDetailsDateInput();
+        do{
+            ui.hireDetailsDate();
+            input = in.userInput();
+        } while(!validate.validateDate(input));
 
-        ui.hireDetailsTime();
-        input = in.hireDetailsTimeInput();
+        do{
+            ui.hireDetailsTime();
+            input = in.userInput();
+        } while(!validate.validateTime(input));
 
-        ui.hireDetailsEventName();
-        input = in.hireDetailsEventNameInput();
+        do{
+            ui.hireDetailsEventName();
+            input = in.userInput();
+        } while(!validate.validateEventName(input));
 
-        ui.hireDetailsArtistName();
-        input = in.hireDetailsArtistNameInput();
+        do{
+            ui.hireDetailsArtistName();
+            input = in.userInput();
+        } while(!validate.validateArtistName(input));
 
-        ui.hireDetailsRequesterName();
-        input = in.hireDetailsRequesterNameInput();
-        ui.hireDetailsConfirm();
-        input = in.hireDetailsConfirmInput();
+        do{
+            ui.hireDetailsRequesterName();
+            input = in.userInput();
+        } while(!validate.validateRequesterName(input));
+
+        do{
+            ui.hireDetailsConfirm();
+            input = in.userInput();
+        } while(!validate.validateConfirm(input));
+
         ui.hireDetailsOrderConfirmed();
 
         return applicationLoop;
