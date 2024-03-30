@@ -2,7 +2,7 @@ package console.handlers;
 
 import console.ui.ConsoleUI;
 // import java.io.FileNotFoundException;
-// import java.util.HashMap;
+import java.util.HashMap;
 
 public class MenuHandler {
     ConsoleUI ui = new ConsoleUI();
@@ -21,8 +21,9 @@ public class MenuHandler {
             if(applicationLoop == 1){
                 listjobRequests();
             } else if (applicationLoop == 2){
-                browseVenue();
+                HashMap<Integer, String> categories = browseVenue();
                 applicationLoop = in.mainMenuInput();
+                ui.printVenues(venue.getVenueByCategory(categories.get(applicationLoop)));
             }
         } while (applicationLoop != 6);
 
@@ -37,8 +38,9 @@ public class MenuHandler {
     //    ui.printEvents(event.listRequests());
     }
 
-    public void browseVenue(){
+    public HashMap<Integer, String> browseVenue(){
+        HashMap<Integer, String> categories = venue.getCategories();
         ui.getVenueCategories(venue.getCategories());
-        // ui.printVenues(venue.retrieveVenues());
+        return categories;
     }
 }

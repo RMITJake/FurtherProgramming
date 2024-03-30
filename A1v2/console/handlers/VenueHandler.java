@@ -1,7 +1,10 @@
 package console.handlers;
 
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.HashMap;
+import java.util.Iterator;
+
 import console.models.Venue;
 
 class VenueHandler{
@@ -41,12 +44,18 @@ class VenueHandler{
     }
 
     HashMap<Integer, Venue> getVenueByCategory(String category){
-        HashMap<Integer, Venue> venues = retrieveVenues();
-        for(int id : venues.keySet()){
-            if(!venues.get(id).getCategory().contains(category)){
-                venues.remove(id);
+        System.out.println("DEBUG!! GETTING VENUE BY " + category);
+        HashMap<Integer, Venue> allVenues = retrieveVenues();
+        HashMap<Integer, Venue> venues = new HashMap<Integer, Venue>();
+
+        int id = 0;
+        for(int venueId : allVenues.keySet()){
+            if(allVenues.get(venueId).getCategory().contains(category)){
+                id++;
+                venues.put(id, allVenues.get(venueId));
             }
         }
+
         return venues;
     }
 }
