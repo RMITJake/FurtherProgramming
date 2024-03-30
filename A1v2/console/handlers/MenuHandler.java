@@ -1,10 +1,15 @@
 package console.handlers;
 
 import console.ui.ConsoleUI;
+// import java.io.FileNotFoundException;
+// import java.util.HashMap;
 
 public class MenuHandler {
     ConsoleUI ui = new ConsoleUI();
     InputHandler in = new InputHandler();
+    FileHandler file = new FileHandler();
+    // EventHandler event = new EventHandler(file);
+    VenueHandler venue = new VenueHandler(file);
 
     int applicationLoop;
     
@@ -17,6 +22,7 @@ public class MenuHandler {
                 listjobRequests();
             } else if (applicationLoop == 2){
                 browseVenue();
+                applicationLoop = in.mainMenuInput();
             }
         } while (applicationLoop != 6);
 
@@ -28,10 +34,11 @@ public class MenuHandler {
     }
 
     public void listjobRequests(){
-    //    ui.printEvents(request.listRequests());
+    //    ui.printEvents(event.listRequests());
     }
 
     public void browseVenue(){
-        // ui.printVenues(venue.listVenues());
+        ui.getVenueCategories(venue.getCategories());
+        // ui.printVenues(venue.retrieveVenues());
     }
 }

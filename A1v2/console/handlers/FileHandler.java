@@ -1,27 +1,34 @@
 package console.handlers;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
 
 class FileHandler {
-    private String basePath = "";
+    private String COMMA_DELIMITER = ",";
 
-    public ArrayList<String> readCSV(String filename){
-        String workingPath = basePath + filename;
-        ArrayList<String> fileContents = new ArrayList<String>();
-        String line;
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(workingPath));
-
-            while((line = reader.readLine()) != null)
-            {
-                fileContents.add(line);
+    private List<String> getRecordFromLine(String line) {
+        List<String> values = new ArrayList<String>();
+        try (Scanner rowScanner = new Scanner(line)) {
+            rowScanner.useDelimiter(COMMA_DELIMITER);
+            while (rowScanner.hasNext()) {
+                values.add(rowScanner.next());
             }
-            reader.close();
-        } catch (IOException exception) {
-            exception.printStackTrace();
         }
-        return fileContents;
+        return values;
+    }
+    
+    public List<List<String>> getLineFromCSV(String fileName){
+        List<List<String>> records = new ArrayList<>();
+        try (Scanner scanner = new Scanner(new File(fileName))) {
+            while (scanner.hasNextLine()) {
+                records.add(getRecordFromLine(scanner.nextLine()));
+            }
+            return records;
+        } catch (FileNotFoundException FNF){
+
+        }
+        return null;
     }
 }

@@ -4,14 +4,16 @@ import java.util.List;
 import java.util.ArrayList;
 import console.models.Event;
 
-class RequestHandler{
-    FileHandler file;
+class EventHandler{
+    FileHandler file = new FileHandler();
     private String headers;
     private String COMMA_DELIMITER = ",";
     private String REQUESTS = "requests.csv";
     private String VENUES = "venues.csv";
 
-    public RequestHandler(FileHandler file){
-        this.file = file;
+    public EventHandler(){}
+
+    List<Event> listRequests(){
+        return null;
     }
 }

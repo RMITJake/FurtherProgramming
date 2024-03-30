@@ -1,6 +1,7 @@
 package console.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import console.models.Event;
 import console.models.Venue;
 
@@ -29,7 +30,7 @@ public class ConsoleUI {
     }
 
     public void print(String string){
-        System.out.println(string);
+        System.out.print(string);
     }
 
     public void printEvents(ArrayList<Event> eventsList){
@@ -38,9 +39,23 @@ public class ConsoleUI {
         }
     }
 
-    public void printVenues(ArrayList<Venue> venuesList){
-        for (Venue venue : venuesList) {
-            System.out.println(venue.getName());
+    public void printVenues(HashMap<Integer, Venue> venueList){
+        for (int id : venueList.keySet()) {
+            String format = "%s) %s\t%s\t%s\t%s\n";
+
+            System.out.printf(format, id, venueList.get(id).getName(), venueList.get(id).getCapacity(), venueList.get(id).getSuitableFor(), venueList.get(id).getCategory());
         }
+    }
+
+    public void getVenueCategories(HashMap<Integer, String> categories){
+        menuText = "";
+
+        for(int id : categories.keySet()){
+            menuText += id
+            +") " + categories.get(id) + "\n";
+        }
+
+        menuText += "Please select: ";
+        print(menuText);
     }
 }
