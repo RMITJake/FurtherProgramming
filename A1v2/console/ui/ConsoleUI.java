@@ -86,7 +86,52 @@ public class ConsoleUI {
     public void hirePrice(Venue venue){
         menuText = ""
         +"1) Hire for $" + venue.getPricePerHour() + "/hour\n"
-        +"2) Back to venue list";
+        +"2) Back to venue list\n";
+        print(menuText);
+    }
+
+    public void hireDetails(){
+        menuText = "\nHiring Details\n";
+        print(menuText);
+    }
+
+    public void hireDetailsHours(){
+        menuText = "Please enter number of hours: ";
+        print(menuText);
+    }
+
+    public void hireDetailsDate(){
+        menuText = "Please enter date: ";
+        print(menuText);
+    }
+
+    public void hireDetailsTime(){
+        menuText = "Please enter time: ";
+        print(menuText);
+    }
+
+    public void hireDetailsEventName(){
+        menuText = "Event name: ";
+        print(menuText);
+    }
+
+    public void hireDetailsArtistName(){
+        menuText = "Artist name: ";
+        print(menuText);
+    }
+
+    public void hireDetailsRequesterName(){
+        menuText = "Requester name: ";
+        print(menuText);
+    }
+
+    public void hireDetailsConfirm(){
+        menuText = "Confirm order (y/n): ";
+        print(menuText);
+    }
+
+    public void hireDetailsOrderConfirmed(){
+        menuText = "\nOrder confirmed.\n";
         print(menuText);
     }
 }

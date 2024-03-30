@@ -13,6 +13,7 @@ public class MenuHandler {
     VenueHandler venue = new VenueHandler(file);
 
     int applicationLoop;
+    String input;
     
     public int menuLoop(){
         do{
@@ -65,11 +66,37 @@ public class MenuHandler {
         return venues.get(applicationLoop = in.mainMenuInput());
     }
 
-    void hireLoop(Venue venue){
+    int hireLoop(Venue venue){
         ui.hirePrice(venue);
         ui.selectMessage();
         applicationLoop = in.mainMenuInput();
 
-        // ui.hireDetails();
+        if(applicationLoop == 2){
+            return applicationLoop;
+        }
+
+        ui.hireDetails();
+        ui.hireDetailsHours();
+        input = in.hireDetailsHoursInput();
+
+        ui.hireDetailsDate();
+        input = in.hireDetailsDateInput();
+
+        ui.hireDetailsTime();
+        input = in.hireDetailsTimeInput();
+
+        ui.hireDetailsEventName();
+        input = in.hireDetailsEventNameInput();
+
+        ui.hireDetailsArtistName();
+        input = in.hireDetailsArtistNameInput();
+
+        ui.hireDetailsRequesterName();
+        input = in.hireDetailsRequesterNameInput();
+        ui.hireDetailsConfirm();
+        input = in.hireDetailsConfirmInput();
+        ui.hireDetailsOrderConfirmed();
+
+        return applicationLoop;
     }
 }
