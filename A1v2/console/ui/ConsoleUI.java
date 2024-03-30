@@ -130,7 +130,12 @@ public class ConsoleUI {
         print(menuText);
     }
 
-    public void hireDetailsOrderConfirmed(){
+    public void orderConfirmed(){
+        menuText = "\nOrder confirmed.\n";
+        print(menuText);
+    }
+
+    public void orderCancelled(){
         menuText = "\nOrder confirmed.\n";
         print(menuText);
     }

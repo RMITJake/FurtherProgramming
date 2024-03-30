@@ -72,6 +72,7 @@ public class MenuHandler {
         ui.selectMessage();
         applicationLoop = in.mainMenuInput();
 
+        // Guard clause
         if(applicationLoop == 2){
             return applicationLoop;
         }
@@ -112,7 +113,12 @@ public class MenuHandler {
             input = in.userInput();
         } while(!validate.validateConfirm(input));
 
-        ui.hireDetailsOrderConfirmed();
+        if(input.contains("y")){
+            // save
+            ui.orderConfirmed();
+        } else {
+            ui.orderCancelled();
+        }
 
         return applicationLoop;
     }

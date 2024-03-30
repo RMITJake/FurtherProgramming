@@ -22,46 +22,4 @@ class InputHandler {
         userInput = scn.nextLine();
         return userInput;
     }
-
-    public String hireDetailsHoursInput(){
-        regex = "";
-        userInput = scn.nextLine();
-        return userInput;
-    }
-
-    public String hireDetailsDateInput(){
-        regex = "";
-        userInput = scn.nextLine();
-        return userInput;
-    }
-
-    public String hireDetailsTimeInput(){
-        regex = "";
-        userInput = scn.nextLine();
-        return userInput;
-    }
-
-    public String hireDetailsEventNameInput(){
-        regex = "";
-        userInput = scn.nextLine();
-        return userInput;
-    }
-
-    public String hireDetailsArtistNameInput(){
-        regex = "";
-        userInput = scn.nextLine();
-        return userInput;
-    }
-
-    public String hireDetailsRequesterNameInput(){
-        regex = "";
-        userInput = scn.nextLine();
-        return userInput;
-    }
-
-    public String hireDetailsConfirmInput(){
-        regex = "";
-        userInput = scn.nextLine();
-        return userInput;
-    }
 }
