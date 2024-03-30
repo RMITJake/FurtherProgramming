@@ -39,6 +39,17 @@ public class ConsoleUI {
         }
     }
 
+    public void printVenue(Venue venue){
+            String format = ""
+            +">%s\n"
+            +"Capacity: %s\n"
+            +"Category: %s\n"
+            +"Suitable for: %s\n"
+            +linebreak;
+
+            System.out.printf(format, venue.getName(), venue.getCapacity(), venue.getCategory(), venue.getSuitableFor().replace(";", ","));
+    }
+
     public void printVenues(HashMap<Integer, Venue> venueList){
         for (int id : venueList.keySet()) {
             String format = "%s) %s\t%s\t%s\t%s\n";
@@ -56,6 +67,26 @@ public class ConsoleUI {
         }
 
         menuText += "Please select: ";
+        print(menuText);
+    }
+
+    public void selectVenue(){
+        menuText = ""
+        +linebreak
+        +"Select venue from list\n"
+        +linebreak;
+        print(menuText);
+    }
+
+    public void selectMessage(){
+        menuText = "Please select: ";
+        print(menuText);
+    }
+
+    public void hirePrice(Venue venue){
+        menuText = ""
+        +"1) Hire for $" + venue.getPricePerHour() + "/hour\n"
+        +"2) Back to venue list";
         print(menuText);
     }
 }

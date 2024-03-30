@@ -19,7 +19,7 @@ public class Venue{
     public int getCapacity(){ return this.capacity; }
     public String getSuitableFor(){ return this.suitableFor; }
     public String getCategory(){ return this.category; }
-    public int priceperhour(){ return this.priceperhour; }
+    public int getPricePerHour(){ return this.priceperhour; }
 
     public String toString(String input){
         return input + "";

@@ -44,7 +44,6 @@ class VenueHandler{
     }
 
     HashMap<Integer, Venue> getVenueByCategory(String category){
-        System.out.println("DEBUG!! GETTING VENUE BY " + category);
         HashMap<Integer, Venue> allVenues = retrieveVenues();
         HashMap<Integer, Venue> venues = new HashMap<Integer, Venue>();
 
