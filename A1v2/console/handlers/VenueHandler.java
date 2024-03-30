@@ -2,7 +2,6 @@ package console.handlers;
 
 import java.util.List;
 import java.util.HashMap;
-
 import console.models.Venue;
 
 class VenueHandler{

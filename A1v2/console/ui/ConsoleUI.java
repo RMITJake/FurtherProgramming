@@ -131,12 +131,12 @@ public class ConsoleUI {
     }
 
     public void orderConfirmed(){
-        menuText = "\nOrder confirmed.\n";
+        menuText = "Order confirmed.\n";
         print(menuText);
     }
 
     public void orderCancelled(){
-        menuText = "\nOrder confirmed.\n";
+        menuText = "Order cancelled.\n";
         print(menuText);
     }
 }
