@@ -54,4 +54,14 @@ class VenueHandler{
 
         return venues;
     }
+
+    Venue searchVenueByName(String searchName){
+        HashMap<Integer, Venue> venues = retrieveVenues();
+        for(int venueId : venues.keySet()){
+            if(venues.get(venueId).getName().equals(searchName)){
+                return venues.get(venueId);
+            }
+        }
+        return null;
+    }
 }

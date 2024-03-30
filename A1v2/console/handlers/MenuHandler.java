@@ -28,6 +28,27 @@ public class MenuHandler {
                 Venue selectedVenue = selectVenueById(venueByCategory);
                 ui.printVenue(selectedVenue);
                 hireLoop(selectedVenue);
+            } else if (applicationLoop == 3){
+                boolean searchNameValidated = false;
+                do{
+                    ui.searchVenueByName();
+                    input = in.userInput();
+                    if(!validate.validateSearchVenueByName(input)){
+                        ui.validateSearchVenueByNameError();
+                    } else {
+                        searchNameValidated = true;
+                        Venue searchResult = venue.searchVenueByName(input);
+                        if(searchResult != null){
+                            ui.printVenue(searchResult);
+                        } else {
+                            ui.venueNotFoundError();
+                        }
+                    }
+                } while(!searchNameValidated);
+            } else if (applicationLoop == 4){
+                // Auto-match events with suitable venues
+            } else if (applicationLoop == 5){
+                // Show order summary
             }
         } while (applicationLoop != 6);
 
@@ -41,12 +62,6 @@ public class MenuHandler {
     void listjobRequests(){
     //    ui.printEvents(event.listRequests());
     }
-
-    // HashMap<Integer, String> browseVenue(){
-    //     HashMap<Integer, String> categories = venue.getCategories();
-    //     ui.getVenueCategories(venue.getCategories());
-    //     return categories;
-    // }
 
     HashMap<Integer, String> getVenueCategories(){
         HashMap<Integer, String> categories = venue.getCategories();
@@ -78,40 +93,85 @@ public class MenuHandler {
         }
 
         ui.hireDetails();
+        boolean hoursValidated = false;
         do{
             ui.hireDetailsHours();
             input = in.userInput();
-        } while(!validate.validateInt(input));
+            if(!validate.validateHours(input)){
+                ui.validateHoursError();
+            } else {
+                hoursValidated = true;
+            }
+        } while(!hoursValidated);
 
+        boolean dateValidated = false;
         do{
             ui.hireDetailsDate();
             input = in.userInput();
-        } while(!validate.validateDate(input));
+            if(!validate.validateDate(input)){
+                ui.validateDateError();
+            } else {
+                dateValidated = true;
+            }
+        } while(!dateValidated);
 
+        boolean timeValidated = false;
         do{
             ui.hireDetailsTime();
             input = in.userInput();
-        } while(!validate.validateTime(input));
+            if(!validate.validateTime(input)){
+                ui.validateTimeError();
+            } else {
+                timeValidated = true;
+            }
+        } while(!timeValidated);
 
+        boolean eventNameValidated = false;
         do{
             ui.hireDetailsEventName();
             input = in.userInput();
-        } while(!validate.validateEventName(input));
+            if(!validate.validateEventName(input)){
+                ui.validateEventNameError();
+            } else {
+                eventNameValidated = true;
+                input = input.replace(",", ";");
+            }
+        } while(!eventNameValidated);
 
+        boolean artistNameValidated = false;
         do{
             ui.hireDetailsArtistName();
             input = in.userInput();
-        } while(!validate.validateArtistName(input));
+            if(!validate.validateArtistName(input)){
+                ui.validateArtistNameError();
+            } else {
+                artistNameValidated = true;
+                input = input.replace(",", ";");
+            }
+        } while(!artistNameValidated);
 
+        boolean requesterNameValidated = false;
         do{
             ui.hireDetailsRequesterName();
             input = in.userInput();
-        } while(!validate.validateRequesterName(input));
+            if(!validate.validateRequesterName(input)){
+                ui.validateRequesterNameError();
+            } else {
+                requesterNameValidated = true;
+                input = input.replace(",", ";");
+            }
+        } while(!requesterNameValidated);
 
+        boolean confimValidated = false;
         do{
             ui.hireDetailsConfirm();
             input = in.userInput();
-        } while(!validate.validateConfirm(input));
+            if(!validate.validateConfirm(input)){
+                ui.validateConfirmError();
+            } else {
+                confimValidated = true;
+            }
+        } while(!confimValidated);
 
         if(input.contains("y")){
             // save

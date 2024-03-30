@@ -83,6 +83,14 @@ public class ConsoleUI {
         print(menuText);
     }
 
+    public void searchVenueByName(){
+        menuText = "Please enter a venue name: ";
+        print(menuText);
+    }
+
+//////////////////
+// HIRE DETAILS //
+//////////////////
     public void hirePrice(Venue venue){
         menuText = ""
         +"1) Hire for $" + venue.getPricePerHour() + "/hour\n"
@@ -137,6 +145,56 @@ public class ConsoleUI {
 
     public void orderCancelled(){
         menuText = "Order cancelled.\n";
+        print(menuText);
+    }
+
+////////////////
+//   ERRORS   //
+////////////////
+    public void validateHoursError(){
+        menuText = "Venues can only be hired for a minimum of 1 and maximum of 24 hours.\n";
+        print(menuText);
+    }
+
+    public void validateDateError(){
+        menuText = "Date must a valid date after 01/01/2024 and before 01/01/2029.\n"
+        +"Dates must be in the format DD/MM/YYYY, e.g. 20/12/2024.\n";
+        print(menuText);
+    }
+    
+    public void validateTimeError(){
+        menuText = "Time must be between 12:00am and 12:00pm.\n"
+        +"Time must be in the format HH:mmXM.\n";
+        print(menuText);
+    }
+    
+    public void validateEventNameError(){
+        menuText = "Names cannot start or end with spaces.\n";
+        print(menuText);
+    }
+    
+    public void validateArtistNameError(){
+        menuText = "Names cannot start or end with spaces.\n";
+        print(menuText);
+    }
+
+    public void validateRequesterNameError(){
+        menuText = "Names cannot start or end with spaces.\n";
+        print(menuText);
+    }
+
+    public void validateConfirmError(){
+        menuText = "Only Y and N are valid inputs.\n";
+        print(menuText);
+    }
+
+    public void validateSearchVenueByNameError(){
+        menuText = "Names cannot start or end with spaces.\n";
+        print(menuText);
+    }
+    
+    public void venueNotFoundError(){
+        menuText = "Venue could not be found.\n";
         print(menuText);
     }
 }
