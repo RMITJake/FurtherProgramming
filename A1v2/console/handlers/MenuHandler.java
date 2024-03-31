@@ -7,17 +7,19 @@ import console.models.Event;
 import console.models.Order;
 
 public class MenuHandler {
-    ConsoleUI ui = new ConsoleUI();
-    InputHandler in = new InputHandler();
-    ValidationHandler validate = new ValidationHandler();
-    FileHandler file = new FileHandler();
-    VenueHandler venue = new VenueHandler(file);
-    RequestHandler request = new RequestHandler(file);
-    OrderHandler order = new OrderHandler(request, venue);
-    MatchHandler match = new MatchHandler(request, venue);
+    // Dependencies
+    private ConsoleUI ui = new ConsoleUI();
+    private InputHandler in = new InputHandler();
+    private ValidationHandler validate = new ValidationHandler();
+    private FileHandler file = new FileHandler();
+    private VenueHandler venue = new VenueHandler(file);
+    private RequestHandler request = new RequestHandler(file);
+    private OrderHandler order = new OrderHandler(request, venue);
+    private MatchHandler match = new MatchHandler(request, venue);
 
-    HashMap<Integer, Venue> venueList = new HashMap<>();
-    HashMap<Integer, Event> requestList = new HashMap<>();
+    // Lists to store records with ids
+    private HashMap<Integer, Venue> venueList = new HashMap<>();
+    private HashMap<Integer, Event> requestList = new HashMap<>();
 
     int applicationLoop;
     String input;
@@ -62,6 +64,9 @@ public class MenuHandler {
     private void browseVenueByCategory(){
         System.out.println("DEBUG!! Inside this.browseVenueByCategory()");
 
+        // Make sure there are venues in the list
+        venueListNullCheck();
+        
         HashMap<Integer, Venue> venueByCategory = selectVenueByCategory(getVenueCategories());
         Venue selectedVenue = selectVenueById(venueByCategory);
         ui.printVenue(selectedVenue);
@@ -76,15 +81,15 @@ public class MenuHandler {
 
 // Category related methods
     HashMap<Integer, String> getVenueCategories(){
-        HashMap<Integer, String> categories = venue.getCategories();
+        HashMap<Integer, String> categories = venue.getCategories(venueList);
         ui.getVenueCategories(categories);
         applicationLoop = in.mainMenuInput();
         return categories;
     }
 
     HashMap<Integer, Venue> selectVenueByCategory(HashMap<Integer, String> categories){
-    ui.selectVenue();
-    HashMap<Integer, Venue> venues = venue.getVenueByCategory(categories.get(applicationLoop));
+        ui.selectVenue();
+        HashMap<Integer, Venue> venues = venue.getVenueByCategory(categories.get(applicationLoop), venueList);
         ui.printVenueNames(venues);
         return venues;
     }    
@@ -226,10 +231,14 @@ public class MenuHandler {
     }
 
     HashMap<Integer, Venue> selectVenueByName(String searchName){
-        ui.selectVenue();
-        HashMap<Integer, Venue> venues = venue.searchVenueByName(searchName);
-        ui.printVenueNames(venues);
-        return venues;
+        venueListNullCheck();
+        HashMap<Integer, Venue> venueListFiltered = venue.searchVenueByName(searchName, venueList);
+        if(venueListFiltered.size() > 0){
+            ui.selectVenue();
+            ui.printVenueNames(venueListFiltered);
+            return venueListFiltered;
+        }
+        return null;
     }
 // END MENU OPTION 3 //
 
@@ -270,7 +279,17 @@ public class MenuHandler {
     }
 // END MENU OPTION 5 //
 
+///////////////////
+//   UTILITIES   //
+///////////////////
+    private void venueListNullCheck(){
+        if(venueList.size() == 0){
+        venueList = venue.retrieveVenues(venueList);
+        }
+    }
+
     // private void (){
     // System.out.println("DEBUG!! Inside this.()");
     // }
+// END UTILITIES     //
 }
