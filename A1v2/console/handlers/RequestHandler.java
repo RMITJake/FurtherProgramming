@@ -27,7 +27,7 @@ public class RequestHandler {
                     record.get(2),
                     record.get(3),
                     record.get(4),
-                    record.get(5),
+                    Integer.parseInt(record.get(5)),
                     Integer.parseInt(record.get(6)),
                     record.get(7),
                     record.get(8)

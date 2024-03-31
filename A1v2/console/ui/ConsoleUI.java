@@ -80,7 +80,7 @@ public class ConsoleUI {
             +"Suitable for: %s\n"
             +linebreak;
 
-            System.out.printf(format, venue.getName(), venue.getCapacity(), venue.getCategory(), venue.getSuitableFor().replace(";", ","));
+            System.out.printf(format, venue.getName(), venue.getCapacity(), venue.getCategory(), venue.getSuitableForString());
     }
 
     public void printVenues(HashMap<Integer, Venue> venueList){
@@ -160,6 +160,11 @@ public class ConsoleUI {
 //////////////////
 // HIRE DETAILS //
 //////////////////
+    public void hireAuto(){
+        menuText = "The best venue for this order will be automatically matched.";
+        print(menuText);
+    }
+
     public void hirePrice(Venue venue){
         menuText = ""
         +"1) Hire for $" + venue.getPricePerHour() + "/hour\n"

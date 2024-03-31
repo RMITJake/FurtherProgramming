@@ -20,6 +20,7 @@ public class MenuHandler {
     // Lists to store records with ids
     private HashMap<Integer, Venue> venueList = new HashMap<>();
     private HashMap<Integer, Event> requestList = new HashMap<>();
+    private HashMap<String, Order> orderList = new HashMap<>();
 
     int applicationLoop;
     String input;
@@ -55,6 +56,7 @@ public class MenuHandler {
     private void listCurrentRequests(){
         System.out.println("DEBUG!! Inside this.listCurrentRequests()");
         ui.printRequests(request.retrieveRequests(requestList));
+        bookingLoop(null);
     }
 // END MENU OPTION 1 //
 
@@ -116,7 +118,8 @@ public class MenuHandler {
             
             if(searchResult != null){
                 Venue selectedVenue = selectVenueById(searchResult);
-                ui.printVenue(selectedVenue);
+                // ui.printVenue(selectedVenue);
+                // hireLoop(selectedVenue);
                 bookingLoop(selectedVenue);
             } else {
                 ui.venueNotFoundError();
@@ -140,7 +143,12 @@ public class MenuHandler {
 // MENU OPTION 4 //
 ///////////////////
     private void autoMatchEvents(){
+        venueListNullCheck();
+        requestListNullCheck();
+
         System.out.println("DEBUG!! Inside this.autoMatchEvents()");
+        Event temp = new Event("Mousetrap Heart Events", "Thirsty Merc in the Summertime", "Thirsty Merc", "20/12/2024", "8:00pm",4000,2, "large live concert", "indoor");
+        order.autoMatchEvent(venueList, temp);
     }
 // END MENU OPTION 4 //
 
@@ -206,9 +214,13 @@ public class MenuHandler {
 //   HIRE LOOP  //
 //////////////////
     int hireLoop(Venue venue){
-        ui.hirePrice(venue);
-        ui.selectMessage();
-        applicationLoop = in.mainMenuInput();
+        if(venue == null){
+            ui.hireAuto();
+        } else {
+            ui.hirePrice(venue);
+            ui.selectMessage();
+            applicationLoop = in.mainMenuInput();
+        }
 
         // Guard clause, if 2 exit this loop
         if(applicationLoop == 2){
@@ -312,7 +324,13 @@ public class MenuHandler {
 ///////////////////
     private void venueListNullCheck(){
         if(venueList.size() == 0){
-        venueList = venue.retrieveVenues(venueList);
+            venueList = venue.retrieveVenues(venueList);
+        }
+    }
+
+    private void requestListNullCheck(){
+        if(requestList.size() == 0){
+            requestList = request.retrieveRequests(requestList);
         }
     }
 

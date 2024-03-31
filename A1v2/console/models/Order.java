@@ -1,24 +1,20 @@
 package console.models;
 
-public class Order extends Event{
+public class Order{
     private double discountAmount;
     private int priceperhour;
 
-    public Order(String client, String title, String artist, String date, String time, String target, int duration, String type, String category){
-        super(client, title, artist, date, time, target, duration, type, category);
+    public Order(Event event, Venue venue){
+        this.event = event;
+        this.venue = venue;
     }
 
-    public Order(String client, String title, String artist, String date, String time, String target, int duration, String type, String category, int priceperhour){
-        super(client, title, artist, date, time, target, duration, type, category);
-        this.priceperhour = priceperhour;
-    }
-
-    public int getPricePerHour(){
-        return this.priceperhour;
-    }
+    // public int getPricePerHour(){
+    //     return this.priceperhour;
+    // }
 
     public double getTotalPrice(){
-        return this.priceperhour * this.getDuration();
+        return this.venue.priceperhour * this.event.getDuration();
     }
 
 
