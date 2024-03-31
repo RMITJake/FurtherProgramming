@@ -21,6 +21,7 @@ public class MenuHandler {
     private HashMap<Integer, Venue> venueList = new HashMap<>();
     private HashMap<Integer, Event> requestList = new HashMap<>();
     private HashMap<String, Order> orderList = new HashMap<>();
+    private HashMap<Event, HashMap<Venue, Integer>> matchedList = new HashMap<>();
 
     int applicationLoop;
     String input;
@@ -147,8 +148,18 @@ public class MenuHandler {
         requestListNullCheck();
 
         System.out.println("DEBUG!! Inside this.autoMatchEvents()");
-        Event temp = new Event("Mousetrap Heart Events", "Thirsty Merc in the Summertime", "Thirsty Merc", "20/12/2024", "8:00pm",4000,2, "large live concert", "indoor");
-        order.autoMatchEvent(venueList, temp);
+        HashMap<Venue,Integer> temp = new HashMap<>();
+        for(int id : requestList.keySet()){
+            // matchedList.put(order.autoMatchEvent(venueList, requestList.get(id)));
+            temp = order.autoMatchEvent(venueList,requestList.get(id));
+            matchedList.put(requestList.get(id), temp);
+            
+        }
+        for(Event list : matchedList.keySet()){
+            for(Venue venue : matchedList.get(list).keySet()){
+                System.out.printf("%s, %s, %s\n", list.getArtist(), venue.getName(), matchedList.get(list).get(venue));
+            }
+        }
     }
 // END MENU OPTION 4 //
 

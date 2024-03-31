@@ -15,41 +15,29 @@ public class OrderHandler {
         this.venue = venue;
     }
 
-    void autoMatchEvent(HashMap<Integer, Venue> venueList, Event event){
-        HashMap<Event, HashMap<Venue, Integer>> matchList = new HashMap<>();
-        HashMap<Venue, Integer> matchVenue = null;
+    HashMap<Venue, Integer> autoMatchEvent(HashMap<Integer, Venue> venueList, Event event){
+        HashMap<Venue, Integer> matchList = new HashMap<Venue, Integer>();
         int matchScore;
         
         for(int venue : venueList.keySet()){
             matchScore = 0;
-            matchVenue = new HashMap<>();
-            // switch(true){
-                // case matchDate():
-                    // matchScore++;
-                // case matchTime():
-                // case (matchCapacity(venueList.get(venue), event)):
-                    // matchScore++;
-                // case matchDuration():
-                    // matchScore++;
-                // case matchType():
-                    // matchScore++;
-                // case matchCategory():
-                    // matchScore++;
-                // default:
-            // }
+            // matchList = new HashMap<>();
+
             if(matchCapacity(venueList.get(venue), event)){ matchScore++; }
             if(matchType(venueList.get(venue), event)){ matchScore++; }
-            matchVenue.put(venueList.get(venue), matchScore);
+            if(matchCategory(venueList.get(venue), event)){ matchScore++; }
+
+            matchList.put(venueList.get(venue), matchScore);
 
 // START DEBUGGING
 /////////////////////////////////////////////////////////////////////////////
-            for(Venue id : matchVenue.keySet()){
-                System.out.printf("id: %s, venue %s\n", id.getName(), matchVenue.get(id));
-            }
+            // for(Venue id : matchVenue.keySet()){
+                // System.out.printf("id: %s, venue %s\n", id.getName(), matchVenue.get(id));
+            // }
 /////////////////////////////////////////////////////////////////////////////
 // END DEBUGGING
         }
-        matchList.put(event, matchVenue);
+        return matchList;
     }
 
 
@@ -76,15 +64,18 @@ public class OrderHandler {
     boolean matchType(Venue venue, Event event){ 
         String[] suitableFor = venue.getSuitableFor();
         for(String string : suitableFor){
-            if(event.getType().equals(string)){
+            if(event.getType().toLowerCase().equals(string.toLowerCase())){
                 return true;
             }
         }
         return false;
     }
 
-    boolean matchCategory(){ 
-        return null;
+    boolean matchCategory(Venue venue, Event event){ 
+        if(event.getCategory().toLowerCase().equals(venue.getCategory().toLowerCase())){
+            return true;
+        }
+        return false;
     }
 // END MATCH CRITERIA //
 }
