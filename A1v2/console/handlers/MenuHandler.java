@@ -21,7 +21,8 @@ public class MenuHandler {
     private HashMap<Integer, Venue> venueList = new HashMap<>();
     private HashMap<Integer, Event> requestList = new HashMap<>();
     private HashMap<String, Order> orderList = new HashMap<>();
-    private HashMap<Event, HashMap<Venue, Integer>> matchedList = new HashMap<>();
+    private HashMap<Event, HashMap<Venue, Integer>> unmatchedList = new HashMap<>();
+    private HashMap<Event, Venue> matchedList = new HashMap<>();
 
     int applicationLoop;
     String input;
@@ -38,7 +39,8 @@ public class MenuHandler {
             } else if (applicationLoop == 3){
                searchVenueByName(); 
             } else if (applicationLoop == 4){
-                autoMatchEvents();
+                // autoMatchEvents();
+                bestMatch();
             } else if (applicationLoop == 5){
                 showOrderSummary();
             }
@@ -150,16 +152,20 @@ public class MenuHandler {
         System.out.println("DEBUG!! Inside this.autoMatchEvents()");
         HashMap<Venue,Integer> temp = new HashMap<>();
         for(int id : requestList.keySet()){
-            // matchedList.put(order.autoMatchEvent(venueList, requestList.get(id)));
             temp = order.autoMatchEvent(venueList,requestList.get(id));
-            matchedList.put(requestList.get(id), temp);
-            
+            unmatchedList.put(requestList.get(id), temp);
         }
-        for(Event list : matchedList.keySet()){
-            for(Venue venue : matchedList.get(list).keySet()){
-                System.out.printf("%s, %s, %s\n", list.getArtist(), venue.getName(), matchedList.get(list).get(venue));
-            }
-        }
+        // for(Event list : unmatchedList.keySet()){
+        //     for(Venue venue : unmatchedList.get(list).keySet()){
+        //         System.out.printf("%s, %s, %s\n", list.getArtist(), venue.getName(), unmatchedList.get(list).get(venue));
+        //     }
+        // }
+    }
+
+    private void bestMatch(){
+        autoMatchEvents();
+        System.out.println("DEBUG!! Inside this.bestMatch()");
+        matchedList = order.getBestMatch(unmatchedList);
     }
 // END MENU OPTION 4 //
 

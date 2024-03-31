@@ -1,5 +1,6 @@
 package console.handlers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import console.models.Venue;
 import console.models.Event;
@@ -21,23 +22,32 @@ public class OrderHandler {
         
         for(int venue : venueList.keySet()){
             matchScore = 0;
-            // matchList = new HashMap<>();
 
             if(matchCapacity(venueList.get(venue), event)){ matchScore++; }
             if(matchType(venueList.get(venue), event)){ matchScore++; }
             if(matchCategory(venueList.get(venue), event)){ matchScore++; }
 
             matchList.put(venueList.get(venue), matchScore);
-
-// START DEBUGGING
-/////////////////////////////////////////////////////////////////////////////
-            // for(Venue id : matchVenue.keySet()){
-                // System.out.printf("id: %s, venue %s\n", id.getName(), matchVenue.get(id));
-            // }
-/////////////////////////////////////////////////////////////////////////////
-// END DEBUGGING
         }
         return matchList;
+    }
+
+    HashMap<Event, Venue> getBestMatch(HashMap<Event, HashMap<Venue, Integer>> matchedList){
+        HashMap<Event, Venue> filteredEvents = new HashMap<>();
+        Venue bestMatch;
+        int matchValue;
+        for(Event event : matchedList.keySet()){
+            bestMatch = null;
+            matchValue = 0;
+            for(Venue venue : matchedList.get(event).keySet()){
+                if(matchedList.get(event).get(venue) > matchValue){
+                    bestMatch = venue;
+                    matchValue = matchedList.get(event).get(venue);
+                }
+            }
+            filteredEvents.put(event, bestMatch);
+        }
+        return filteredEvents;
     }
 
 
