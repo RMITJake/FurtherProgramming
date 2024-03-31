@@ -148,6 +148,14 @@ public class ConsoleUI {
             "");
         }
     }
+//////////////////
+// BOOKING LOOP //
+//////////////////
+    public void bookingPrompt(){
+        menuText = "do you want to make a booking (y/n)?";
+        print(menuText);
+    }
+// END BOOKING LOOP //
 
 //////////////////
 // HIRE DETAILS //

@@ -70,7 +70,7 @@ public class MenuHandler {
         HashMap<Integer, Venue> venueByCategory = selectVenueByCategory(getVenueCategories());
         Venue selectedVenue = selectVenueById(venueByCategory);
         ui.printVenue(selectedVenue);
-        hireLoop(selectedVenue);
+        bookingLoop(selectedVenue);
     }
 
 // ID related methods
@@ -95,6 +95,112 @@ public class MenuHandler {
     }    
 // END MENU OPTION 2 //
 
+///////////////////
+// MENU OPTION 3 //
+///////////////////
+    private void searchVenueByName(){
+        System.out.println("DEBUG!! Inside this.searchVenueByName()");
+
+        boolean searchNameValidated = false;
+        HashMap<Integer, Venue> searchResult = null;
+        do{
+            ui.searchVenueByName();
+            input = in.userInput();
+
+            if(!validate.validateSearchVenueByName(input)){
+                ui.validateSearchVenueByNameError();
+            } else {
+                searchNameValidated = true;
+                searchResult = selectVenueByName(input);
+            }
+            
+            if(searchResult != null){
+                Venue selectedVenue = selectVenueById(searchResult);
+                ui.printVenue(selectedVenue);
+                bookingLoop(selectedVenue);
+            } else {
+                ui.venueNotFoundError();
+            }
+        } while(!searchNameValidated);
+    }
+
+    HashMap<Integer, Venue> selectVenueByName(String searchName){
+        venueListNullCheck();
+        HashMap<Integer, Venue> venueListFiltered = venue.searchVenueByName(searchName, venueList);
+        if(venueListFiltered.size() > 0){
+            ui.selectVenue();
+            ui.printVenueNames(venueListFiltered);
+            return venueListFiltered;
+        }
+        return null;
+    }
+// END MENU OPTION 3 //
+
+///////////////////
+// MENU OPTION 4 //
+///////////////////
+    private void autoMatchEvents(){
+        System.out.println("DEBUG!! Inside this.autoMatchEvents()");
+    }
+// END MENU OPTION 4 //
+
+///////////////////
+// MENU OPTION 5 //
+///////////////////
+    private void showOrderSummary(){
+        System.out.println("DEBUG!! Inside this.showOrderSummary()");
+
+        HashMap<Integer, Venue> venues = venue.retrieveVenues();
+                HashMap<Integer, Event> events = request.retrieveOrders();
+                HashMap<Integer, Order> orders = new HashMap<>();
+                // for(int eventId : events){
+                //     orders.put(
+                //         eventId,
+                //         new Order(
+                //             events.get(eventId).getClient(),
+                //             events.get(eventId).getTitle(),
+                //             events.get(eventId).getArtist(),
+                //             events.get(eventId).getDate(),
+                //             events.get(eventId).getTime(),
+                //             events.get(eventId).getTarget(),
+                //             events.get(eventId).getDuration(),
+                //             events.get(eventId).getType(),
+                //             events.get(eventId).getCategory(),
+                //             venue.getVenueByName(events.get(eventId).get)
+                //         )
+                //     );
+                // }
+    }
+// END MENU OPTION 5 //
+
+//////////////////
+// BOOKING LOOP //
+//////////////////
+    private void bookingLoop(Venue selectedVenue){
+        boolean confimValidated = false;
+        do{
+            ui.bookingPrompt();
+            input = in.userInput();
+            if(!validate.validateConfirm(input)){
+                ui.validateConfirmError();
+            } else {
+                confimValidated = true;
+            }
+        } while(!confimValidated);
+
+        if(input.contains("y")){
+            // ui.orderConfirmed();
+            // select venue loop
+            hireLoop(selectedVenue);
+        }
+    }
+// END BOOKING LOOP //
+
+////////////////////////
+// SELECT VENUE LOOP //
+///////////////////////
+
+// END SELECT VENUE LOOP //
 
 //////////////////
 //   HIRE LOOP  //
@@ -200,84 +306,6 @@ public class MenuHandler {
         return applicationLoop;
     }
 // END HIRE LOOP //
-
-///////////////////
-// MENU OPTION 3 //
-///////////////////
-    private void searchVenueByName(){
-        System.out.println("DEBUG!! Inside this.searchVenueByName()");
-
-        boolean searchNameValidated = false;
-        HashMap<Integer, Venue> searchResult = null;
-        do{
-            ui.searchVenueByName();
-            input = in.userInput();
-
-            if(!validate.validateSearchVenueByName(input)){
-                ui.validateSearchVenueByNameError();
-            } else {
-                searchNameValidated = true;
-                searchResult = selectVenueByName(input);
-            }
-            
-            if(searchResult != null){
-                Venue selectedVenue = selectVenueById(searchResult);
-                ui.printVenue(selectedVenue);
-                hireLoop(selectedVenue);
-            } else {
-                ui.venueNotFoundError();
-            }
-        } while(!searchNameValidated);
-    }
-
-    HashMap<Integer, Venue> selectVenueByName(String searchName){
-        venueListNullCheck();
-        HashMap<Integer, Venue> venueListFiltered = venue.searchVenueByName(searchName, venueList);
-        if(venueListFiltered.size() > 0){
-            ui.selectVenue();
-            ui.printVenueNames(venueListFiltered);
-            return venueListFiltered;
-        }
-        return null;
-    }
-// END MENU OPTION 3 //
-
-///////////////////
-// MENU OPTION 4 //
-///////////////////
-    private void autoMatchEvents(){
-        System.out.println("DEBUG!! Inside this.autoMatchEvents()");
-    }
-// END MENU OPTION 4 //
-
-///////////////////
-// MENU OPTION 5 //
-///////////////////
-    private void showOrderSummary(){
-        System.out.println("DEBUG!! Inside this.showOrderSummary()");
-
-        HashMap<Integer, Venue> venues = venue.retrieveVenues();
-                HashMap<Integer, Event> events = request.retrieveOrders();
-                HashMap<Integer, Order> orders = new HashMap<>();
-                // for(int eventId : events){
-                //     orders.put(
-                //         eventId,
-                //         new Order(
-                //             events.get(eventId).getClient(),
-                //             events.get(eventId).getTitle(),
-                //             events.get(eventId).getArtist(),
-                //             events.get(eventId).getDate(),
-                //             events.get(eventId).getTime(),
-                //             events.get(eventId).getTarget(),
-                //             events.get(eventId).getDuration(),
-                //             events.get(eventId).getType(),
-                //             events.get(eventId).getCategory(),
-                //             venue.getVenueByName(events.get(eventId).get)
-                //         )
-                //     );
-                // }
-    }
-// END MENU OPTION 5 //
 
 ///////////////////
 //   UTILITIES   //
