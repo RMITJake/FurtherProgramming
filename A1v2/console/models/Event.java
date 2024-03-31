@@ -12,15 +12,15 @@ public class Event{
     private String category;
 
     public Event(String client, String title, String artist, String date, String time, String target, int duration, String type, String category){
-        this.client = client;
-        this.title = title;
-        this.artist = artist;
-        this.date = date;
-        this.time = time;
-        this.target = target;
+        this.client = client.trim();
+        this.title = title.trim();
+        this.artist = artist.trim();
+        this.date = date.trim();
+        this.time = time.trim();
+        this.target = target.trim();
         this.duration = duration;
-        this.type = type;
-        this.category = category;
+        this.type = type.trim();
+        this.category = category.trim();
     }
 
     public String getClient(){ return this.client; }

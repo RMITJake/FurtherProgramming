@@ -14,8 +14,8 @@ public class RequestHandler {
     }
 
 
-    HashMap<Integer, Event> retrieveOrders(){
-        HashMap<Integer, Event> orders = new HashMap<Integer, Event>();
+    HashMap<Integer, Event> retrieveRequests(){
+        HashMap<Integer, Event> requests = new HashMap<Integer, Event>();
         List<List<String>> records = file.getLineFromCSV(REQUESTS);
 
         records.remove(0); // remove headers
@@ -23,7 +23,7 @@ public class RequestHandler {
 
         for(List<String> record : records){
             id++;
-            orders.put(id, new Event(
+            requests.put(id, new Event(
                 record.get(0),
                 record.get(1),
                 record.get(2),
@@ -35,7 +35,7 @@ public class RequestHandler {
                 record.get(8)
             ));
         }
-        return orders;
+        return requests;
     }
 
     HashMap<Integer, Event> getOrders(){

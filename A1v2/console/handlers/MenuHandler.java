@@ -48,6 +48,7 @@ public class MenuHandler {
 ///////////////////
     private void listCurrentRequests(){
         System.out.println("DEBUG!! Inside this.listCurrentRequests()");
+        ui.printRequests(request.retrieveRequests());
     }
 // END MENU OPTION 1 //
 

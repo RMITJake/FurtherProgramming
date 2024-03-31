@@ -33,11 +33,44 @@ public class ConsoleUI {
         System.out.print(string);
     }
 
-    public void printEvents(ArrayList<Event> eventsList){
-        for (Event event : eventsList) {
-            System.out.println(event.getClient());
+    // public void printEvents(ArrayList<Event> eventsList){
+    //     for (Event event : eventsList) {
+    //         System.out.println(event.getClient());
+    //     }
+    // }
+
+///////////////////
+// MENU OPTION 1 //
+///////////////////
+    public void printRequests(HashMap<Integer, Event> requestList){
+        String format = "%-30s\t%-36s\t%-24s\t%-12s\t%-7s\t%-10s\t%-10s\t%-20s\t%s\n";
+        System.out.printf(format,
+        "Client",
+        "Title",
+        "Artist",
+        "Date",
+        "Time",
+        "Target",
+        "Duration",
+        "Type",
+        "Category"
+        );
+
+        for(int id : requestList.keySet()){
+            System.out.printf(format, 
+            requestList.get(id).getClient(),
+            requestList.get(id).getTitle(),
+            requestList.get(id).getArtist(),
+            requestList.get(id).getDate(),
+            requestList.get(id).getTime(),
+            requestList.get(id).getTarget(),
+            requestList.get(id).getDuration(),
+            requestList.get(id).getType(),
+            requestList.get(id).getCategory()
+            );
         }
     }
+// END MENU OPTION 1 //
 
     public void printVenue(Venue venue){
             String format = ""
