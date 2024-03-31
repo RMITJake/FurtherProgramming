@@ -37,9 +37,10 @@ public class MenuHandler {
                         ui.validateSearchVenueByNameError();
                     } else {
                         searchNameValidated = true;
-                        Venue searchResult = venue.searchVenueByName(input);
+                        HashMap<Integer, Venue> searchResult = selectVenueByName(input);
                         if(searchResult != null){
-                            ui.printVenue(searchResult);
+                            Venue selectedVenue = selectVenueById(searchResult);
+                            ui.printVenue(selectedVenue);
                         } else {
                             ui.venueNotFoundError();
                         }
@@ -73,7 +74,14 @@ public class MenuHandler {
     HashMap<Integer, Venue> selectVenueByCategory(HashMap<Integer, String> categories){
         ui.selectVenue();
         HashMap<Integer, Venue> venues = venue.getVenueByCategory(categories.get(applicationLoop));
-        ui.printVenues(venues);
+        ui.printVenueNames(venues);
+        return venues;
+    }
+
+    HashMap<Integer, Venue> selectVenueByName(String searchName){
+        ui.selectVenue();
+        HashMap<Integer, Venue> venues = venue.searchVenueByName(searchName);
+        ui.printVenueNames(venues);
         return venues;
     }
 

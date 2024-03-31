@@ -58,6 +58,14 @@ public class ConsoleUI {
         }
     }
 
+    public void printVenueNames(HashMap<Integer, Venue> venueList){
+        for (int id : venueList.keySet()) {
+            String format = "%s) %s\n";
+
+            System.out.printf(format, id, venueList.get(id).getName());
+        }
+    }
+
     public void getVenueCategories(HashMap<Integer, String> categories){
         menuText = "";
 

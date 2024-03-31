@@ -55,13 +55,16 @@ class VenueHandler{
         return venues;
     }
 
-    Venue searchVenueByName(String searchName){
-        HashMap<Integer, Venue> venues = retrieveVenues();
-        for(int venueId : venues.keySet()){
-            if(venues.get(venueId).getName().equals(searchName)){
-                return venues.get(venueId);
+    HashMap<Integer, Venue> searchVenueByName(String searchName){
+        HashMap<Integer, Venue> allVenues = retrieveVenues();
+        HashMap<Integer, Venue> searchVenues = new HashMap<Integer, Venue>();
+        int newId = 0;
+        for(int venueId : allVenues.keySet()){
+            if(allVenues.get(venueId).getName().toLowerCase().contains(searchName.toLowerCase())){
+                newId++;
+                searchVenues.put(newId, allVenues.get(venueId));
             }
         }
-        return null;
+        return searchVenues;
     }
 }
