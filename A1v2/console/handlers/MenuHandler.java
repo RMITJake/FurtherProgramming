@@ -1,7 +1,6 @@
 package console.handlers;
 
 import console.ui.ConsoleUI;
-// import java.io.FileNotFoundException;
 import java.util.HashMap;
 import console.models.Venue;
 import console.models.Event;
@@ -14,6 +13,7 @@ public class MenuHandler {
     FileHandler file = new FileHandler();
     VenueHandler venue = new VenueHandler(file);
     RequestHandler request = new RequestHandler(file);
+    OrderHandler order = new OrderHandler(request, venue);
 
     int applicationLoop;
     String input;
