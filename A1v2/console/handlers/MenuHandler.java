@@ -16,6 +16,9 @@ public class MenuHandler {
     OrderHandler order = new OrderHandler(request, venue);
     MatchHandler match = new MatchHandler(request, venue);
 
+    HashMap<Integer, Venue> venueList = new HashMap<>();
+    HashMap<Integer, Event> requestList = new HashMap<>();
+
     int applicationLoop;
     String input;
     
@@ -49,7 +52,7 @@ public class MenuHandler {
 ///////////////////
     private void listCurrentRequests(){
         System.out.println("DEBUG!! Inside this.listCurrentRequests()");
-        ui.printRequests(request.retrieveRequests());
+        ui.printRequests(request.retrieveRequests(requestList));
     }
 // END MENU OPTION 1 //
 
