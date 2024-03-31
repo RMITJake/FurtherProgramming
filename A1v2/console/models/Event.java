@@ -7,11 +7,11 @@ public class Event{
     private String date;
     private String time;
     private String target;
-    private String duration;
+    private int duration;
     private String type;
     private String category;
 
-    public Event(String client, String title, String artist, String date, String time, String target, String duration, String type, String category){
+    public Event(String client, String title, String artist, String date, String time, String target, int duration, String type, String category){
         this.client = client;
         this.title = title;
         this.artist = artist;
@@ -29,7 +29,7 @@ public class Event{
     public String getDate(){ return this.date; }
     public String getTime(){ return this.time; }
     public String getTarget(){ return this.target; }
-    public String getDuration(){ return this.duration; }
+    public int getDuration(){ return this.duration; }
     public String getType(){ return this.type; }
     public String getCategory(){ return this.category; }
 

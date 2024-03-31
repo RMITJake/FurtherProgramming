@@ -22,7 +22,13 @@ class VenueHandler{
 
         for(List<String> record : records){
             id++;
-            venues.put(id, new Venue(record.get(0),Integer.parseInt(record.get(1)),record.get(2),record.get(3),Integer.parseInt(record.get(4))));
+            venues.put(id, new Venue(
+                record.get(0),
+                Integer.parseInt(record.get(1)),
+                record.get(2),
+                record.get(3),
+                Integer.parseInt(record.get(4)
+            )));
         }
         return venues;
     }
@@ -66,5 +72,14 @@ class VenueHandler{
             }
         }
         return searchVenues;
+    }
+
+    Venue getVenueByName(String searchName, HashMap<Integer, Venue> venueList){
+        for(int venueId : venueList.keySet()){
+            if(venueList.get(venueId).getName().equals(searchName)){
+                return venueList.get(venueId);
+            }
+        }
+        return null;
     }
 }

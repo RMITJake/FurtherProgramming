@@ -4,14 +4,16 @@ import console.ui.ConsoleUI;
 // import java.io.FileNotFoundException;
 import java.util.HashMap;
 import console.models.Venue;
+import console.models.Event;
+import console.models.Order;
 
 public class MenuHandler {
     ConsoleUI ui = new ConsoleUI();
     InputHandler in = new InputHandler();
     ValidationHandler validate = new ValidationHandler();
     FileHandler file = new FileHandler();
-    // EventHandler event = new EventHandler(file);
     VenueHandler venue = new VenueHandler(file);
+    RequestHandler request = new RequestHandler(file);
 
     int applicationLoop;
     String input;
@@ -49,7 +51,26 @@ public class MenuHandler {
             } else if (applicationLoop == 4){
                 // Auto-match events with suitable venues
             } else if (applicationLoop == 5){
-                // Show order summary
+                HashMap<Integer, Venue> venues = venue.retrieveVenues();
+                HashMap<Integer, Event> events = request.retrieveOrders();
+                HashMap<Integer, Order> orders = new HashMap<>();
+                // for(int eventId : events){
+                //     orders.put(
+                //         eventId,
+                //         new Order(
+                //             events.get(eventId).getClient(),
+                //             events.get(eventId).getTitle(),
+                //             events.get(eventId).getArtist(),
+                //             events.get(eventId).getDate(),
+                //             events.get(eventId).getTime(),
+                //             events.get(eventId).getTarget(),
+                //             events.get(eventId).getDuration(),
+                //             events.get(eventId).getType(),
+                //             events.get(eventId).getCategory(),
+                //             venue.getVenueByName(events.get(eventId).get)
+                //         )
+                //     );
+                // }
             }
         } while (applicationLoop != 6);
 

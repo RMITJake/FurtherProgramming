@@ -97,6 +97,26 @@ public class ConsoleUI {
     }
 
 //////////////////
+//    ORDERS    //
+//////////////////
+    public void printOrderSummary(HashMap<Integer, Event> orderList, double hire, double commission){
+        menuText = ""
+        +linebreak
+        +"Order Summary\n"
+        +linebreak
+        +"\n";
+        print(menuText);
+
+        for (int id : orderList.keySet()) {
+            String format = "%s) %s";
+
+            System.out.printf(format,
+            id,
+            "");
+        }
+    }
+
+//////////////////
 // HIRE DETAILS //
 //////////////////
     public void hirePrice(Venue venue){
