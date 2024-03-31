@@ -50,6 +50,19 @@ public class OrderHandler {
         return filteredEvents;
     }
 
+    Order newOrder(Event event, Venue venue){
+        return new Order(event, venue);
+    }
+
+    HashMap<Integer, Order> generateOrders(HashMap<Integer, Order> orderList, HashMap<Event, Venue> matchedList){
+        int id = orderList.size();
+        for(Event event : matchedList.keySet()){
+            id++;
+            orderList.put(id, new Order(event, matchedList.get(event)));
+        }
+        return orderList;
+    }
+
 
 ////////////////////
 // MATCH CRITERIA //

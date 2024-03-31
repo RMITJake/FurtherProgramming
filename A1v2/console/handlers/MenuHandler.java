@@ -20,7 +20,7 @@ public class MenuHandler {
     // Lists to store records with ids
     private HashMap<Integer, Venue> venueList = new HashMap<>();
     private HashMap<Integer, Event> requestList = new HashMap<>();
-    private HashMap<String, Order> orderList = new HashMap<>();
+    private HashMap<Integer, Order> orderList = new HashMap<>();
     private HashMap<Event, HashMap<Venue, Integer>> unmatchedList = new HashMap<>();
     private HashMap<Event, Venue> matchedList = new HashMap<>();
 
@@ -167,6 +167,10 @@ public class MenuHandler {
         System.out.println("DEBUG!! Inside this.bestMatch()");
         matchedList = order.getBestMatch(unmatchedList);
     }
+
+    private void generateOrders(){
+        orderList = order.generateOrders(orderList, matchedList);
+    }
 // END MENU OPTION 4 //
 
 ///////////////////
@@ -175,26 +179,8 @@ public class MenuHandler {
     private void showOrderSummary(){
         System.out.println("DEBUG!! Inside this.showOrderSummary()");
 
-        HashMap<Integer, Venue> venues = venue.retrieveVenues();
-                HashMap<Integer, Event> events = request.retrieveOrders();
-                HashMap<Integer, Order> orders = new HashMap<>();
-                // for(int eventId : events){
-                //     orders.put(
-                //         eventId,
-                //         new Order(
-                //             events.get(eventId).getClient(),
-                //             events.get(eventId).getTitle(),
-                //             events.get(eventId).getArtist(),
-                //             events.get(eventId).getDate(),
-                //             events.get(eventId).getTime(),
-                //             events.get(eventId).getTarget(),
-                //             events.get(eventId).getDuration(),
-                //             events.get(eventId).getType(),
-                //             events.get(eventId).getCategory(),
-                //             venue.getVenueByName(events.get(eventId).get)
-                //         )
-                //     );
-                // }
+        generateOrders();
+        ui.printOrderSummary(orderList);
     }
 // END MENU OPTION 5 //
 

@@ -3,6 +3,7 @@ package console.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import console.models.Event;
+import console.models.Order;
 import console.models.Venue;
 
 public class ConsoleUI {
@@ -132,7 +133,9 @@ public class ConsoleUI {
 //////////////////
 //    ORDERS    //
 //////////////////
-    public void printOrderSummary(HashMap<Integer, Event> orderList, double hire, double commission){
+    public void printOrderSummary(HashMap<Integer, Order> orderList){
+        String format;
+        int cumulativeTotal = 0;
         menuText = ""
         +linebreak
         +"Order Summary\n"
@@ -141,12 +144,39 @@ public class ConsoleUI {
         print(menuText);
 
         for (int id : orderList.keySet()) {
-            String format = "%s) %s";
+            //increment cumulative total
+            cumulativeTotal += orderList.get(id).getBrokerFee();
+
+            format = "Job#%s\n"
+                           +"%-20s\t%s\n"
+                           +"%-20s\t%s\n"
+                           +"%-20s\t%s\n"
+                           +"%-20s\t%s\n"
+                           +"%-20s\t%s\n"
+                           +"%-20s\t%s\n"
+                           +"\n"
+                           +"%s hours venue hire @ $%s\t$%s\n"
+                           +"Brokering commission 10:\t$%s\n"
+                           +"\n";
 
             System.out.printf(format,
             id,
-            "");
+            "Client:", orderList.get(id).getEvent().getClient(),
+            "Venue:", orderList.get(id).getVenue().getName(),
+            "Event name:", orderList.get(id).getEvent().getTitle(),
+            "Artist:", orderList.get(id).getEvent().getArtist(),
+            "Event date:", orderList.get(id).getEvent().getDate(),
+            "Event time:", orderList.get(id).getEvent().getTime(),
+            orderList.get(id).getEvent().getDuration(), orderList.get(id).getVenue().getPricePerHour(),
+            orderList.get(id).calculatePrice(),
+            orderList.get(id).getBrokerFee()
+            );
         }
+
+        format = ""
+        +"Total earnings to date: $%s.\n"
+        +"--------------------------------------\n";
+        System.out.printf(format, cumulativeTotal);
     }
 //////////////////
 // BOOKING LOOP //
