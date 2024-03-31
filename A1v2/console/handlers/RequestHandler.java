@@ -13,7 +13,6 @@ public class RequestHandler {
         this.file = file;
     }
 
-
     HashMap<Integer, Event> retrieveRequests(){
         HashMap<Integer, Event> requests = new HashMap<Integer, Event>();
         List<List<String>> records = file.getLineFromCSV(REQUESTS);
@@ -36,11 +35,5 @@ public class RequestHandler {
             ));
         }
         return requests;
-    }
-
-    HashMap<Integer, Event> getOrders(){
-        HashMap<Integer, Event> orders = retrieveOrders();
-
-        return orders;
     }
 }

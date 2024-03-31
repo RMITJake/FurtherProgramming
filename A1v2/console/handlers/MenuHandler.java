@@ -214,6 +214,7 @@ public class MenuHandler {
             if(searchResult != null){
                 Venue selectedVenue = selectVenueById(searchResult);
                 ui.printVenue(selectedVenue);
+                hireLoop(selectedVenue);
             } else {
                 ui.venueNotFoundError();
             }
