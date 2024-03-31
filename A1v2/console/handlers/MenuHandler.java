@@ -14,6 +14,7 @@ public class MenuHandler {
     VenueHandler venue = new VenueHandler(file);
     RequestHandler request = new RequestHandler(file);
     OrderHandler order = new OrderHandler(request, venue);
+    MatchHandler match = new MatchHandler(request, venue);
 
     int applicationLoop;
     String input;

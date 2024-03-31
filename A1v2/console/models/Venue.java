@@ -8,10 +8,10 @@ public class Venue{
     private int priceperhour;
 
     public Venue(String name, int capacity, String suitableFor, String category, int priceperhour){
-        this.name = name;
+        this.name = name.trim();
         this.capacity = capacity;
-        this.suitableFor = suitableFor;
-        this.category = category;
+        this.suitableFor = suitableFor.trim();
+        this.category = category.trim();
         this.priceperhour = priceperhour;
     }
 
