@@ -1,6 +1,5 @@
 package console.handlers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import console.models.Venue;
 import console.models.Event;

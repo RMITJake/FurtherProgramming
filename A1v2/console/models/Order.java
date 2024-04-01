@@ -14,21 +14,24 @@ public class Order{
     public Event getEvent(){ return this.event; }
     public Venue getVenue(){ return this.venue; }
 
-    // public int getPricePerHour(){
-    //     return this.priceperhour;
-    // }
+    public int getPricePerHour(){
+        return this.priceperhour;
+    }
 
     public double getTotalPrice(){
         return this.venue.getPricePerHour() * this.event.getDuration();
     }
 
 
-    public double calculateDiscount(double input){
-        return input - discountAmount;
+    public double calculateDiscount(){
+        // get 10% of total price
+        discountAmount = getTotalPrice() / 10;
+        // get 10% of discount (1% of total price)
+        return discountAmount / 10;
     }
 
     public double calculatePrice(){
-        int totalPrice = this.venue.getPricePerHour() * this.event.getDuration();
+        double totalPrice = this.venue.getPricePerHour() * this.event.getDuration() - calculateDiscount();
         return totalPrice;
     }
 

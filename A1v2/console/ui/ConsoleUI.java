@@ -164,7 +164,7 @@ public class ConsoleUI {
                            +"%-20s\t%s\n"
                            +"\n"
                            +"%s hours venue hire @ $%s\t$%s\n"
-                           +"Brokering commission 10:\t$%s\n"
+                           +"Brokering commission 10%%:\t$%s\n"
                            +"\n";
 
             System.out.printf(format,
