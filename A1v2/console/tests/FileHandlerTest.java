@@ -2,6 +2,7 @@ package console.tests;
 import console.handlers.FileHandler;
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.io.FileNotFoundException;
 
 import java.beans.Transient;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 public class FileHandlerTest {
     FileHandler file;
     private String COMMA_DELIMITER = ",";
-    private Stirng testFile = "venues.csv";
+    private String testFile = "venues.csv";
 
     @Before
     public void setUp(){
@@ -17,8 +18,8 @@ public class FileHandlerTest {
         System.out.println("IN FHTEST");
     }
 
-    @Test (expected=FileNotFoundException)
+    @Test (expected=NullPointerException.class)
     public void testFileInput(){
-        file.getLineFromCSV("FileNotFound.csv");
+        file.getLineFromCSV("404.csv");
     }
 }

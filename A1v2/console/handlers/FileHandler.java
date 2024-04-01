@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class FileHandler {
+public class FileHandler {
     private String COMMA_DELIMITER = ",";
 
     private List<String> getRecordFromLine(String line) {
