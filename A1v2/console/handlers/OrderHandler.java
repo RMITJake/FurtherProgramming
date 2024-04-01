@@ -62,15 +62,11 @@ public class OrderHandler {
     }
 
     HashMap<Integer, Order> generateOrders(HashMap<Integer, Order> orderList, HashMap<Event, Venue> matchedList){
-        // System.out.println("DEBUG!! GENERATEORDERS  " + orderList.size());
-        // int id = orderList.size();
         int id = 0;
         for(Event event : matchedList.keySet()){
             id++;
             orderList.put(id, new Order(event, matchedList.get(event)));
         }
-        // System.out.println("DEBUG!! GENERATEORDERS orderList.size() " + orderList.size());
-        // System.out.println("DEBUG!! GENERATEORDERS matchedList.size() " + orderList.size());
         return orderList;
     }
 
