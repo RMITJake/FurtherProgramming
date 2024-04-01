@@ -15,7 +15,6 @@ public class MenuHandler {
     private VenueHandler venue = new VenueHandler(file);
     private RequestHandler request = new RequestHandler(file);
     private OrderHandler order = new OrderHandler(request, venue);
-    private MatchHandler match = new MatchHandler(request, venue);
 
     // Lists to store records with ids
     private HashMap<Integer, Venue> venueList = new HashMap<>();
@@ -58,7 +57,7 @@ public class MenuHandler {
 // MENU OPTION 1 //
 ///////////////////
     private void listCurrentRequests(){
-        System.out.println("DEBUG!! Inside this.listCurrentRequests()");
+        // Use the RequestHandler to retrieve the current requests
         ui.printRequests(request.retrieveRequests(requestList));
         bookingLoop(null);
     }
@@ -68,24 +67,24 @@ public class MenuHandler {
 // MENU OPTION 2 //
 ///////////////////
     private void browseVenueByCategory(){
-        System.out.println("DEBUG!! Inside this.browseVenueByCategory()");
-
         // Make sure there are venues in the list
         venueListNullCheck();
         
+        // Use the 
         HashMap<Integer, Venue> venueByCategory = selectVenueByCategory(getVenueCategories());
         Venue selectedVenue = selectVenueById(venueByCategory);
         ui.printVenue(selectedVenue);
         bookingLoop(selectedVenue);
     }
 
-// ID related methods
-    Venue selectVenueById(HashMap<Integer, Venue> venues){
-        ui.selectMessage();
-        return venues.get(applicationLoop = in.mainMenuInput());
+// Venue Category methods
+    HashMap<Integer, Venue> selectVenueByCategory(HashMap<Integer, String> categories){
+        ui.selectVenue();
+        HashMap<Integer, Venue> venues = venue.getVenueByCategory(categories.get(applicationLoop), venueList);
+        ui.printVenueNames(venues);
+        return venues;
     }
 
-// Category related methods
     HashMap<Integer, String> getVenueCategories(){
         HashMap<Integer, String> categories = venue.getCategories(venueList);
         ui.getVenueCategories(categories);
@@ -93,20 +92,18 @@ public class MenuHandler {
         return categories;
     }
 
-    HashMap<Integer, Venue> selectVenueByCategory(HashMap<Integer, String> categories){
-        ui.selectVenue();
-        HashMap<Integer, Venue> venues = venue.getVenueByCategory(categories.get(applicationLoop), venueList);
-        ui.printVenueNames(venues);
-        return venues;
-    }    
+// VenueId related methods
+    Venue selectVenueById(HashMap<Integer, Venue> venues){
+        ui.selectMessage();
+        return venues.get(applicationLoop = in.mainMenuInput());
+    }
+    
 // END MENU OPTION 2 //
 
 ///////////////////
 // MENU OPTION 3 //
 ///////////////////
     private void searchVenueByName(){
-        System.out.println("DEBUG!! Inside this.searchVenueByName()");
-
         boolean searchNameValidated = false;
         HashMap<Integer, Venue> searchResult = null;
         do{
@@ -122,8 +119,6 @@ public class MenuHandler {
             
             if(searchResult != null){
                 Venue selectedVenue = selectVenueById(searchResult);
-                // ui.printVenue(selectedVenue);
-                // hireLoop(selectedVenue);
                 bookingLoop(selectedVenue);
             } else {
                 ui.venueNotFoundError();
@@ -150,26 +145,23 @@ public class MenuHandler {
         venueListNullCheck();
         requestListNullCheck();
 
-        System.out.println("DEBUG!! Inside this.autoMatchEvents()");
-        HashMap<Venue,Integer> temp = new HashMap<>();
+        // Loop through the requestList
         for(int id : requestList.keySet()){
-            temp = order.autoMatchEvent(venueList,requestList.get(id), orderList);
+            // Match request with a venue
+            HashMap<Venue,Integer> temp = order.autoMatchEvent(venueList,requestList.get(id), orderList);
             unmatchedList.put(requestList.get(id), temp);
         }
-        // for(Event list : unmatchedList.keySet()){
-        //     for(Venue venue : unmatchedList.get(list).keySet()){
-        //         System.out.printf("%s, %s, %s\n", list.getArtist(), venue.getName(), unmatchedList.get(list).get(venue));
-        //     }
-        // }
     }
 
     private void bestMatch(){
         autoMatchEvents();
         System.out.println("DEBUG!! Inside this.bestMatch()");
         matchedList = order.getBestMatch(unmatchedList);
+        System.out.println("DEBUG!! mactchedList.size() " + matchedList.size());
     }
 
     private void generateOrders(){
+        orderList = new HashMap<>();
         System.out.println("DEBUG!! orderList.size() " + orderList.size());
         System.out.println("DEBUG!! matchedList.size() " + matchedList.size());
         orderList = order.generateOrders(orderList, matchedList);
@@ -345,19 +337,17 @@ public class MenuHandler {
 //   UTILITIES   //
 ///////////////////
     private void venueListNullCheck(){
+        // If the venueList is empty use the VenueHandler to populate the list
         if(venueList.size() == 0){
             venueList = venue.retrieveVenues(venueList);
         }
     }
 
+    // If the requestList is empty use the RequestHandler to populate the list
     private void requestListNullCheck(){
         if(requestList.size() == 0){
             requestList = request.retrieveRequests(requestList);
         }
     }
-
-    // private void (){
-    // System.out.println("DEBUG!! Inside this.()");
-    // }
 // END UTILITIES     //
 }

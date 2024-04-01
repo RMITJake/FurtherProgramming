@@ -14,8 +14,15 @@ class InputHandler {
             System.out.println("Please select a valid menu option.");
             return -1;
         }
+
+        int inputInt = 0;
+        try{
+            inputInt = Integer.parseInt(userInput);
+        } catch (Exception NumberFormatException){
+            System.err.println(userInput + " is not a valid number");
+        }
         
-        return Integer.parseInt(userInput);
+        return inputInt;
     }
 
     public String userInput(){

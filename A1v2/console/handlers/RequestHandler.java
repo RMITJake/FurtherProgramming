@@ -12,6 +12,7 @@ public class RequestHandler {
         this.file = file;
     }
 
+    // Use the FileHandler to read the requests.csv and deserialize to a Venue object
     HashMap<Integer, Event> retrieveRequests(HashMap<Integer, Event> requestList){
         List<List<String>> records = file.getLineFromCSV(REQUESTS);
 

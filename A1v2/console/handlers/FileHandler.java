@@ -15,7 +15,7 @@ class FileHandler {
             while (rowScanner.hasNext()) {
                 values.add(rowScanner.next());
             }
-        }
+        } 
         return values;
     }
     
@@ -27,7 +27,7 @@ class FileHandler {
             }
             return records;
         } catch (FileNotFoundException FNF){
-
+            System.err.println(fileName + " not found");
         }
         return null;
     }

@@ -12,6 +12,7 @@ class VenueHandler{
         this.file = file;
     }
 
+    // Use the FileHandler to read the venues.csv and deserialize to an Event object
     HashMap<Integer, Venue> retrieveVenues(HashMap<Integer, Venue> venueList){
         List<List<String>> records = file.getLineFromCSV(VENUES);
 
@@ -33,6 +34,7 @@ class VenueHandler{
         return venueList;
     }
 
+    // Search through the venueList and get unique categories
     HashMap<Integer, String> getCategories(HashMap<Integer, Venue> venueList){
         HashMap<Integer, String> categories = new HashMap<Integer, String>();
         int id = 0;
@@ -45,6 +47,7 @@ class VenueHandler{
         return categories;
     }
 
+    // Search through the venueList and return all venues of a specific category
     HashMap<Integer, Venue> getVenueByCategory(String category, HashMap<Integer, Venue> venueList){
         HashMap<Integer, Venue> venueFiltered = new HashMap<Integer, Venue>();
 
@@ -59,6 +62,7 @@ class VenueHandler{
         return venueFiltered;
     }
 
+    // Search through the venueList and return a list of venues with similar names
     HashMap<Integer, Venue> searchVenueByName(String searchName, HashMap<Integer, Venue> venueList){
         HashMap<Integer, Venue> searchVenues = new HashMap<Integer, Venue>();
         int newId = 0;
@@ -71,6 +75,7 @@ class VenueHandler{
         return searchVenues;
     }
 
+    // Search through the venueList and return a venue with a specific
     Venue getVenueByName(String searchName, HashMap<Integer, Venue> venueList){
         for(int venueId : venueList.keySet()){
             if(venueList.get(venueId).getName().equals(searchName)){
