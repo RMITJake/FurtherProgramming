@@ -10,12 +10,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import console.handlers.FileHandler;
-
 public class OrderHandlerTest {
-    private FileHandler file;
-    private RequestHandler request;
-    private VenueHandler venue;
     private OrderHandler order;
     private Venue homeVenue;
     private Venue workVenue;
@@ -26,10 +21,7 @@ public class OrderHandlerTest {
 
     @Before
     public void setUp(){
-        file = new FileHandler();
-        request = new RequestHandler(file);
-        venue = new VenueHandler(file);
-        order = new OrderHandler(request, venue);
+        order = new OrderHandler(new RequestHandler(), new VenueHandler());
 
         homeVenue = new Venue("Home",20, "relaxing; gaming","House",0);
         workVenue = new Venue("Work",40, "troubleshooting; calling","IT",165);

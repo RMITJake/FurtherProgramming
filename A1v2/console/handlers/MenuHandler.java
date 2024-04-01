@@ -11,9 +11,8 @@ public class MenuHandler {
     private ConsoleUI ui = new ConsoleUI();
     private InputHandler in = new InputHandler();
     private ValidationHandler validate = new ValidationHandler();
-    private FileHandler file = new FileHandler();
-    private VenueHandler venue = new VenueHandler(file);
-    private RequestHandler request = new RequestHandler(file);
+    private VenueHandler venue = new VenueHandler();
+    private RequestHandler request = new RequestHandler();
     private OrderHandler order = new OrderHandler(request, venue);
 
     // Lists to store records with ids
@@ -195,12 +194,6 @@ public class MenuHandler {
         }
     }
 // END BOOKING LOOP //
-
-////////////////////////
-// SELECT VENUE LOOP //
-///////////////////////
-
-// END SELECT VENUE LOOP //
 
 //////////////////
 //   HIRE LOOP  //

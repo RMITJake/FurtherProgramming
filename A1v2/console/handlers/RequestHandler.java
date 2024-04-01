@@ -6,19 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import console.models.Event;
 
-public class RequestHandler {
-    private FileHandler file;
+public class RequestHandler extends FileHandler{
     private String REQUESTS = "requests.csv";
     
-    public RequestHandler(FileHandler file){
-        this.file = file;
-    }
-
     // Use the FileHandler to read the requests.csv and deserialize to a Venue object
     HashMap<Integer, Event> retrieveRequests(HashMap<Integer, Event> requestList){
         List<List<String>> records = new ArrayList<>();
         try{
-            records = file.getLineFromCSV(REQUESTS);
+            records = getLineFromCSV(REQUESTS);
         } catch(FileNotFoundException FNF) {
             System.err.println(REQUESTS + " was not found.");
         }
