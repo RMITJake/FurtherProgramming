@@ -207,32 +207,32 @@ public class ConsoleUI {
         print(menuText);
     }
 
-    public void hireDetailsHours(){
+    public void hireDuration(){
         menuText = "Please enter number of hours: ";
         print(menuText);
     }
 
-    public void hireDetailsDate(){
+    public void hireDate(){
         menuText = "Please enter date: ";
         print(menuText);
     }
 
-    public void hireDetailsTime(){
+    public void hireTime(){
         menuText = "Please enter time: ";
         print(menuText);
     }
 
-    public void hireDetailsEventName(){
+    public void hireEventName(){
         menuText = "Event name: ";
         print(menuText);
     }
 
-    public void hireDetailsArtistName(){
+    public void hireArtistName(){
         menuText = "Artist name: ";
         print(menuText);
     }
 
-    public void hireDetailsRequesterName(){
+    public void hireRequesterName(){
         menuText = "Requester name: ";
         print(menuText);
     }

@@ -231,72 +231,79 @@ public class MenuHandler {
         }
 
         ui.hireDetails();
+        Event newEvent = new Event();
         boolean hoursValidated = false;
         do{
-            ui.hireDetailsHours();
+            ui.hireDuration();
             input = in.userInput();
             if(!validate.validateHours(input)){
                 ui.validateHoursError();
             } else {
                 hoursValidated = true;
+                newEvent.setDuration(Integer.parseInt(input));
             }
         } while(!hoursValidated);
 
         boolean dateValidated = false;
         do{
-            ui.hireDetailsDate();
+            ui.hireDate();
             input = in.userInput();
             if(!validate.validateDate(input)){
                 ui.validateDateError();
             } else {
                 dateValidated = true;
+                newEvent.setDate(input);
             }
         } while(!dateValidated);
 
         boolean timeValidated = false;
         do{
-            ui.hireDetailsTime();
+            ui.hireTime();
             input = in.userInput();
             if(!validate.validateTime(input)){
                 ui.validateTimeError();
             } else {
                 timeValidated = true;
+                newEvent.setTime(input);
             }
         } while(!timeValidated);
 
         boolean eventNameValidated = false;
         do{
-            ui.hireDetailsEventName();
+            ui.hireEventName();
             input = in.userInput();
             if(!validate.validateEventName(input)){
                 ui.validateEventNameError();
             } else {
                 eventNameValidated = true;
                 input = input.replace(",", ";");
+                newEvent.setTitle(input);
             }
         } while(!eventNameValidated);
 
         boolean artistNameValidated = false;
         do{
-            ui.hireDetailsArtistName();
+            ui.hireArtistName();
             input = in.userInput();
             if(!validate.validateArtistName(input)){
                 ui.validateArtistNameError();
             } else {
                 artistNameValidated = true;
                 input = input.replace(",", ";");
+                newEvent.setArtist(input);
             }
         } while(!artistNameValidated);
 
         boolean requesterNameValidated = false;
         do{
-            ui.hireDetailsRequesterName();
+            ui.hireRequesterName();
             input = in.userInput();
             if(!validate.validateRequesterName(input)){
                 ui.validateRequesterNameError();
             } else {
                 requesterNameValidated = true;
                 input = input.replace(",", ";");
+                newEvent.setClient(input);
             }
         } while(!requesterNameValidated);
 
@@ -316,6 +323,13 @@ public class MenuHandler {
             ui.orderConfirmed();
         } else {
             ui.orderCancelled();
+        }
+
+        // add to list
+        if(venue == null){
+            requestList.put(requestList.size(), newEvent);
+        } else {
+            orderList.put(orderList.size(), new Order(newEvent, venue));
         }
 
         return applicationLoop;

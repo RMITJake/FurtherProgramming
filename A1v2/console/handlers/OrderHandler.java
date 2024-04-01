@@ -69,7 +69,7 @@ public class OrderHandler {
 ////////////////////
     boolean matchDateTime(){ 
         // matches venue date
-        return null;
+        return false;
     }
 
     boolean matchCapacity(Venue venue, Event event){ 
@@ -81,7 +81,7 @@ public class OrderHandler {
     }
 
     boolean matchDuration(){ 
-        return null;
+        return false;
     }
 
     boolean matchType(Venue venue, Event event){ 
