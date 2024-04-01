@@ -30,6 +30,7 @@ public class MenuHandler {
     public int menuLoop(){
         do{
             applicationLoop = 0;
+            System.out.println("DEBUG!! matchedList.size() " + matchedList.size() + "\n");
             displayMenu();
             applicationLoop = in.mainMenuInput();
             if(applicationLoop == 1){
@@ -152,7 +153,7 @@ public class MenuHandler {
         System.out.println("DEBUG!! Inside this.autoMatchEvents()");
         HashMap<Venue,Integer> temp = new HashMap<>();
         for(int id : requestList.keySet()){
-            temp = order.autoMatchEvent(venueList,requestList.get(id));
+            temp = order.autoMatchEvent(venueList,requestList.get(id), orderList);
             unmatchedList.put(requestList.get(id), temp);
         }
         // for(Event list : unmatchedList.keySet()){
@@ -169,7 +170,10 @@ public class MenuHandler {
     }
 
     private void generateOrders(){
+        System.out.println("DEBUG!! orderList.size() " + orderList.size());
+        System.out.println("DEBUG!! matchedList.size() " + matchedList.size());
         orderList = order.generateOrders(orderList, matchedList);
+        System.out.println("DEBUG!! AFTER orderList.size() " + orderList.size());
     }
 // END MENU OPTION 4 //
 
@@ -178,6 +182,7 @@ public class MenuHandler {
 ///////////////////
     private void showOrderSummary(){
         System.out.println("DEBUG!! Inside this.showOrderSummary()");
+        System.out.println("DEBUG!! orderList.size() " + orderList.size());
 
         generateOrders();
         ui.printOrderSummary(orderList);
@@ -329,7 +334,7 @@ public class MenuHandler {
         if(venue == null){
             requestList.put(requestList.size(), newEvent);
         } else {
-            orderList.put(orderList.size(), new Order(newEvent, venue));
+            orderList.put(orderList.size()+1, new Order(newEvent, venue));
         }
 
         return applicationLoop;

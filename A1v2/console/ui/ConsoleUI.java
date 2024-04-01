@@ -143,7 +143,9 @@ public class ConsoleUI {
         +"\n";
         print(menuText);
 
+        System.out.println("DEBUG!! SUMMARY orderList.size() " + orderList.size());
         for (int id : orderList.keySet()) {
+            System.out.println("DEBUG!! at id " + id);
             //increment cumulative total
             cumulativeTotal += orderList.get(id).getBrokerFee();
 
