@@ -23,13 +23,19 @@ public class MenuHandler {
     private HashMap<Event, HashMap<Venue, Integer>> unmatchedList = new HashMap<>();
     private HashMap<Event, Venue> matchedList = new HashMap<>();
 
+    private void setOrderList(HashMap<Integer, Order> orderList){
+        this.orderList = orderList;
+    }
+    private HashMap<Integer, Order> getOrderList(){
+        return this.orderList;
+    }
+
     int applicationLoop;
     String input;
     
     public int menuLoop(){
         do{
             applicationLoop = 0;
-            System.out.println("DEBUG!! matchedList.size() " + matchedList.size() + "\n");
             displayMenu();
             applicationLoop = in.mainMenuInput();
             if(applicationLoop == 1){
@@ -154,18 +160,34 @@ public class MenuHandler {
     }
 
     private void bestMatch(){
+        // update the unmatchedList
         autoMatchEvents();
-        System.out.println("DEBUG!! Inside this.bestMatch()");
+        // get the best event/venue matches from the unmatchedList
         matchedList = order.getBestMatch(unmatchedList);
-        System.out.println("DEBUG!! mactchedList.size() " + matchedList.size());
+        System.out.println("DEBUG!! START UNMATCHED LIST");
+        for(Event event : unmatchedList.keySet()){
+            for(Venue venue : unmatchedList.get(event).keySet()){
+                System.out.println(event.getTitle() + " " + venue.getName() + " " + unmatchedList.get(event).get(venue));
+            }
+        }
+        System.out.println("DEBUG!! END UNMATCHED LIST");
+        System.out.println("DEBUG!! START MATCHED LIST");
+        for(Event event : matchedList.keySet()){
+            try{
+                System.out.println(event.getTitle() + " " + matchedList.get(event).getName());
+            } catch(NullPointerException NPE){
+                System.err.println("venue not found");
+            }
+        }
+        System.out.println("DEBUG!! END MATCHED LIST");
     }
 
     private void generateOrders(){
-        orderList = new HashMap<>();
-        System.out.println("DEBUG!! orderList.size() " + orderList.size());
-        System.out.println("DEBUG!! matchedList.size() " + matchedList.size());
+        // orderList = new HashMap<>();
+        // System.out.println("DEBUG!! orderList.size() " + orderList.size());
+        // System.out.println("DEBUG!! matchedList.size() " + matchedList.size());
         orderList = order.generateOrders(orderList, matchedList);
-        System.out.println("DEBUG!! AFTER orderList.size() " + orderList.size());
+        // System.out.println("DEBUG!! AFTER orderList.size() " + orderList.size());
     }
 // END MENU OPTION 4 //
 
@@ -325,8 +347,17 @@ public class MenuHandler {
         // add to list
         if(venue == null){
             requestList.put(requestList.size(), newEvent);
+            System.out.println("DEBUG!! START REQUEST LIST");
+            for(int id : requestList.keySet()){
+                System.out.println("EVENT: " + requestList.get(id).getTitle());
+            }
+            System.out.println("DEBUG!! END REQUEST LIST");
         } else {
             orderList.put(orderList.size()+1, new Order(newEvent, venue));
+            System.out.println("DEBUG!! START ORDER LIST");
+            for(int orderId : orderList.keySet()){
+                System.out.println("OrderId: " + orderList.get(orderId).getEvent().getTitle() + " " + orderList.get(orderId).getVenue().getName());
+            }
         }
 
         return applicationLoop;

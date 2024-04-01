@@ -16,7 +16,8 @@ public class OrderHandler {
         this.venue = venue;
     }
 
-    // 
+    // Match an event with a venue from the venueList
+    // The order list input allows checking for checking date/time matches
     HashMap<Venue, Integer> autoMatchEvent(HashMap<Integer, Venue> venueList, Event event, HashMap<Integer, Order> orderList){
         HashMap<Venue, Integer> matchList = new HashMap<Venue, Integer>();
         int matchScore;
@@ -28,9 +29,9 @@ public class OrderHandler {
             if(matchCapacity(venueList.get(venue), event)){ matchScore++; }
             if(matchType(venueList.get(venue), event)){ matchScore++; }
             if(matchCategory(venueList.get(venue), event)){ matchScore++; }
-            if(matchDateTime(venueList.get(venue), event, orderList)){ matchScore++; } else {
-                matchScore = 0;
-            }
+            // if(matchDateTime(venueList.get(venue), event, orderList)){ matchScore++; } else {
+            //     matchScore = 0;
+            // }
             // if(matchScore != 0) {
                 matchList.put(venueList.get(venue), matchScore);
             // }
@@ -61,15 +62,15 @@ public class OrderHandler {
     }
 
     HashMap<Integer, Order> generateOrders(HashMap<Integer, Order> orderList, HashMap<Event, Venue> matchedList){
-        System.out.println("DEBUG!! GENERATEORDERS  " + orderList.size());
+        // System.out.println("DEBUG!! GENERATEORDERS  " + orderList.size());
         // int id = orderList.size();
         int id = 0;
         for(Event event : matchedList.keySet()){
             id++;
             orderList.put(id, new Order(event, matchedList.get(event)));
         }
-        System.out.println("DEBUG!! GENERATEORDERS orderList.size() " + orderList.size());
-        System.out.println("DEBUG!! GENERATEORDERS matchedList.size() " + orderList.size());
+        // System.out.println("DEBUG!! GENERATEORDERS orderList.size() " + orderList.size());
+        // System.out.println("DEBUG!! GENERATEORDERS matchedList.size() " + orderList.size());
         return orderList;
     }
 
@@ -135,8 +136,12 @@ public class OrderHandler {
     boolean matchType(Venue venue, Event event){ 
         String[] suitableFor = venue.getSuitableFor();
         for(String string : suitableFor){
-            if(event.getType().toLowerCase().equals(string.toLowerCase())){
-                return true;
+            try{
+                if(event.getType().toLowerCase().equals(string.toLowerCase())){
+                    return true;
+                }
+            } catch(NullPointerException NPE){
+                System.err.println("venue not found");
             }
         }
         return false;

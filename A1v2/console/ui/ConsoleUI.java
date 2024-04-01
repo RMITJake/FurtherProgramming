@@ -81,14 +81,22 @@ public class ConsoleUI {
             +"Suitable for: %s\n"
             +linebreak;
 
-            System.out.printf(format, venue.getName(), venue.getCapacity(), venue.getCategory(), venue.getSuitableForString());
+            try{
+                System.out.printf(format, venue.getName(), venue.getCapacity(), venue.getCategory(), venue.getSuitableForString());
+            } catch(NullPointerException NPE){
+                System.err.println("Venue not found");
+            }
     }
 
     public void printVenues(HashMap<Integer, Venue> venueList){
-        for (int id : venueList.keySet()) {
-            String format = "%s) %s\t%s\t%s\t%s\n";
+        try{
+            for (int id : venueList.keySet()) {
+                String format = "%s) %s\t%s\t%s\t%s\n";
 
-            System.out.printf(format, id, venueList.get(id).getName(), venueList.get(id).getCapacity(), venueList.get(id).getSuitableFor(), venueList.get(id).getCategory());
+                System.out.printf(format, id, venueList.get(id).getName(), venueList.get(id).getCapacity(), venueList.get(id).getSuitableFor(), venueList.get(id).getCategory());
+            }
+        } catch (NullPointerException NPE){
+            System.err.println("Venue not found");
         }
     }
 
