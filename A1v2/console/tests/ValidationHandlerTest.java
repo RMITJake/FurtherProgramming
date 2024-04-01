@@ -218,18 +218,4 @@ public class ValidationHandlerTest {
         string = "x";
         assertFalse(validation.validateConfirm(string));
     }    
-
-    // @Test()
-    // public void TrueTest(){
-    //     regex = ;
-    //     string = ;
-    //     assertTrue();
-    // }
-
-    // @Test()
-    // public void FalseTest(){
-    //     regex = ;
-    //     string = ;
-    //     assertFalse();
-    // }
 }
