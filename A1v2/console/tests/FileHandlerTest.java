@@ -1,7 +1,6 @@
 package console.tests;
 import console.handlers.FileHandler;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.*;
 
@@ -9,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 public class FileHandlerTest {
-    private String testFile = "venues.csv";
+    private String testFile = "inputTest.csv";
     FileHandler file = new FileHandler();
 
     @Test(expected=FileNotFoundException.class)
@@ -19,7 +18,7 @@ public class FileHandlerTest {
 
     @Test()
     public void getLineFromCSVTest() throws FileNotFoundException{
-        String input = "inputTest.csv";
+        String input = testFile;
         String expected = "Home,4000,relax; watch tv,Indoor,100";
         List<List<String>> fileContents = file.getLineFromCSV(input);
         String fileString = "";

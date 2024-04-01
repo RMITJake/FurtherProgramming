@@ -78,19 +78,19 @@ public class OrderHandler {
         return true;
     }
 
-    boolean matchVenue(Venue venue, Order order){
+    public boolean matchVenue(Venue venue, Order order){
         if(venue.getName().equals(order.getVenue().getName())){
             return true;
         }
         return false;
     }
 
-    boolean matchDate(Event event, Order order){
+    public boolean matchDate(Event event, Order order){
         if(event.getDate().equals(order.getEvent().getDate())){ return true; }
         return false;
     }
 
-    boolean matchTime(Event event, Order order){
+    public boolean matchTime(Event event, Order order){
         String[] eventTimeSplit = event.getTime().split(":");
         int eventTimeInt = Integer.parseInt(eventTimeSplit[0]);
         String[] orderTimeSplit = order.getEvent().getTime().split(":");
@@ -111,7 +111,7 @@ public class OrderHandler {
         return false;
     }
 
-    boolean matchCapacity(Venue venue, Event event){ 
+    public boolean matchCapacity(Venue venue, Event event){ 
         // matches event target(capacity)
         if(venue.getCapacity() >= event.getTarget()){
             return true;
@@ -119,11 +119,7 @@ public class OrderHandler {
         return false;
     }
 
-    boolean matchDuration(){ 
-        return false;
-    }
-
-    boolean matchType(Venue venue, Event event){ 
+    public boolean matchType(Venue venue, Event event){ 
         String[] suitableFor = venue.getSuitableFor();
         for(String string : suitableFor){
             try{
@@ -137,8 +133,8 @@ public class OrderHandler {
         return false;
     }
 
-    boolean matchCategory(Venue venue, Event event){ 
-        if(event.getCategory().toLowerCase().equals(venue.getCategory().toLowerCase())){
+    public boolean matchCategory(Venue venue, Event event){ 
+        if(venue.getCategory().toLowerCase().contains(event.getCategory().toLowerCase())){
             return true;
         }
         return false;

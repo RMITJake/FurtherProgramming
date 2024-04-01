@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import console.models.Venue;
 
-class VenueHandler{
+public class VenueHandler{
     private FileHandler file;
     private String VENUES = "venues.csv";
 

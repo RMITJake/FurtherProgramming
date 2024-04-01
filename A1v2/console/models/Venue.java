@@ -3,7 +3,6 @@ package console.models;
 public class Venue{
     private String name;
     private int capacity;
-    // private String suitableFor;
     private String[] suitableFor;
     private String category;
     private int priceperhour;
