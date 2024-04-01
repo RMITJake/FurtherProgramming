@@ -29,12 +29,7 @@ public class OrderHandler {
             if(matchCapacity(venueList.get(venue), event)){ matchScore++; }
             if(matchType(venueList.get(venue), event)){ matchScore++; }
             if(matchCategory(venueList.get(venue), event)){ matchScore++; }
-            // if(matchDateTime(venueList.get(venue), event, orderList)){ matchScore++; } else {
-            //     matchScore = 0;
-            // }
-            // if(matchScore != 0) {
-                matchList.put(venueList.get(venue), matchScore);
-            // }
+            matchList.put(venueList.get(venue), matchScore);
         }
         return matchList;
     }
