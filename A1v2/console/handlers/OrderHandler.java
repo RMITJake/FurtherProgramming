@@ -9,7 +9,6 @@ public class OrderHandler {
     private RequestHandler request;
     private VenueHandler venue;
 
-    public OrderHandler(){}
     public OrderHandler(RequestHandler request, VenueHandler venue){
         this.request = request;
         this.venue = venue;

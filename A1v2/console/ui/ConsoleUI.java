@@ -1,6 +1,5 @@
 package console.ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import console.models.Event;
 import console.models.Order;
