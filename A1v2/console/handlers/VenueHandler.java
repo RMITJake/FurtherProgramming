@@ -1,6 +1,8 @@
 package console.handlers;
 
 import java.util.List;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import console.models.Venue;
 
@@ -14,7 +16,13 @@ class VenueHandler{
 
     // Use the FileHandler to read the venues.csv and deserialize to an Event object
     HashMap<Integer, Venue> retrieveVenues(HashMap<Integer, Venue> venueList){
-        List<List<String>> records = file.getLineFromCSV(VENUES);
+        List<List<String>> records = new ArrayList<>();
+        try{
+            records = file.getLineFromCSV(VENUES);
+        } catch(FileNotFoundException FNF) {
+            System.err.println(VENUES + " was not found.");
+        }
+
 
         records.remove(0); // remove headers
         int id = 0;

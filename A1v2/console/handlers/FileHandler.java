@@ -15,19 +15,21 @@ public class FileHandler {
             while (rowScanner.hasNext()) {
                 values.add(rowScanner.next());
             }
-        } 
+        } catch (NullPointerException NPE){
+            System.err.println("file line is null");
+        }
         return values;
     }
     
-    public List<List<String>> getLineFromCSV(String fileName){
+    public List<List<String>> getLineFromCSV(String fileName) throws FileNotFoundException{
         List<List<String>> records = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(fileName))) {
             while (scanner.hasNextLine()) {
                 records.add(getRecordFromLine(scanner.nextLine()));
             }
             return records;
-        } catch (FileNotFoundException FNF){
-            System.err.println(fileName + " not found");
+        } catch (NullPointerException NPE){
+            System.err.println("file line is null");
         }
         return null;
     }

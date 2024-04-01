@@ -1,7 +1,7 @@
 package console.handlers;
 import java.util.Scanner;;
 
-class InputHandler {
+public class InputHandler {
     Scanner scn = new Scanner(System.in);
     ValidationHandler validator = new ValidationHandler();
     String userInput;
