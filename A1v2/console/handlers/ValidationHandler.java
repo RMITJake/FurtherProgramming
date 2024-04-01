@@ -29,7 +29,7 @@ class ValidationHandler {
     }
 
     boolean validateTime(String input){
-        regex = "^(0[1-9]|1[0-2]):([0-6]\\d)(am|AM|pm|PM)$";
+        regex = "^(0?[1-9]|1[0-2]):([0-6]\\d)(am|AM|pm|PM)$";
         return regexMatch(regex, input);
     }
 
