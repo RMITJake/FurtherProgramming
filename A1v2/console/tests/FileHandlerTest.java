@@ -8,8 +8,14 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 public class FileHandlerTest {
-    private String testFile = "inputTest.csv";
-    FileHandler file = new FileHandler();
+    private String testFile;
+    FileHandler file;
+
+    @Before()
+    public void setUp(){
+        file = new FileHandler();
+        testFile = "inputTest.csv";
+    }
 
     @Test(expected=FileNotFoundException.class)
     public void getLineFromCSVNullPointerExceptionTest() throws FileNotFoundException{

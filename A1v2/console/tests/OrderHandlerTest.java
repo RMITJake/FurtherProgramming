@@ -34,7 +34,7 @@ public class OrderHandlerTest {
         homeVenue = new Venue("Home",20, "relaxing; gaming","House",0);
         workVenue = new Venue("Work",40, "troubleshooting; calling","IT",165);
 
-        homeEvent = new Event("Jake@Home", "The Kent's House", "Jake Kent", "01/04/2024", "5:00pm",4,1,"relaxing; gaming","house");
+        homeEvent = new Event("Jake@Home", "The Kent's House", "Jake Kent", "01/04/2024", "5:00pm",4,1,"relaxing","house");
         workEvent = new Event("JKentTech", "IT for Everyday", "Tech Lead", "20/02/2025", "8:00am",50,1,"working","IT");
 
         homeOrder = new Order(homeEvent, homeVenue);
