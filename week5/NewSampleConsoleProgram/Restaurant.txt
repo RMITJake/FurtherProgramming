@@ -1,6 +1,0 @@
-Funky Burger,$12.00
-Chicken Burger,$11.00
-French Fries,$7.50
-Chicken Wings,$4.50
-Coca Cola,$2.00
-Orange Juice,$3.00

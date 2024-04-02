@@ -1,4 +1,0 @@
-package console;
-class UnitTest{
-
-}
