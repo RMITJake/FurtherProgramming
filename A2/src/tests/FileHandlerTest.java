@@ -2,8 +2,6 @@ package src.tests;
 import src.handlers.FileHandler;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
-
-
 import java.io.FileNotFoundException;
 import java.util.List;
 
