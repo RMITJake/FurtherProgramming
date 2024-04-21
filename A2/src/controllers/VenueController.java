@@ -8,7 +8,12 @@ import java.util.HashMap;
 import src.models.Venue;
 
 public class VenueController extends FileHandler{
-    private String VENUES = "files/venues.csv";
+    private String VENUES;
+
+    // If a VENUES string is not passed, use the default csv path
+    public VenueController(){ this.VENUES = "files/venues.csv"; }
+    // This constructor allows the class to be testable.
+    public VenueController(String file){ this.VENUES = file; }
 
     // Use the FileHandler to read the venues.csv and deserialize to an Event object
     HashMap<Integer, Venue> retrieveVenuesFromCSV(HashMap<Integer, Venue> venueList){
