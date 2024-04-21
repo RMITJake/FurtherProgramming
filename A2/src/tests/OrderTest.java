@@ -9,10 +9,11 @@ public class OrderTest {
     private Event event;
     private Venue venue;
     private Order order;
-
-    // Testing variables
     private double matchDouble;
 
+///////////
+// Setup //
+///////////
     @Before()
     public void setUp(){
         // Setup Event in a legible manner
@@ -37,8 +38,11 @@ public class OrderTest {
 
         order = new Order(event, venue);
     }
+// END Setup
 
-// getTotalPrice
+///////////////////
+// getTotalPrice //
+///////////////////
     @Test()
     public void getTotalPriceTrueTest(){
         matchDouble = 1200.00;
@@ -58,7 +62,9 @@ public class OrderTest {
     }
 // END getTotalPrice
 
-// calculateDiscount
+///////////////////////
+// calculateDiscount //
+///////////////////////
     @Test()
     public void calculateDiscountTrueTest(){
         matchDouble = 12.00;
@@ -78,7 +84,9 @@ public class OrderTest {
     }
 // END calculateDiscount
 
-// calculatePrice
+////////////////////
+// calculatePrice //
+////////////////////
     @Test()
     public void calculatePriceTrueTest(){
         matchDouble = 1188.00;
@@ -98,7 +106,9 @@ public class OrderTest {
     }
 // END calculatePrice
 
-// getBrokerFee
+//////////////////
+// getBrokerFee //
+//////////////////
     @Test()
     public void getBrokerFeeTrueTest(){
         matchDouble = 118.80;
@@ -117,3 +127,5 @@ public class OrderTest {
         assertFalse(order.getBrokerFee() == matchDouble);
     }
 }
+
+// END getBrokerFee
