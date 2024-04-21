@@ -4,6 +4,15 @@ import org.junit.*;
 
 public class VenueControllerTest {
 
+///////////
+// Setup //
+///////////
+    @Before()
+    public void setUp(){
+        VenueController controller = new VenueController("files/tests/venuesTest.csv");
+    }
+// END Setup
+
 // retrieveVenuesFromCSV
     // HashMap<Integer, Venue> retrieveVenuesFromCSV(HashMap<Integer, Venue> venueList){
     //     List<List<String>> records = new ArrayList<>();

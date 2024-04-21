@@ -13,7 +13,7 @@ public class FileHandlerTest extends FileHandler {
 ///////////
     @Before()
     public void setUp(){
-        testFile = "files/inputTest.csv";
+        testFile = "files/tests/inputTest.csv";
     }
 // END Setup
 
