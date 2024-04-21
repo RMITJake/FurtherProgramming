@@ -1,19 +1,28 @@
 package src.tests;
 import src.controllers.VenueController;
+import src.models.Venue;
+import java.util.HashMap;
 import org.junit.*;
+import static org.junit.Assert.assertTrue;
 
 public class VenueControllerTest {
+    VenueController controller;
 
 ///////////
 // Setup //
 ///////////
     @Before()
     public void setUp(){
-        VenueController controller = new VenueController("files/tests/venuesTest.csv");
+        controller = new VenueController("files/tests/venuesTest.csv");
     }
 // END Setup
 
-// retrieveVenuesFromCSV
+///////////////////////////
+// retrieveVenuesFromCSV //
+///////////////////////////
+    @Test()
+    public void retrieveVenuesFromCSVTrue(){
+    }
     // HashMap<Integer, Venue> retrieveVenuesFromCSV(HashMap<Integer, Venue> venueList){
     //     List<List<String>> records = new ArrayList<>();
     //     try{
@@ -39,8 +48,11 @@ public class VenueControllerTest {
     //     }
     //     return venueList;
     // }
+// END retrieveVenuesFromCSV
 
-// getCategories
+///////////////////
+// getCategories //
+///////////////////
     // HashMap<Integer, String> getCategories(HashMap<Integer, Venue> venueList){
     //     HashMap<Integer, String> categories = new HashMap<Integer, String>();
     //     int id = 0;
@@ -52,8 +64,11 @@ public class VenueControllerTest {
     //     }
     //     return categories;
     // }
+// END getCategories
 
-// getVenueByCategory
+////////////////////////
+// getVenueByCategory //
+////////////////////////
     // HashMap<Integer, Venue> getVenueByCategory(String category, HashMap<Integer, Venue> venueList){
     //     HashMap<Integer, Venue> venueFiltered = new HashMap<Integer, Venue>();
 
@@ -64,11 +79,13 @@ public class VenueControllerTest {
     //             venueFiltered.put(id, venueList.get(venueId));
     //         }
     //     }
-
     //     return venueFiltered;
     // }
+// END getVenueByCategory
 
-// searchVenueByName
+///////////////////////
+// searchVenueByName //
+///////////////////////
     // HashMap<Integer, Venue> searchVenueByName(String searchName, HashMap<Integer, Venue> venueList){
     //     HashMap<Integer, Venue> searchVenues = new HashMap<Integer, Venue>();
     //     int newId = 0;
@@ -80,8 +97,11 @@ public class VenueControllerTest {
     //     }
     //     return searchVenues;
     // }
+// END searchVenueByName
 
-// getVenueByName
+////////////////////
+// getVenueByName //
+////////////////////
     // Venue getVenueByName(String searchName, HashMap<Integer, Venue> venueList){
     //     for(int venueId : venueList.keySet()){
     //         if(venueList.get(venueId).getName().equals(searchName)){
@@ -90,4 +110,5 @@ public class VenueControllerTest {
     //     }
     //     return null;
     // }
+// END getVenueByName
 }

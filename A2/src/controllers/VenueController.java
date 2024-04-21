@@ -16,7 +16,7 @@ public class VenueController extends FileHandler{
     public VenueController(String file){ this.VENUES = file; }
 
     // Use the FileHandler to read the venues.csv and deserialize to an Event object
-    HashMap<Integer, Venue> retrieveVenuesFromCSV(HashMap<Integer, Venue> venueList){
+    public HashMap<Integer, Venue> retrieveVenuesFromCSV(HashMap<Integer, Venue> venueList){
         List<List<String>> records = new ArrayList<>();
         try{
             records = getLineFromCSV(VENUES);
