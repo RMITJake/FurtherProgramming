@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // Class cannot be made abstract as it would not be testable
-public class FileHandler {
+public abstract class FileHandler {
     private String COMMA_DELIMITER = ",";
 
     private List<String> getRecordFromLine(String line) {

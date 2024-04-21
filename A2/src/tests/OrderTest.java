@@ -5,7 +5,6 @@ import src.models.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-
 public class OrderTest {
     private Event event;
     private Venue venue;
