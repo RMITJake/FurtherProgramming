@@ -1,7 +1,5 @@
 package src.tests;
 import src.handlers.OrderHandler;
-import src.handlers.RequestHandler;
-import src.handlers.VenueHandler;
 import src.models.*;
 
 import static org.junit.Assert.assertFalse;
@@ -21,7 +19,7 @@ public class OrderHandlerTest {
 
     @Before
     public void setUp(){
-        order = new OrderHandler(new RequestHandler(), new VenueHandler());
+        order = new OrderHandler();
 
         homeVenue = new Venue("Home",20, "relaxing; gaming","House",0);
         workVenue = new Venue("Work",40, "troubleshooting; calling","IT",165);

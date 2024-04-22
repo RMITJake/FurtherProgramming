@@ -6,13 +6,6 @@ import src.models.Event;
 import src.models.Order;
 
 public class OrderHandler {
-    private RequestHandler request;
-    private VenueHandler venue;
-
-    public OrderHandler(RequestHandler request, VenueHandler venue){
-        this.request = request;
-        this.venue = venue;
-    }
 
     // Match an event with a venue from the venueList
     // The order list input allows checking for checking date/time matches
