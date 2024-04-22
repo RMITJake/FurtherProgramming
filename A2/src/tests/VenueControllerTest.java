@@ -1,114 +1,180 @@
 package src.tests;
 import src.controllers.VenueController;
 import src.models.Venue;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.FileNotFoundException;
 import org.junit.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class VenueControllerTest {
     VenueController controller;
+    String testFile = "files/tests/venuesTest.csv";
+    HashMap<Integer, Venue> testMap;
 
 ///////////
 // Setup //
 ///////////
     @Before()
     public void setUp(){
-        controller = new VenueController("files/tests/venuesTest.csv");
+        controller = new VenueController(testFile);
+
+        testMap = new HashMap<>();
+        Venue venue;
+        venue = new Venue("Testing Factory",100,"Testing; Positive Outcomes","Unit Test",3000);
+        testMap.put(1,venue);
+        venue = new Venue("Unit Testing Station",50,"Unit Testing;Testing","Unit Test",7000);
+        testMap.put(2,venue);
+        venue = new Venue("Asserting Test Outcome",90,"Unit Testing; Positive Outcomes","Outcome",400);
+        testMap.put(3,venue);
     }
 // END Setup
+
+////////////////////////
+// getLineFromCSVTest //
+////////////////////////
+    @Test()
+    public void getLineFromCSVTest() throws FileNotFoundException{
+        List<List<String>> expected = new ArrayList<>();
+        List<String> record = new ArrayList<String>();
+
+        record = new ArrayList<String>(){{
+            add("Name");
+            add("Capacity");
+            add("Suitable for");
+            add("Category");
+            add("Price per hour");
+        }};
+        expected.add(record);
+
+        record = new ArrayList<String>(){{
+            add("Testing Factory");
+            add("100");
+            add("Testing; Positive Outcomes");
+            add("Unit Test");
+            add("3000");
+        }};
+        expected.add(record);
+
+        record = new ArrayList<String>(){{
+            add("Unit Testing Station");
+            add("50");
+            add("Unit Testing;Testing");
+            add("Unit Test");
+            add("7000");
+        }};
+        expected.add(record);
+
+        record = new ArrayList<String>(){{
+            add("Asserting Test Outcome");
+            add("90");
+            add("Unit Testing; Positive Outcomes");
+            add("Outcome");
+            add("400");
+        }};
+        expected.add(record);
+
+        List<List<String>> fileContents = controller.getLineFromCSV(testFile);
+        
+        assertEquals(expected, fileContents);
+    }
+// END getLineFromCSVTest
+
+/////////////////////////////////////////////
+// getLineFromCSVFileNotFoundExceptionTest //
+/////////////////////////////////////////////
+    @Test(expected=FileNotFoundException.class)
+    public void getLineFromCSVFileNotFoundExceptionTest() throws FileNotFoundException{
+        controller.getLineFromCSV("files/404.csv");
+    }
+// END getLineFromCSVFileNotFoundExceptionTest
 
 ///////////////////////////
 // retrieveVenuesFromCSV //
 ///////////////////////////
     @Test()
-    public void retrieveVenuesFromCSVTrue(){
+    public void retrieveVenuesFromCSV(){
+        HashMap<Integer, Venue> csvMap = controller.retrieveVenuesFromCSV(new HashMap<Integer, Venue>());
+
+        for(int i=1; i <= testMap.size(); i++){
+            assertEquals(testMap.get(i).getName(), csvMap.get(i).getName());
+        }
     }
-    // HashMap<Integer, Venue> retrieveVenuesFromCSV(HashMap<Integer, Venue> venueList){
-    //     List<List<String>> records = new ArrayList<>();
-    //     try{
-    //         records = getLineFromCSV(VENUES);
-    //     } catch(FileNotFoundException FNF) {
-    //         System.err.println(VENUES + " was not found.");
-    //     }
-
-    //     records.remove(0); // remove headers
-    //     int id = 0;
-
-    //     for(List<String> record : records){
-    //         id++;
-    //         if(venueList.get(id) == null){
-    //             venueList.put(id, new Venue(
-    //                 record.get(0),
-    //                 Integer.parseInt(record.get(1)),
-    //                 record.get(2),
-    //                 record.get(3),
-    //                 Integer.parseInt(record.get(4)
-    //             )));
-    //         }
-    //     }
-    //     return venueList;
-    // }
 // END retrieveVenuesFromCSV
 
 ///////////////////
 // getCategories //
 ///////////////////
-    // HashMap<Integer, String> getCategories(HashMap<Integer, Venue> venueList){
-    //     HashMap<Integer, String> categories = new HashMap<Integer, String>();
-    //     int id = 0;
-    //     for(int venue : venueList.keySet()){
-    //         if(!categories.containsValue(venueList.get(venue).getCategory())){
-    //             id++;
-    //             categories.put(id, venueList.get(venue).getCategory());
-    //         }
-    //     }
-    //     return categories;
-    // }
+    @Test()
+    public void getCategories(){
+        HashMap<Integer, String> expectedCategories = new HashMap<>();
+        expectedCategories.put(1, "Unit Test");
+        expectedCategories.put(2, "Outcome");
+
+        HashMap<Integer, String> csvCategories = controller.getCategories(testMap);
+        for(int i=1; i <= testMap.size(); i++){
+            assertEquals(expectedCategories.get(i), csvCategories.get(i));
+        }
+    }
 // END getCategories
 
 ////////////////////////
 // getVenueByCategory //
 ////////////////////////
-    // HashMap<Integer, Venue> getVenueByCategory(String category, HashMap<Integer, Venue> venueList){
-    //     HashMap<Integer, Venue> venueFiltered = new HashMap<Integer, Venue>();
+    @Test()
+    public void getVenueByCategoryTrue(){
+        String categoryMatch = "Unit Test";
+        HashMap<Integer, Venue> categoryMap = controller.getVenueByCategory(categoryMatch, testMap);
+        for(int i=1; i <= categoryMap.size(); i++){
+            assertEquals(categoryMatch, categoryMap.get(i).getCategory());
+        }
+    }
 
-    //     int id = 0;
-    //     for(int venueId : venueList.keySet()){
-    //         if(venueList.get(venueId).getCategory().contains(category)){
-    //             id++;
-    //             venueFiltered.put(id, venueList.get(venueId));
-    //         }
-    //     }
-    //     return venueFiltered;
-    // }
+    @Test()
+    public void getVenueByCategoryFalse(){
+        String categoryMatch = "Unit Test";
+        String categoryFalse = "Outcome";
+        HashMap<Integer, Venue> categoryMap = controller.getVenueByCategory(categoryMatch, testMap);
+        for(int i=1; i <= categoryMap.size(); i++){
+            assertFalse(categoryFalse.equals(categoryMap.get(i).getCategory()));
+        }
+    }
 // END getVenueByCategory
 
 ///////////////////////
 // searchVenueByName //
 ///////////////////////
-    // HashMap<Integer, Venue> searchVenueByName(String searchName, HashMap<Integer, Venue> venueList){
-    //     HashMap<Integer, Venue> searchVenues = new HashMap<Integer, Venue>();
-    //     int newId = 0;
-    //     for(int venueId : venueList.keySet()){
-    //         if(venueList.get(venueId).getName().toLowerCase().contains(searchName.toLowerCase())){
-    //             newId++;
-    //             searchVenues.put(newId, venueList.get(venueId));
-    //         }
-    //     }
-    //     return searchVenues;
-    // }
+    @Test()
+    public void searchVenueByNameTrue(){
+        String searchMatch = "Testing";
+        HashMap<Integer, Venue> searchMap = controller.getVenueByCategory(searchMatch, testMap);
+        for(int i=1; i <= searchMap.size(); i++){
+            assertTrue(searchMap.get(i).getCategory().toLowerCase().contains(searchMatch.toLowerCase()));
+        }
+    }
+
+    @Test()
+    public void searchVenueByNameFalse(){
+        String searchMatch = "Testing";
+        String searchFalse = "Assert";
+        HashMap<Integer, Venue> searchMap = controller.getVenueByCategory(searchMatch, testMap);
+        for(int i=1; i <= searchMap.size(); i++){
+            assertFalse(searchMap.get(i).getCategory().toLowerCase().contains(searchFalse.toLowerCase()));
+        }
+    }
 // END searchVenueByName
 
 ////////////////////
 // getVenueByName //
 ////////////////////
-    // Venue getVenueByName(String searchName, HashMap<Integer, Venue> venueList){
-    //     for(int venueId : venueList.keySet()){
-    //         if(venueList.get(venueId).getName().equals(searchName)){
-    //             return venueList.get(venueId);
-    //         }
-    //     }
-    //     return null;
-    // }
+    @Test()
+    public void getVenueByNameTrue(){
+        String searchMatch = "Unit Testing Station";
+        Venue searchVenue = controller.getVenueByName(searchMatch, testMap);
+        assertEquals(searchMatch.toLowerCase(), searchVenue.getName().toLowerCase());
+    }
 // END getVenueByName
 }

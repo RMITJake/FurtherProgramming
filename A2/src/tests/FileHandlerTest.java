@@ -3,6 +3,7 @@ import src.handlers.FileHandler;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileHandlerTest extends FileHandler {
@@ -17,25 +18,37 @@ public class FileHandlerTest extends FileHandler {
     }
 // END Setup
 
-
 ////////////////////////
 // getLineFromCSVTest //
 ////////////////////////
-@Test()
-public void getLineFromCSVTest() throws FileNotFoundException{
-    String input = testFile;
-    String expected = "Home,4000,relax; watch tv,Indoor,100";
-    List<List<String>> fileContents = getLineFromCSV(input);
-    String fileString = "";
-    for(List<String> outerStr : fileContents){
-        for(String innerStr : outerStr){
-            fileString += innerStr + ",";
-        }
+    @Test()
+    public void getLineFromCSVTest() throws FileNotFoundException{
+        String input = testFile;
+        List<List<String>> expected = new ArrayList<>();
+        List<String> record = new ArrayList<String>();
+
+        record = new ArrayList<String>(){{
+            add("Name");
+            add("Capacity");
+            add("Suitable for");
+            add("Category");
+            add("Price per hour");
+        }};
+        expected.add(record);
+
+        record = new ArrayList<String>(){{
+            add("Home");
+            add("4000");
+            add("relax; watch tv");
+            add("Indoor");
+            add("100");
+        }};
+        expected.add(record);
+
+        List<List<String>> fileContents = getLineFromCSV(input);
+        
+        assertEquals(expected, fileContents);
     }
-    fileString = fileString.substring(0, fileString.length()-1);
-    
-    assertEquals(expected, fileString);
-}
 // END getLineFromCSVTest
 
 /////////////////////////////////////////////

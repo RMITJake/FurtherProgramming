@@ -10,10 +10,8 @@ import src.models.Venue;
 public class VenueController extends FileHandler{
     private String VENUES;
 
-    // If a VENUES string is not passed, use the default csv path
-    public VenueController(){ this.VENUES = "files/venues.csv"; }
-    // This constructor allows the class to be testable.
-    public VenueController(String file){ this.VENUES = file; }
+    public VenueController(){ this.VENUES = "files/venues.csv"; };
+    public VenueController(String file){ this.VENUES = file; };
 
     // Use the FileHandler to read the venues.csv and deserialize to an Event object
     public HashMap<Integer, Venue> retrieveVenuesFromCSV(HashMap<Integer, Venue> venueList){
@@ -43,7 +41,7 @@ public class VenueController extends FileHandler{
     }
 
     // Search through the venueList and get unique categories
-    HashMap<Integer, String> getCategories(HashMap<Integer, Venue> venueList){
+    public HashMap<Integer, String> getCategories(HashMap<Integer, Venue> venueList){
         HashMap<Integer, String> categories = new HashMap<Integer, String>();
         int id = 0;
         for(int venue : venueList.keySet()){
@@ -56,7 +54,7 @@ public class VenueController extends FileHandler{
     }
 
     // Search through the venueList and return all venues of a specific category
-    HashMap<Integer, Venue> getVenueByCategory(String category, HashMap<Integer, Venue> venueList){
+    public HashMap<Integer, Venue> getVenueByCategory(String category, HashMap<Integer, Venue> venueList){
         HashMap<Integer, Venue> venueFiltered = new HashMap<Integer, Venue>();
 
         int id = 0;
@@ -71,7 +69,7 @@ public class VenueController extends FileHandler{
     }
 
     // Search through the venueList and return a list of venues with similar names
-    HashMap<Integer, Venue> searchVenueByName(String searchName, HashMap<Integer, Venue> venueList){
+    public HashMap<Integer, Venue> searchVenueByName(String searchName, HashMap<Integer, Venue> venueList){
         HashMap<Integer, Venue> searchVenues = new HashMap<Integer, Venue>();
         int newId = 0;
         for(int venueId : venueList.keySet()){
@@ -84,7 +82,7 @@ public class VenueController extends FileHandler{
     }
 
     // Search through the venueList and return a venue with a specific
-    Venue getVenueByName(String searchName, HashMap<Integer, Venue> venueList){
+    public Venue getVenueByName(String searchName, HashMap<Integer, Venue> venueList){
         for(int venueId : venueList.keySet()){
             if(venueList.get(venueId).getName().equals(searchName)){
                 return venueList.get(venueId);
