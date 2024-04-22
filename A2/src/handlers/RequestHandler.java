@@ -13,7 +13,7 @@ public class RequestHandler extends FileHandler{
     public RequestHandler(String file){ this.REQUESTS = file; };
     
     // Use the FileHandler to read the requests.csv and deserialize to a Venue object
-    HashMap<Integer, Event> retrieveRequests(HashMap<Integer, Event> requestList){
+    public HashMap<Integer, Event> retrieveRequestsFromCSV(HashMap<Integer, Event> requestList){
         List<List<String>> records = new ArrayList<>();
         try{
             records = getLineFromCSV(REQUESTS);
