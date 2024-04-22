@@ -1,5 +1,5 @@
 package src.tests;
-import src.controllers.VenueController;
+import src.handlers.VenueHandler;
 import src.models.Venue;
 import java.util.List;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-public class VenueControllerTest {
-    VenueController controller;
+public class VenueHandlerTest {
+    VenueHandler handler;
     String testFile = "files/tests/venuesTest.csv";
     HashMap<Integer, Venue> testMap;
 
@@ -20,7 +20,7 @@ public class VenueControllerTest {
 ///////////
     @Before()
     public void setUp(){
-        controller = new VenueController(testFile);
+        handler = new VenueHandler(testFile);
 
         testMap = new HashMap<>();
         Venue venue;
@@ -77,7 +77,7 @@ public class VenueControllerTest {
         }};
         expected.add(record);
 
-        List<List<String>> fileContents = controller.getLineFromCSV(testFile);
+        List<List<String>> fileContents = handler.getLineFromCSV(testFile);
         
         assertEquals(expected, fileContents);
     }
@@ -88,7 +88,7 @@ public class VenueControllerTest {
 /////////////////////////////////////////////
     @Test(expected=FileNotFoundException.class)
     public void getLineFromCSVFileNotFoundExceptionTest() throws FileNotFoundException{
-        controller.getLineFromCSV("files/404.csv");
+        handler.getLineFromCSV("files/404.csv");
     }
 // END getLineFromCSVFileNotFoundExceptionTest
 
@@ -97,7 +97,7 @@ public class VenueControllerTest {
 ///////////////////////////
     @Test()
     public void retrieveVenuesFromCSV(){
-        HashMap<Integer, Venue> csvMap = controller.retrieveVenuesFromCSV(new HashMap<Integer, Venue>());
+        HashMap<Integer, Venue> csvMap = handler.retrieveVenuesFromCSV(new HashMap<Integer, Venue>());
 
         for(int i=1; i <= testMap.size(); i++){
             assertEquals(testMap.get(i).getName(), csvMap.get(i).getName());
@@ -114,7 +114,7 @@ public class VenueControllerTest {
         expectedCategories.put(1, "Unit Test");
         expectedCategories.put(2, "Outcome");
 
-        HashMap<Integer, String> csvCategories = controller.getCategories(testMap);
+        HashMap<Integer, String> csvCategories = handler.getCategories(testMap);
         for(int i=1; i <= testMap.size(); i++){
             assertEquals(expectedCategories.get(i), csvCategories.get(i));
         }
@@ -127,7 +127,7 @@ public class VenueControllerTest {
     @Test()
     public void getVenueByCategoryTrue(){
         String categoryMatch = "Unit Test";
-        HashMap<Integer, Venue> categoryMap = controller.getVenueByCategory(categoryMatch, testMap);
+        HashMap<Integer, Venue> categoryMap = handler.getVenueByCategory(categoryMatch, testMap);
         for(int i=1; i <= categoryMap.size(); i++){
             assertEquals(categoryMatch, categoryMap.get(i).getCategory());
         }
@@ -137,7 +137,7 @@ public class VenueControllerTest {
     public void getVenueByCategoryFalse(){
         String categoryMatch = "Unit Test";
         String categoryFalse = "Outcome";
-        HashMap<Integer, Venue> categoryMap = controller.getVenueByCategory(categoryMatch, testMap);
+        HashMap<Integer, Venue> categoryMap = handler.getVenueByCategory(categoryMatch, testMap);
         for(int i=1; i <= categoryMap.size(); i++){
             assertFalse(categoryFalse.equals(categoryMap.get(i).getCategory()));
         }
@@ -150,7 +150,7 @@ public class VenueControllerTest {
     @Test()
     public void searchVenueByNameTrue(){
         String searchMatch = "Testing";
-        HashMap<Integer, Venue> searchMap = controller.getVenueByCategory(searchMatch, testMap);
+        HashMap<Integer, Venue> searchMap = handler.getVenueByCategory(searchMatch, testMap);
         for(int i=1; i <= searchMap.size(); i++){
             assertTrue(searchMap.get(i).getCategory().toLowerCase().contains(searchMatch.toLowerCase()));
         }
@@ -160,7 +160,7 @@ public class VenueControllerTest {
     public void searchVenueByNameFalse(){
         String searchMatch = "Testing";
         String searchFalse = "Assert";
-        HashMap<Integer, Venue> searchMap = controller.getVenueByCategory(searchMatch, testMap);
+        HashMap<Integer, Venue> searchMap = handler.getVenueByCategory(searchMatch, testMap);
         for(int i=1; i <= searchMap.size(); i++){
             assertFalse(searchMap.get(i).getCategory().toLowerCase().contains(searchFalse.toLowerCase()));
         }
@@ -173,7 +173,7 @@ public class VenueControllerTest {
     @Test()
     public void getVenueByNameTrue(){
         String searchMatch = "Unit Testing Station";
-        Venue searchVenue = controller.getVenueByName(searchMatch, testMap);
+        Venue searchVenue = handler.getVenueByName(searchMatch, testMap);
         assertEquals(searchMatch.toLowerCase(), searchVenue.getName().toLowerCase());
     }
 // END getVenueByName

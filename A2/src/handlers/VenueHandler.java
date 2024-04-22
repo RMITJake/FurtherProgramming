@@ -1,17 +1,16 @@
-package src.controllers;
+package src.handlers;
 
-import src.handlers.FileHandler;
 import java.util.List;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import src.models.Venue;
 
-public class VenueController extends FileHandler{
+public class VenueHandler extends FileHandler{
     private String VENUES;
 
-    public VenueController(){ this.VENUES = "files/venues.csv"; };
-    public VenueController(String file){ this.VENUES = file; };
+    public VenueHandler(){ this.VENUES = "files/venues.csv"; };
+    public VenueHandler(String file){ this.VENUES = file; };
 
     // Use the FileHandler to read the venues.csv and deserialize to an Event object
     public HashMap<Integer, Venue> retrieveVenuesFromCSV(HashMap<Integer, Venue> venueList){
