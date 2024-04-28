@@ -56,67 +56,67 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="220.0" prefWidth="629.0" style="-fx-background-color: lightblue;" VBox.vgrow="ALWAYS">
       <children>
-            <TableView editable="true" layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="354.0">
-              <columns>
-                <TableColumn prefWidth="99.0" text="RequestNo" />
-                <TableColumn prefWidth="102.0" text="Event Title" />
-                  <TableColumn prefWidth="75.0" text="Artist" />
-                  <TableColumn prefWidth="75.0" text="Client" />
-              </columns>
-            </TableView>
-            <VBox layoutX="419.0" layoutY="1.0" prefHeight="200.0" prefWidth="195.0" spacing="5.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Show request details" />
-                  <CheckBox mnemonicParsing="false" text="Available" />
-                  <CheckBox mnemonicParsing="false" text="Sufficient Capacity" />
-                  <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="183.0" text="Event type" />
-                  <CheckBox mnemonicParsing="false" text="Venue Category" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Filter Venues" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Auto Match" />
-               </children>
-               <padding>
-                  <Insets top="3.0" />
-               </padding>
-            </VBox>
+        <TableView editable="true" layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="354.0">
+          <columns>
+            <TableColumn prefWidth="99.0" text="RequestNo" />
+            <TableColumn prefWidth="102.0" text="Event Title" />
+            <TableColumn prefWidth="75.0" text="Artist" />
+            <TableColumn prefWidth="75.0" text="Client" />
+          </columns>
+        </TableView>
+        <VBox layoutX="419.0" layoutY="1.0" prefHeight="200.0" prefWidth="195.0" spacing="5.0">
+          <children>
+              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Show request details" />
+              <CheckBox mnemonicParsing="false" text="Available" />
+              <CheckBox mnemonicParsing="false" text="Sufficient Capacity" />
+              <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="183.0" text="Event type" />
+              <CheckBox mnemonicParsing="false" text="Venue Category" />
+              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Filter Venues" />
+              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Auto Match" />
+          </children>
+          <padding>
+            <Insets top="3.0" />
+          </padding>
+        </VBox>
       </children>
     </AnchorPane>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="235.0" prefWidth="702.0" style="-fx-background-color: lightblue;">
-         <children>
-            <TableView editable="true" layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="354.0">
-               <columns>
-                  <TableColumn prefWidth="99.0" text="VenueNo" />
-                  <TableColumn prefWidth="102.0" text="Venue Name" />
-                  <TableColumn prefWidth="150.0" text="Compatibility Score" />
-               </columns>
-            </TableView>
-            <VBox layoutX="418.0" layoutY="1.0" prefHeight="200.0" prefWidth="213.0" spacing="5.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Show venue details" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Book this venue" />
-                  <Label text="Current bookings for this venue" textAlignment="CENTER">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </Label>
-                  <TableView prefHeight="102.0" prefWidth="209.0">
-                    <columns>
-                      <TableColumn prefWidth="53.0" text="Date" />
-                      <TableColumn prefWidth="56.0" text="Time" />
-                        <TableColumn prefWidth="116.0" text="RequestNo" />
-                    </columns>
-                  </TableView>
-               </children>
-               <padding>
-                  <Insets top="3.0" />
-               </padding>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="235.0" prefWidth="702.0" style="-fx-background-color: lightblue;">
+      <children>
+        <TableView editable="true" layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="354.0">
+          <columns>
+            <TableColumn prefWidth="99.0" text="VenueNo" />
+            <TableColumn prefWidth="102.0" text="Venue Name" />
+            <TableColumn prefWidth="150.0" text="Compatibility Score" />
+          </columns>
+        </TableView>
+        <VBox layoutX="418.0" layoutY="1.0" prefHeight="200.0" prefWidth="213.0" spacing="5.0">
+          <children>
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Show venue details" />
+              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Book this venue" />
+                <Label text="Current bookings for this venue" textAlignment="CENTER">
+                  <padding>
+                    <Insets top="5.0" />
+                  </padding>
+                  <VBox.margin>
+                    <Insets top="5.0" />
+                  </VBox.margin>
+                </Label>
+                <TableView prefHeight="102.0" prefWidth="209.0">
+                  <columns>
+                    <TableColumn prefWidth="53.0" text="Date" />
+                    <TableColumn prefWidth="56.0" text="Time" />
+                    <TableColumn prefWidth="116.0" text="RequestNo" />
+                  </columns>
+                </TableView>
+              </children>
+              <padding>
+                <Insets top="3.0" />
+              </padding>
             </VBox>
          </children>
       </AnchorPane>
   </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
+  <padding>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+  </padding>
 </VBox>
