@@ -2,15 +2,18 @@ package src;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-
+// import javafx.scene.layout.BorderPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
+			// BorderPane root = new BorderPane();
+			Parent root = FXMLLoader.load(getClass().getResource("views/Matchmaker.fxml"));
+			// Throws nullpointerexception
+			Scene scene = new Scene(root,700,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
