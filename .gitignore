@@ -1,6 +1,7 @@
+*.swp
 *.class
 .~*
 *.vscode
 */*.vscode
 *Zone.Identifier
-*/lib
+*/lib/*
