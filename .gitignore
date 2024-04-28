@@ -4,5 +4,4 @@
 *.vscode
 */*.vscode
 *Zone.Identifier
-*/lib/*
-A2/lib/*
+/A2/lib
