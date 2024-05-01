@@ -99,8 +99,8 @@ public class MainWeek10 extends Application {
 				selectedItem = (Animal) tableView.getSelectionModel().getSelectedItem();
 				if (selectedItem != null) {
 					nameTextField.setText(selectedItem.getName());
-					coloursTextField.setText(____________________); //TASK 1 set colours field accordingly
-					ageTextField.setText(String.valueOf(__________________)); //TASK 2 set age field accordingly
+					coloursTextField.setText(selectedItem.getColour()); //TASK 1 set colours field accordingly
+					ageTextField.setText(String.valueOf(selectedItem.getAge())); //TASK 2 set age field accordingly
 				}
 			}
 		});
@@ -114,14 +114,14 @@ public class MainWeek10 extends Application {
 			tableView.getItems().addAll(animals.getList()); //re-populate the User Interface TableView list
 		});
 
-		Button ________ = new Button("Remove from List"); //TASK 3: Declare the remove button
-		______________.setOnAction(event -> { //TASK 4: Attach an event handler to the button
+		Button button = new Button("Remove from List"); //TASK 3: Declare the remove button
+		button.setOnAction(event -> { //TASK 4: Attach an event handler to the button
 
 			if (tableView.getItems().size()>0) {
 				animals.getList().remove(selectedItem);
 				tableView.getSelectionModel().clearSelection();
 				tableView.getItems().clear(); //refresh
-				tableView.getItems().addAll(______________); //TASK 5: re-populate the User Interface TableView list after clearing it
+				tableView.getItems().addAll(animals.getList()); //TASK 5: re-populate the User Interface TableView list after clearing it
 				System.out.println(animals.getList());
 			}
 		});
@@ -129,8 +129,10 @@ public class MainWeek10 extends Application {
 		Button saveButton = new Button("Save to DB");
 		saveButton.setOnAction(event -> {
 			System.out.print("Saving");
-			DBManager.write(____________); //TASK 6: pass on the generic animal list using DBManager write method
+			DBManager.write(animals.getList()); //TASK 6: pass on the generic animal list using DBManager write method
 		});
+
+		Button removeButton = new Button("Remove from List");
 
 		HBox buttonsHbox = new HBox();
 		buttonsHbox.getChildren().add(addButton);
