@@ -8,15 +8,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DatabaseHandlerTest {
-    private List<String> clientList = new ArrayList<String>();
+    private List<String> clientList = new ArrayList<>();
+    private List<Venue> venueList = new ArrayList<>();
 ///////////
 // Setup //
 ///////////
     @Before()
     @Test()
-    public void setUp(){
+    public void setup(){
         DatabaseHandler.initializeDb(DatabaseHandler.testdb);
 
+        // Client list
         String client;
         client = "Jake";
         clientList.add(client);
@@ -26,6 +28,15 @@ public class DatabaseHandlerTest {
         clientList.add(client);
         client = "Basil";
         clientList.add(client);
+
+        // Venue list
+        Venue venue;
+        venue = new Venue("Testing Factory",100,"Testing; Positive Outcomes","Unit Test",3000);
+        venueList.add(venue);
+        venue = new Venue("Unit Testing Station",50,"Unit Testing;Testing","Unit Test",7000);
+        venueList.add(venue);
+        venue = new Venue("Asserting Test Outcome",90,"Unit Testing; Positive Outcomes","Outcome",400);
+        venueList.add(venue);
     }
 // END Setup
 
@@ -35,6 +46,18 @@ public class DatabaseHandlerTest {
     @Test()
     public void writeClient(){
         DatabaseHandler.writeClient(clientList);
+    }
+// END writeVenue
+
+////////////////
+// writeVenue //
+////////////////
+    @Test()
+    public void writeVenue(){
+        try {
+            Thread.sleep(100);
+        } catch (Exception e){}
+        DatabaseHandler.writeVenue(venueList);
     }
 // END writeVenue
 }

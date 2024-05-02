@@ -127,7 +127,7 @@ public class DatabaseHandler {
 // Write to DB Methods //
 /////////////////////////
     public static void writeClient(List<String> clientList){
-        DebugHandler.print("Creating Tables");
+        DebugHandler.print("Creating client list to db");
         String insertStatement = "INSERT INTO clients VALUES (?, ?)";
         try(
             Connection connection = DriverManager.getConnection(connectionString);
@@ -144,5 +144,27 @@ public class DatabaseHandler {
             ex.printStackTrace(System.err);
         } // END of Try-Catch block
     } // END of writeClient
+
+    public static void writeVenue(List<Venue> venueList){
+        DebugHandler.print("Creating venu list to db");
+        String insertStatement = "INSERT INTO venues VALUES (?, ?, ?, ?, ?)";
+        try(
+            Connection connection = DriverManager.getConnection(connectionString);
+            PreparedStatement prepartedStatement = connection.prepareStatement(insertStatement);
+        ){ // inside the try block
+            int rowsAffected = 0;
+            for(Venue venue : venueList){
+                prepartedStatement.setString(2, venue.getName());
+                prepartedStatement.setInt(3, venue.getCapacity());
+                prepartedStatement.setString(4, venue.getCategory());
+                prepartedStatement.setDouble(5, venue.getPricePerHour());
+                int row = prepartedStatement.executeUpdate();
+                rowsAffected += row;
+            }
+            DebugHandler.print(String.format("%s rows affected", rowsAffected));
+        } catch(SQLException ex){
+            ex.printStackTrace(System.err);
+        } // END of Try-Catch block
+    } // END of writeVenue
 // END Write to DB Methods
 }
