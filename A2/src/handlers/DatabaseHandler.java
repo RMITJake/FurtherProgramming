@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
+import src.models.Venue;
 
 public class DatabaseHandler {
     // Variable to allow different databases to be accessed
@@ -33,7 +36,6 @@ public class DatabaseHandler {
         DebugHandler.print("Creating Tables");
         try(
             Connection connection = DriverManager.getConnection(connectionString);
-            // Connection connection = DriverManager.getConnection("jdbc:sqlite:test2.db");
             Statement statement = connection.createStatement();
         ){ // inside the try block
             statement.setQueryTimeout(30);
@@ -41,7 +43,7 @@ public class DatabaseHandler {
             statement.executeUpdate(String.format("CREATE TABLE %s (%s)", table, schema));
         } catch(SQLException ex){
             ex.printStackTrace(System.err);
-        }
+        } // END of Try-Catch block
     }
 
     // Clients
@@ -124,8 +126,23 @@ public class DatabaseHandler {
 /////////////////////////
 // Write to DB Methods //
 /////////////////////////
-    public static void writeClient(){
-
-    }
+    public static void writeClient(List<String> clientList){
+        DebugHandler.print("Creating Tables");
+        String insertStatement = "INSERT INTO clients VALUES (?, ?)";
+        try(
+            Connection connection = DriverManager.getConnection(connectionString);
+            PreparedStatement prepartedStatement = connection.prepareStatement(insertStatement);
+        ){ // inside the try block
+            int rowsAffected = 0;
+            for(String client : clientList){
+                prepartedStatement.setString(2, client);
+                int row = prepartedStatement.executeUpdate();
+                rowsAffected += row;
+            }
+            DebugHandler.print(String.format("%s rows affected", rowsAffected));
+        } catch(SQLException ex){
+            ex.printStackTrace(System.err);
+        } // END of Try-Catch block
+    } // END of writeClient
 // END Write to DB Methods
 }
