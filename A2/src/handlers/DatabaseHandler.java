@@ -7,7 +7,11 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class DatabaseHandler {
+    // Variable to allow different databases to be accessed
     private static String database;
+
+    // Variable which allows for a test database to be setup
+    public static final String testdb = "testdb";
 
     public static void initializeDb(String db){
         database = db;
@@ -17,7 +21,6 @@ public class DatabaseHandler {
         createVenuesTable();
         createSuitableForTable();
         createBookingsTable();
-        createUsersTable();
     }
 
     // Create Table
