@@ -1,12 +1,12 @@
 package src.models;
 
-public class Order{
+public class Booking{
     private double discountAmount;
     private int priceperhour;
     private Event event;
     private Venue venue;
 
-    public Order(Event event, Venue venue){
+    public Booking(Event event, Venue venue){
         this.event = event;
         this.venue = venue;
     }
