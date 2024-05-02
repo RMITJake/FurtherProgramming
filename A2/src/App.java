@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 // import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import src.handlers.DatabaseHandler;
 
 public class App extends Application {
 	@Override
@@ -23,6 +24,7 @@ public class App extends Application {
 	}
 	
 	public static void main(String[] args) {
+		DatabaseHandler.initializeDb("livemusicvenuematchmaker");
 		launch(args);
 	}
 }
