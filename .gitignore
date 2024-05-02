@@ -4,12 +4,3 @@
 *.vscode
 */*.vscode
 *Zone.Identifier
-/A2/lib
-A2/lib/javafx-swt.jar
-A2/lib/javafx.base.jar
-A2/lib/javafx.controls.jar
-A2/lib/javafx.fxml.jar
-A2/lib/javafx.graphics.jar
-A2/lib/javafx.media.jar
-A2/lib/javafx.swing.jar
-A2/lib/javafx.web.jar
