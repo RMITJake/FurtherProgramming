@@ -14,8 +14,8 @@ public class OrderHandlerTest {
     private Venue workVenue;
     private Event homeEvent;
     private Event workEvent;
-    private Order homeOrder;
-    private Order workOrder;
+    private Booking homeOrder;
+    private Booking workOrder;
 
     @Before
     public void setUp(){
@@ -27,8 +27,8 @@ public class OrderHandlerTest {
         homeEvent = new Event("Jake@Home", "The Kent's House", "Jake Kent", "01/04/2024", "5:00pm",4,1,"relaxing","house");
         workEvent = new Event("JKentTech", "IT for Everyday", "Tech Lead", "20/02/2025", "8:00am",50,1,"working","IT");
 
-        homeOrder = new Order(homeEvent, homeVenue);
-        workOrder = new Order(workEvent, workVenue);
+        homeOrder = new Booking(homeEvent, homeVenue);
+        workOrder = new Booking(workEvent, workVenue);
     }
 
     @Test

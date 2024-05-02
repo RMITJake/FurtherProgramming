@@ -3,13 +3,13 @@ package src.handlers;
 import java.util.HashMap;
 import src.models.Venue;
 import src.models.Event;
-import src.models.Order;
+import src.models.Booking;
 
 public class OrderHandler {
 
     // Match an event with a venue from the venueList
     // The order list input allows checking for checking date/time matches
-    HashMap<Venue, Integer> autoMatchEvent(HashMap<Integer, Venue> venueList, Event event, HashMap<Integer, Order> orderList){
+    HashMap<Venue, Integer> autoMatchEvent(HashMap<Integer, Venue> venueList, Event event, HashMap<Integer, Booking> orderList){
         HashMap<Venue, Integer> matchList = new HashMap<Venue, Integer>();
         int matchScore;
         
@@ -43,15 +43,15 @@ public class OrderHandler {
         return filteredEvents;
     }
 
-    Order newOrder(Event event, Venue venue){
-        return new Order(event, venue);
+    Booking newOrder(Event event, Venue venue){
+        return new Booking(event, venue);
     }
 
-    HashMap<Integer, Order> generateOrders(HashMap<Integer, Order> orderList, HashMap<Event, Venue> matchedList){
+    HashMap<Integer, Booking> generateOrders(HashMap<Integer, Booking> orderList, HashMap<Event, Venue> matchedList){
         int id = 0;
         for(Event event : matchedList.keySet()){
             id++;
-            orderList.put(id, new Order(event, matchedList.get(event)));
+            orderList.put(id, new Booking(event, matchedList.get(event)));
         }
         return orderList;
     }
@@ -59,7 +59,7 @@ public class OrderHandler {
 ////////////////////
 // MATCH CRITERIA //
 ////////////////////
-    boolean matchDateTime(Venue venue, Event event, HashMap<Integer, Order> orderList){ 
+    boolean matchDateTime(Venue venue, Event event, HashMap<Integer, Booking> orderList){ 
         for(int orderId : orderList.keySet()){
             if(!matchVenue(venue, orderList.get(orderId))){ return false; }
 
@@ -70,19 +70,19 @@ public class OrderHandler {
         return true;
     }
 
-    public boolean matchVenue(Venue venue, Order order){
+    public boolean matchVenue(Venue venue, Booking order){
         if(venue.getName().equals(order.getVenue().getName())){
             return true;
         }
         return false;
     }
 
-    public boolean matchDate(Event event, Order order){
+    public boolean matchDate(Event event, Booking order){
         if(event.getDate().equals(order.getEvent().getDate())){ return true; }
         return false;
     }
 
-    public boolean matchTime(Event event, Order order){
+    public boolean matchTime(Event event, Booking order){
         String[] eventTimeSplit = event.getTime().split(":");
         int eventTimeInt = Integer.parseInt(eventTimeSplit[0]);
         String[] orderTimeSplit = order.getEvent().getTime().split(":");

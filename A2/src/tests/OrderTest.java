@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 public class OrderTest {
     private Event event;
     private Venue venue;
-    private Order order;
+    private Booking order;
     private double matchDouble;
 
 ///////////
@@ -36,7 +36,7 @@ public class OrderTest {
         int priceperhour = 300;
         venue = new Venue(name, capacity, suitableFor, category, priceperhour);
 
-        order = new Order(event, venue);
+        order = new Booking(event, venue);
     }
 // END Setup
 
