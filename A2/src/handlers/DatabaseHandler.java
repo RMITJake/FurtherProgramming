@@ -9,12 +9,14 @@ import java.sql.ResultSet;
 public class DatabaseHandler {
     // Variable to allow different databases to be accessed
     private static String database;
+    private static String connectionString;
 
     // Variable which allows for a test database to be setup
     public static final String testdb = "testdb";
 
     public static void initializeDb(String db){
         database = db;
+        connectionString = String.format("jdbc:sqlite:%s.db", database);
         createClientsTable();
         createArtistsTable();
         createEventsTable();
@@ -23,11 +25,14 @@ public class DatabaseHandler {
         createBookingsTable();
     }
 
+//////////////////////////
+// Create Table Methods //
+//////////////////////////
     // Create Table
     public static void createTable(String table, String schema){
         DebugHandler.print("Creating Tables");
         try(
-            Connection connection = DriverManager.getConnection(String.format("jdbc:sqlite:%s.db", database));
+            Connection connection = DriverManager.getConnection(connectionString);
             // Connection connection = DriverManager.getConnection("jdbc:sqlite:test2.db");
             Statement statement = connection.createStatement();
         ){ // inside the try block
@@ -114,19 +119,13 @@ public class DatabaseHandler {
         +"accountEnabled BOOLEAN";
         createTable("users", schema);
     }
+// END Create Table Methods
     
-    public static void read(){
-        try(
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-            Statement statement = connection.createStatement();
-        ){ // inside the try block
-            ResultSet results = statement.executeQuery("select * from venues");
-            while(results.next()){
-                System.out.println("result test " + results.getString("Artist"));
-            };
-        } catch(SQLException ex){
-            ex.printStackTrace(System.err);
-        }
-    }
+/////////////////////////
+// Write to DB Methods //
+/////////////////////////
+    public static void writeClient(){
 
+    }
+// END Write to DB Methods
 }
