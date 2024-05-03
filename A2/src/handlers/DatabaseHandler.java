@@ -150,21 +150,39 @@ public class DatabaseHandler {
         String insertStatement = "INSERT INTO venues VALUES (?, ?, ?, ?, ?)";
         try(
             Connection connection = DriverManager.getConnection(connectionString);
-            PreparedStatement prepartedStatement = connection.prepareStatement(insertStatement);
+            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
         ){ // inside the try block
             int rowsAffected = 0;
+            int venueId = 0;
             for(Venue venue : venueList){
-                prepartedStatement.setString(2, venue.getName());
-                prepartedStatement.setInt(3, venue.getCapacity());
-                prepartedStatement.setString(4, venue.getCategory());
-                prepartedStatement.setDouble(5, venue.getPricePerHour());
-                int row = prepartedStatement.executeUpdate();
+                venueId++;
+                preparedInsert.setString(2, venue.getName());
+                preparedInsert.setInt(3, venue.getCapacity());
+                preparedInsert.setString(4, venue.getCategory());
+                preparedInsert.setDouble(5, venue.getPricePerHour());
+                int row = preparedInsert.executeUpdate();
                 rowsAffected += row;
+                writeSuitableFor(connection, venue, venueId);
             }
             DebugHandler.print(String.format("%s rows affected", rowsAffected));
         } catch(SQLException ex){
             ex.printStackTrace(System.err);
         } // END of Try-Catch block
     } // END of writeVenue
+
+    public static void writeSuitableFor(Connection connection, Venue venue, int id){
+        String insertStatement = "INSERT INTO suitablefor VALUES (?, ?, ?)";
+        try(
+            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement)
+            ){ // inside the try block
+                for(String genre : venue.getSuitableFor()){
+                    preparedInsert.setInt(2, id);
+                    preparedInsert.setString(3, genre.trim());
+                    preparedInsert.executeUpdate();
+                }
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 // END Write to DB Methods
 }
