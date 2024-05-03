@@ -1,33 +1,32 @@
 package src.tests;
 import src.handlers.DatabaseHandler;
+import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import src.models.Venue;
+import src.models.Event;
 import java.util.List;
 import java.util.ArrayList;
 
 public class DatabaseHandlerTest {
-    private List<String> clientList = new ArrayList<>();
+    private List<Event> eventList = new ArrayList<>();
     private List<Venue> venueList = new ArrayList<>();
 ///////////
 // Setup //
 ///////////
     @Before()
-    @Test()
-    public void setup(){
-        DatabaseHandler.initializeDb(DatabaseHandler.testdb);
-
-        // Client list
-        String client;
-        client = "Jake";
-        clientList.add(client);
-        client = "Hollie";
-        clientList.add(client);
-        client = "Lemon";
-        clientList.add(client);
-        client = "Basil";
-        clientList.add(client);
+    public void modelSetup(){
+         // Event list
+        Event event;
+        event = new Event("House of Tests","Request Handler Unit","Unit Test","21/04/2024","9:00am",100,2,"unit test","testing");
+        eventList.add(event);
+        event = new Event("Admincorp","Execution Prep","Execution","19/04/2024","7:30pm",3000,12,"unit test","testing");
+        eventList.add(event);
+        event = new Event("Company Two","Next Level Testing","Unit Test","19/04/2024","12:00pm",24,5,"L2","integration");
+        eventList.add(event);
+        event = new Event("House of Tests","Final Approvals","Automated","22/04/2024","8:00am",670,8,"approval","system");
+        eventList.add(event);
 
         // Venue list
         Venue venue;
@@ -40,24 +39,32 @@ public class DatabaseHandlerTest {
     }
 // END Setup
 
+//////////////////
+// initialiseDb //
+//////////////////
+    @Test()
+    public void initializeDb(){
+        DatabaseHandler.initializeDb(DatabaseHandler.testdb);
+        DatabaseHandler.writeEvent(eventList);
+        DatabaseHandler.writeVenue(venueList);
+    }
+// END of initialiseDb
+
 ////////////////
 // writeVenue //
 ////////////////
-    @Test()
-    public void writeClient(){
-        DatabaseHandler.writeClient(clientList);
+    // @Test()
+    public void writeEvent(){
+        // DatabaseHandler.writeEvent(eventList);
     }
 // END writeVenue
 
 ////////////////
 // writeVenue //
 ////////////////
-    @Test()
+    // @Test()
     public void writeVenue(){
-        try {
-            Thread.sleep(100);
-        } catch (Exception e){}
-        DatabaseHandler.writeVenue(venueList);
+        // DatabaseHandler.writeVenue(venueList);
     }
 // END writeVenue
 }
