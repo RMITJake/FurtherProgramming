@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class RequestHandlerTest {
     RequestHandler handler;
     String testFile = "files/tests/requestsTest.csv";
-    HashMap<Integer, Event> testMap;
+    List<Event> testArray;
 
 ///////////
 // Setup //
@@ -20,16 +20,16 @@ public class RequestHandlerTest {
     public void setUp(){
         handler = new RequestHandler(testFile);
 
-        testMap = new HashMap<>();
+        testArray = new ArrayList<>();
         Event event;
         event = new Event("House of Tests","Request Handler Unit","Unit Test","21/04/2024","9:00am",100,2,"unit test","testing");
-        testMap.put(1, event);
+        testArray.add(event);
         event = new Event("Admincorp","Execution Prep","Execution","19/04/2024","7:30pm",3000,12,"unit test","testing");
-        testMap.put(2, event);
+        testArray.add(event);
         event = new Event("Company Two","Next Level Testing","Unit Test","19/04/2024","12:00pm",24,5,"L2","integration");
-        testMap.put(3, event);
+        testArray.add(event);
         event = new Event("House of Tests","Final Approvals","Automated","22/04/2024","8:00am",670,8,"approval","system");
-        testMap.put(4, event);
+        testArray.add(event);
     }
 // END Setup
     
@@ -126,10 +126,10 @@ public class RequestHandlerTest {
 /////////////////////////////
     @Test()
     public void retrieveRequestsFromCSV(){
-        HashMap<Integer, Event> eventMap = handler.retrieveRequestsFromCSV(new HashMap<Integer, Event>());
+        List<Event> eventArray = handler.retrieveRequestsFromCSV(new ArrayList<Event>());
 
-        for(int i=1; i <= testMap.size(); i++){
-            assertEquals(testMap.get(i).getClient(), eventMap.get(i).getClient());
+        for(int i=0; i < testArray.size(); i++){
+            assertEquals(testArray.get(i).getClient(), eventArray.get(i).getClient());
         }
     }
 // END retrieveRequests

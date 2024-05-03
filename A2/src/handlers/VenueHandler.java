@@ -13,7 +13,7 @@ public class VenueHandler extends FileHandler{
     public VenueHandler(String file){ this.VENUES = file; };
 
     // Use the FileHandler to read the venues.csv and deserialize to an Event object
-    public HashMap<Integer, Venue> retrieveVenuesFromCSV(HashMap<Integer, Venue> venueList){
+    public List<Venue> retrieveVenuesFromCSV(List<Venue> venueList){
         List<List<String>> records = new ArrayList<>();
         try{
             records = getLineFromCSV(VENUES);
@@ -22,22 +22,21 @@ public class VenueHandler extends FileHandler{
         }
 
         records.remove(0); // remove headers
-        int id = 0;
 
         for(List<String> record : records){
-            id++;
-            if(venueList.get(id) == null){
-                venueList.put(id, new Venue(
-                    record.get(0),
-                    Integer.parseInt(record.get(1)),
-                    record.get(2),
-                    record.get(3),
-                    Integer.parseInt(record.get(4)
-                )));
-            }
+            venueList.add(new Venue(
+                record.get(0),
+                Integer.parseInt(record.get(1)),
+                record.get(2),
+                record.get(3),
+                Integer.parseInt(record.get(4)
+            )));
         }
         return venueList;
     }
+
+    // Mathod to call with no array
+    public List<Venue> retrieveVenuesFromCSV(){ return retrieveVenuesFromCSV(new ArrayList<Venue>()); }
 
     // Search through the venueList and get unique categories
     public HashMap<Integer, String> getCategories(HashMap<Integer, Venue> venueList){

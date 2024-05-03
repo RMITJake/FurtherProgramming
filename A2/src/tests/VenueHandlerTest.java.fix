@@ -13,7 +13,7 @@ import static org.junit.Assert.assertFalse;
 public class VenueHandlerTest {
     VenueHandler handler;
     String testFile = "files/tests/venuesTest.csv";
-    HashMap<Integer, Venue> testMap;
+    List<Venue> testArray;
 
 ///////////
 // Setup //
@@ -22,14 +22,14 @@ public class VenueHandlerTest {
     public void setUp(){
         handler = new VenueHandler(testFile);
 
-        testMap = new HashMap<>();
+        testArray = new ArrayList<Venue>();
         Venue venue;
         venue = new Venue("Testing Factory",100,"Testing; Positive Outcomes","Unit Test",3000);
-        testMap.put(1,venue);
+        testArray.add(venue);
         venue = new Venue("Unit Testing Station",50,"Unit Testing;Testing","Unit Test",7000);
-        testMap.put(2,venue);
+        testArray.add(venue);
         venue = new Venue("Asserting Test Outcome",90,"Unit Testing; Positive Outcomes","Outcome",400);
-        testMap.put(3,venue);
+        testArray.add(venue);
     }
 // END Setup
 
@@ -97,10 +97,10 @@ public class VenueHandlerTest {
 ///////////////////////////
     @Test()
     public void retrieveVenuesFromCSV(){
-        HashMap<Integer, Venue> csvMap = handler.retrieveVenuesFromCSV(new HashMap<Integer, Venue>());
+        List<Venue> csvArray = handler.retrieveVenuesFromCSV(new ArrayList<Venue>());
 
-        for(int i=1; i <= testMap.size(); i++){
-            assertEquals(testMap.get(i).getName(), csvMap.get(i).getName());
+        for(int i=0; i < testArray.size(); i++){
+            assertEquals(testArray.get(i).getName(), csvArray.get(i).getName());
         }
     }
 // END retrieveVenuesFromCSV

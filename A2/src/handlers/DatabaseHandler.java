@@ -26,6 +26,11 @@ public class DatabaseHandler {
         createBookingsTable();
     }
 
+    public static void seedDb(List<Venue> venueList, List<Event> eventList){
+        writeVenue(venueList);
+        writeEvent(eventList);
+    }
+
 //////////////////////////
 // Create Table Methods //
 //////////////////////////

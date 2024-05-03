@@ -5,11 +5,25 @@ import javafx.scene.Scene;
 // import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import java.util.List;
 import src.handlers.DatabaseHandler;
+import src.handlers.VenueHandler;
+import src.models.Venue;
+import src.models.Event;
+import src.handlers.RequestHandler;
 
 public class App extends Application {
+	private void initialize(){
+		VenueHandler venueHandler = new VenueHandler();
+		RequestHandler requestHandler = new RequestHandler();
+		List<Venue> venues = venueHandler.retrieveVenuesFromCSV();
+		List<Event> events = requestHandler.retrieveRequestsFromCSV();
+		DatabaseHandler.seedDb(venues, events);
+	}
+
 	@Override
 	public void start(Stage primaryStage) {
+		initialize();
 		try {
 			// BorderPane root = new BorderPane();
 			Parent root = FXMLLoader.load(getClass().getResource("views/Matchmaker.fxml"));
