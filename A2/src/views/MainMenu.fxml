@@ -16,7 +16,7 @@
 <VBox prefHeight="496.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.MainMenuController" >
   <children>
     <MenuBar style="-fx-background-color: lightblue;" VBox.vgrow="NEVER">
-      <menus>
+      <menus> <!-- Top Banner Menu -->
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem mnemonicParsing="false" text="New" />
@@ -32,7 +32,7 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
-        </Menu>
+        </Menu> <!-- END FILE MENU -->
         <Menu mnemonicParsing="false" text="Edit">
           <items>
             <MenuItem mnemonicParsing="false" text="Undo" />
@@ -46,13 +46,13 @@
             <MenuItem mnemonicParsing="false" text="Select All" />
             <MenuItem mnemonicParsing="false" text="Unselect All" />
           </items>
-        </Menu>
+        </Menu> <!-- END EDIT MENU -->
         <Menu mnemonicParsing="false" text="Help">
           <items>
             <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
           </items>
-        </Menu>
-      </menus>
+        </Menu> <!-- END HELP MENU -->
+      </menus> <!-- END TOP BANNER MENU -->
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="220.0" prefWidth="629.0" style="-fx-background-color: lightblue;" VBox.vgrow="ALWAYS">
       <children>

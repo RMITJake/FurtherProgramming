@@ -26,7 +26,7 @@ public class App extends Application {
 		initialize();
 		try {
 			// BorderPane root = new BorderPane();
-			Parent root = FXMLLoader.load(getClass().getResource("views/Matchmaker.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("views/MainMenu.fxml"));
 			// Throws nullpointerexception
 			Scene scene = new Scene(root,700,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
