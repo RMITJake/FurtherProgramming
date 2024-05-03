@@ -1,9 +1,15 @@
 package src.handlers;
 
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import src.models.Event;
 
 public class RequestHandler extends FileHandler{
@@ -40,4 +46,29 @@ public class RequestHandler extends FileHandler{
     }
 
     public List<Event> retrieveRequestsFromCSV(){ return retrieveRequestsFromCSV(new ArrayList<Event>()); }
+
+    public static List<Event> eventResultToList(ResultSet result){
+        DebugHandler.print("IN RH.eventResultToList");
+        List<Event> eventList = new ArrayList<Event>();
+        try{
+            while(result.next()){
+                Event event = new Event(
+                result.getInt("id"),
+                result.getString("client"),
+                result.getString("title"),
+                result.getString("artist"),
+                result.getString("dateTime"),
+                result.getInt("target"),
+                result.getInt("duration"),
+                result.getString("type"),
+                result.getString("category")
+                );
+                eventList.add(event);
+                DebugHandler.print(String.format("Added event: %s %s", event.getId(), event.getClient()));
+            }
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return eventList;
+    }
 }

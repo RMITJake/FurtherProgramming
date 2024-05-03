@@ -13,11 +13,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="496.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.MainMenuController" >
+<VBox prefHeight="496.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.MainMenuController">
   <children>
+<!--=============-->
+<!-- BANNER MENU -->
+<!--=============-->
     <MenuBar style="-fx-background-color: lightblue;" VBox.vgrow="NEVER">
       <menus> <!-- Top Banner Menu -->
-        <Menu mnemonicParsing="false" text="File">
+        <Menu mnemonicParsing="false" text="File"> <!-- FILE MENU -->
           <items>
             <MenuItem mnemonicParsing="false" text="New" />
             <MenuItem mnemonicParsing="false" text="Open…" />
@@ -33,7 +36,7 @@
             <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu> <!-- END FILE MENU -->
-        <Menu mnemonicParsing="false" text="Edit">
+        <Menu mnemonicParsing="false" text="Edit"> <!-- EDIT MENU -->
           <items>
             <MenuItem mnemonicParsing="false" text="Undo" />
             <MenuItem mnemonicParsing="false" text="Redo" />
@@ -47,23 +50,28 @@
             <MenuItem mnemonicParsing="false" text="Unselect All" />
           </items>
         </Menu> <!-- END EDIT MENU -->
-        <Menu mnemonicParsing="false" text="Help">
+        <Menu mnemonicParsing="false" text="Help"> <!-- HELP MENU -->
           <items>
             <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
           </items>
         </Menu> <!-- END HELP MENU -->
       </menus> <!-- END TOP BANNER MENU -->
     </MenuBar>
+<!-- END BANNER MENU -->
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="220.0" prefWidth="629.0" style="-fx-background-color: lightblue;" VBox.vgrow="ALWAYS">
       <children>
-        <TableView editable="true" layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="354.0">
+<!--===============-->
+<!-- REQUEST TABLE -->
+<!--===============-->
+        <TableView fx:id="requestTable" editable="true" layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="354.0"> <!-- REQUESTS TABLE -->
           <columns>
-            <TableColumn prefWidth="99.0" text="RequestNo" />
-            <TableColumn prefWidth="102.0" text="Event Title" />
-            <TableColumn prefWidth="75.0" text="Artist" />
-            <TableColumn prefWidth="75.0" text="Client" />
+            <TableColumn prefWidth="99.0" text="RequestNo" fx:id="requestNoColumn"/>
+            <TableColumn prefWidth="102.0" text="Event Title" fx:id="eventColumn"/>
+            <TableColumn prefWidth="75.0" text="Artist" fx:id="artistColumn"/>
+            <TableColumn prefWidth="75.0" text="Client" fx:id="clientColumn"/>
           </columns>
         </TableView>
+<!-- END REQUEST TABLE -->
         <VBox layoutX="419.0" layoutY="1.0" prefHeight="200.0" prefWidth="195.0" spacing="5.0">
           <children>
               <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Show request details" />

@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 import src.models.*;
 
@@ -56,7 +58,7 @@ public class DatabaseHandler {
         +"client INTEGER, "
         +"title STRING, "
         +"artist INTEGER, "
-        +"date DATETIME, "
+        +"dateTime DATETIME, "
         +"target INTEGER, "
         +"duration INTEGER, "
         +"type STRING, "
@@ -123,7 +125,7 @@ public class DatabaseHandler {
                 preparedInsert.setString(2, event.getClient());
                 preparedInsert.setString(3, event.getTitle().trim());
                 preparedInsert.setString(4, event.getArtist());
-                preparedInsert.setString(5, event.getDate());
+                preparedInsert.setString(5, event.getDateTime().toString());
                 preparedInsert.setInt(6, event.getTarget());
                 preparedInsert.setInt(7, event.getDuration());
                 preparedInsert.setString(8, event.getType());
@@ -190,4 +192,41 @@ public class DatabaseHandler {
         }
     }
 // END Write to DB Methods
+
+//////////////////
+// Read from DB //
+//////////////////
+    public static List<Event> readEventsTable(){
+        List<Event> eventList = new ArrayList<>();
+        try(
+            Connection connection = DriverManager.getConnection(connectionString);
+            Statement query = connection.createStatement();
+        ){ // inside the try block
+            ResultSet result = query.executeQuery("SELECT * FROM events");
+            DebugHandler.print(result.getString("client"));
+
+            while(result.next()){
+                DebugHandler.print(result.getString("client"));
+                Event event = new Event(
+                result.getInt("id"),
+                result.getString("client"),
+                result.getString("title"),
+                result.getString("artist"),
+                result.getString("dateTime"),
+                result.getInt("target"),
+                result.getInt("duration"),
+                result.getString("type"),
+                result.getString("category")
+                );
+                eventList.add(event);
+                DebugHandler.print(String.format("Added event: %s %s", event.getId(), event.getClient()));
+            }
+
+            return eventList;
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+// END Read from DB
 }

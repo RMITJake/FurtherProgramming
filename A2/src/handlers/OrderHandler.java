@@ -65,7 +65,7 @@ public class OrderHandler {
 
             if(matchDate(event, orderList.get(orderId))){ return false; }
 
-            if(matchTime(event, orderList.get(orderId))){ return false; }
+            // if(matchTime(event, orderList.get(orderId))){ return false; }
         }
         return true;
     }
@@ -78,30 +78,30 @@ public class OrderHandler {
     }
 
     public boolean matchDate(Event event, Booking order){
-        if(event.getDate().equals(order.getEvent().getDate())){ return true; }
+        if(event.getDateTime().equals(order.getEvent().getDateTime())){ return true; }
         return false;
     }
 
-    public boolean matchTime(Event event, Booking order){
-        String[] eventTimeSplit = event.getTime().split(":");
-        int eventTimeInt = Integer.parseInt(eventTimeSplit[0]);
-        String[] orderTimeSplit = order.getEvent().getTime().split(":");
-        int orderTimeInt = Integer.parseInt(orderTimeSplit[0]);
+    // public boolean matchTime(Event event, Booking order){
+    //     String[] eventTimeSplit = event.getDateTime().split(":");
+    //     int eventTimeInt = Integer.parseInt(eventTimeSplit[0]);
+    //     String[] orderTimeSplit = order.getEvent().getTime().split(":");
+    //     int orderTimeInt = Integer.parseInt(orderTimeSplit[0]);
         
-        if(eventTimeInt == orderTimeInt){
-            return true;
-        }
+    //     if(eventTimeInt == orderTimeInt){
+    //         return true;
+    //     }
 
-        if(eventTimeInt + event.getDuration() < orderTimeInt){
-            return false;
-        }
+    //     if(eventTimeInt + event.getDuration() < orderTimeInt){
+    //         return false;
+    //     }
 
-        if(eventTimeInt <= orderTimeInt + order.getEvent().getDuration()){
-            return true;
-        }
+    //     if(eventTimeInt <= orderTimeInt + order.getEvent().getDuration()){
+    //         return true;
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     public boolean matchCapacity(Venue venue, Event event){ 
         // matches event target(capacity)
