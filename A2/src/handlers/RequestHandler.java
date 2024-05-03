@@ -1,15 +1,11 @@
 package src.handlers;
-
+// library imports
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+// Local imports
 import src.models.Event;
 
 public class RequestHandler extends FileHandler{
@@ -57,7 +53,7 @@ public class RequestHandler extends FileHandler{
                 result.getString("client"),
                 result.getString("title"),
                 result.getString("artist"),
-                result.getString("dateTime"),
+                result.getString("datetime"),
                 result.getInt("target"),
                 result.getInt("duration"),
                 result.getString("type"),

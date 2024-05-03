@@ -58,7 +58,7 @@ public class DatabaseHandler {
         +"client INTEGER, "
         +"title STRING, "
         +"artist INTEGER, "
-        +"dateTime DATETIME, "
+        +"datetime DATETIME, "
         +"target INTEGER, "
         +"duration INTEGER, "
         +"type STRING, "
@@ -223,6 +223,33 @@ public class DatabaseHandler {
             }
 
             return eventList;
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<Venue> readVenuesTable(){
+        List<Venue> venueList = new ArrayList<>();
+        try(
+            Connection connection = DriverManager.getConnection(connectionString);
+            Statement query = connection.createStatement();
+        ){ // inside the try block
+            ResultSet result = query.executeQuery("SELECT * FROM venues");
+            DebugHandler.print(result.getString("name"));
+
+            while(result.next()){
+                Venue venue = new Venue(
+                result.getInt("id"),
+                result.getString("name"),
+                result.getInt("capacity"),
+                result.getString("category"),
+                result.getInt("priceperhour")
+                );
+                venueList.add(venue);
+            }
+
+            return venueList;
         } catch(SQLException ex){
             ex.printStackTrace();
         }

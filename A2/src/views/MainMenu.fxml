@@ -90,13 +90,17 @@
     </AnchorPane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="235.0" prefWidth="702.0" style="-fx-background-color: lightblue;">
       <children>
-        <TableView editable="true" layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="354.0">
+<!--=============-->
+<!-- VENUE TABLE -->
+<!--=============-->
+        <TableView fx:id="venueTable" editable="true" layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="354.0">
           <columns>
-            <TableColumn prefWidth="99.0" text="VenueNo" />
-            <TableColumn prefWidth="102.0" text="Venue Name" />
-            <TableColumn prefWidth="150.0" text="Compatibility Score" />
+            <TableColumn fx:id="venueNoColumn" prefWidth="99.0" text="VenueNo" />
+            <TableColumn fx:id="venueNameColumn" prefWidth="102.0" text="Venue Name" />
+            <TableColumn fx:id="venueCompatibilityColumn" prefWidth="150.0" text="Compatibility Score" />
           </columns>
         </TableView>
+<!-- END VENUE TABLE -->
         <VBox layoutX="418.0" layoutY="1.0" prefHeight="200.0" prefWidth="213.0" spacing="5.0">
           <children>
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Show venue details" />

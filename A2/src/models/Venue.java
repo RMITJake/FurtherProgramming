@@ -1,6 +1,7 @@
 package src.models;
 
 public class Venue{
+    private int id;
     private String name;
     private int capacity;
     private String[] suitableFor;
@@ -15,6 +16,15 @@ public class Venue{
         this.priceperhour = priceperhour;
     }
 
+    public Venue(int id, String name, int capacity, String category, int priceperhour){
+        this.id = id;
+        this.name = name.trim();
+        this.capacity = capacity;
+        this.category = category.trim();
+        this.priceperhour = priceperhour;
+    }
+
+    public int getId(){ return this.id; }
     public String getName(){ return this.name; }
     public int getCapacity(){ return this.capacity; }
     public String[] getSuitableFor(){ return this.suitableFor; }
