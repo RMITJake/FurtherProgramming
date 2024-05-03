@@ -1,9 +1,7 @@
 package src.tests;
 import src.handlers.DatabaseHandler;
-import org.junit.BeforeClass;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
 import src.models.Venue;
 import src.models.Event;
 import java.util.List;

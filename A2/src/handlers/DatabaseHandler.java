@@ -7,8 +7,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import src.models.Venue;
-import src.models.Event;
+import src.models.*;
 
 public class DatabaseHandler {
     // Variable to allow different databases to be accessed
@@ -172,5 +171,18 @@ public class DatabaseHandler {
             ex.printStackTrace();
         }
     } // END of writeSuitableFor
+
+    public static void writeBooking(Connection connection, int eventId, int venueId){
+        String insertStatement = "INSERT INTO suitablefor VALUES (?, ?, ?)";
+        try(
+            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement)
+            ){ // inside the try block
+                preparedInsert.setInt(2, eventId);
+                preparedInsert.setInt(3, venueId);
+                preparedInsert.executeUpdate();
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 // END Write to DB Methods
 }
