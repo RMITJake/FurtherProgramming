@@ -29,6 +29,7 @@ public class Venue{
     public String getName(){ return this.name; }
     public int getCapacity(){ return this.capacity; }
     public String[] getSuitableFor(){ return this.suitableFor; }
+    public void setSuitableFor(String[] suitableFor){ this.suitableFor = suitableFor; }
     public String getCategory(){ return this.category; }
     public int getPricePerHour(){ return this.priceperhour; }
     public void setCompatibilityScore(int compatibilityScore){ this.compatibilityScore = compatibilityScore; }

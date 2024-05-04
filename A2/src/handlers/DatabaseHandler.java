@@ -256,10 +256,34 @@ public class DatabaseHandler {
                 result.getString("category"),
                 result.getInt("priceperhour")
                 );
+                venue.setSuitableFor(readSuitableforTable(venue));
+                for(String s : venue.getSuitableFor()){ DebugHandler.print(s); }
                 venueList.add(venue);
             }
 
             return venueList;
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String[] readSuitableforTable(Venue venue){
+        List<String> stringList = new ArrayList<>();
+        String query = "SELECT * FROM suitablefor WHERE venueid = ?";
+        try(
+            Connection connection = DriverManager.getConnection(connectionString);
+            PreparedStatement preparedQuery = connection.prepareStatement(query);
+        ){ // inside the try block
+            preparedQuery.setInt(1, venue.getId());
+            ResultSet result = preparedQuery.executeQuery();
+            DebugHandler.print(result.getString("genre"));
+
+            while(result.next()){
+                stringList.add(result.getString("genre"));
+            }
+
+            return stringList.toArray(new String[0]);
         } catch(SQLException ex){
             ex.printStackTrace();
         }

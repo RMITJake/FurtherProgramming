@@ -28,7 +28,7 @@ public class App extends Application {
 			// BorderPane root = new BorderPane();
 			Parent root = FXMLLoader.load(getClass().getResource("views/MainMenu.fxml"));
 			// Throws nullpointerexception
-			Scene scene = new Scene(root,700,600);
+			Scene scene = new Scene(root,1000,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Live Music Venue Matchmaker");
