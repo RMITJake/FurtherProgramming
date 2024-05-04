@@ -67,6 +67,10 @@ public class Event{
         return this.dateTime.format(formatter);
     }
 
+    public LocalDateTime getEventFinish(){
+        return this.getDateTime().plusHours(this.getDuration());
+    }
+
     public String toString(String input){
         String output = input + "";
         return output;

@@ -133,8 +133,8 @@ public class MainMenuController {
         for(Venue venue : venueList){
             Booking booking = new Booking(event, venue);
             venue.setCompatibilityScore(booking.getCompatibilityScore());
-            if(availableCheckbox.isSelected()){
-                // DebugHandler.print("availability checkedbox checked");
+            if(availableCheckbox.isSelected() && booking.matchAvailable()){
+                filteredList.add(venue);
             } else if(capacityCheckbox.isSelected() && booking.matchCapacity()){
                 filteredList.add(venue);
             } else if(typeCheckbox.isSelected() && booking.matchType()){

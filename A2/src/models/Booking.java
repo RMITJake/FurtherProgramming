@@ -1,4 +1,7 @@
 package src.models;
+import java.util.List;
+import java.time.LocalDateTime;
+import src.handlers.DatabaseHandler;
 
 public class Booking{
     private double discountAmount;
@@ -27,6 +30,7 @@ public class Booking{
     public int getCompatibilityScore(){ return this.compatibilityScore; }
     public int calculateCompatibilityScore(){
         int score = 0;
+        if(matchAvailable()){ score++; }
         if(matchCapacity()){ score++; }
         if(matchType()){ score++; }
         if(matchCategory()){ score++; }
@@ -61,6 +65,31 @@ public class Booking{
 ////////////////////
 // MATCH CRITERIA //
 ////////////////////
+    public boolean matchAvailable(){
+        List<Event> eventList = DatabaseHandler.readVenueEvents(this.venue.getName());
+        // booking list needs to be list of events from one venue
+        LocalDateTime eventStart = this.event.getDateTime();
+        LocalDateTime eventEnd = this.event.getEventFinish();
+
+        boolean result = true;
+        for(Event event : eventList){
+            // start during finish during
+            if(eventStart.compareTo(event.getDateTime()) >= 0 && eventEnd.compareTo(event.getEventFinish()) < 0){
+                result = false;
+            }
+            // start before finish during
+            else if(eventStart.compareTo(event.getDateTime()) < 0 && eventEnd.compareTo(event.getDateTime()) >= 0){
+                result = false;
+            }
+            // start during finish after
+            if(eventStart.compareTo(event.getDateTime()) >= 0 && eventEnd.compareTo(event.getDateTime()) > 0){
+                result = false;
+            }
+        }
+
+        return result;
+    }
+
     public boolean matchCapacity(){ 
         // matches event target(capacity)
         if(this.venue.getCapacity() >= this.event.getTarget()){
