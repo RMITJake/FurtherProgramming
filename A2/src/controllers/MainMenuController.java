@@ -1,18 +1,13 @@
 package src.controllers;
 // Java library imports
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.ObservableList;
 import src.handlers.BookingHandler;
 // Local imports
 import src.handlers.DatabaseHandler;
@@ -26,20 +21,20 @@ public class MainMenuController {
     // FXML
     // Request Table
     @FXML private TableView<Event> requestTable;
-    @FXML private TableColumn requestNoColumn;
-    @FXML private TableColumn eventColumn;
-    @FXML private TableColumn artistColumn;
-    @FXML private TableColumn clientColumn;
+    @FXML private TableColumn<Event, Integer> requestNoColumn;
+    @FXML private TableColumn<Event, String> eventColumn;
+    @FXML private TableColumn<Event, String> artistColumn;
+    @FXML private TableColumn<Event, String> clientColumn;
     // Venue Table
     @FXML private TableView<Venue> venueTable;
-    @FXML private TableColumn venueNoColumn;
-    @FXML private TableColumn venueNameColumn;
-    @FXML private TableColumn venueCompatibilityColumn;
+    @FXML private TableColumn<Venue, Integer> venueNoColumn;
+    @FXML private TableColumn<Venue, String> venueNameColumn;
+    @FXML private TableColumn<Venue, String> venueCompatibilityColumn;
     // Booking Table
     @FXML private TableView<Event> bookingTable;
-    @FXML private TableColumn dateColumn;
-    @FXML private TableColumn timeColumn;
-    @FXML private TableColumn bookingRequestNoColumn;
+    @FXML private TableColumn<Event, String> dateColumn;
+    @FXML private TableColumn<Event, String> timeColumn;
+    @FXML private TableColumn<Event, Integer> bookingRequestNoColumn;
 
     @FXML private void initialize(){
         DebugHandler.print("IN MAINMENU.initialize");
@@ -83,14 +78,15 @@ public class MainMenuController {
     }
 
     @FXML private void selectEvent(MouseEvent mouseEvent){
+        bookingTable.getItems().clear();
         Event event = requestTable.getSelectionModel().getSelectedItem();
-        List<Booking> bookingList = new ArrayList();
+        List<Booking> bookingList = new ArrayList<>();
         if(event != null){
             DebugHandler.print("clicked " + event.getArtist());
             bookingList = getBookingCompatibility(event);
         }
 
-        List<Venue> updatedVenueList = new ArrayList();
+        List<Venue> updatedVenueList = new ArrayList<>();
         for(Booking booking : bookingList){
             Venue venue = booking.getVenue();
             venue.setCompatibilityScore(booking.getCompatibilityScore());
@@ -107,7 +103,7 @@ public class MainMenuController {
     }
 
     private List<Booking> getBookingCompatibility(Event event){
-        List<Booking> bookingList = new ArrayList();
+        List<Booking> bookingList = new ArrayList<>();
         List<Venue> venueList = DatabaseHandler.readVenuesTable();
         for(Venue venue : venueList){
             bookingList.add(new Booking(event, venue));
