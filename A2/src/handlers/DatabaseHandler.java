@@ -255,5 +255,32 @@ public class DatabaseHandler {
         }
         return null;
     }
+
+    public static List<Booking> readBookingsTable(){
+        List<Booking> bookingList = new ArrayList<>();
+        String temp = "select * from bookings inner join events on bookings.eventid = events.id inner join venues on bookings.venueid = venues.id;";
+
+        try(
+            Connection connection = DriverManager.getConnection(connectionString);
+            Statement query = connection.createStatement();
+        ){ // inside the try block
+            ResultSet result = query.executeQuery(""+
+            "SELECT * FROM bookings"
+            +"INNER JOIN events ON bookings.eventid = events.id"
+            +"INNER JOIN venues ON bookings.venueid = venues.id");
+            DebugHandler.print(result.getString("name"));
+
+            while(result.next()){
+                Booking booking = new Booking(
+                );
+                bookingList.add(venue);
+            }
+
+            return bookingList;
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
 // END Read from DB
 }
