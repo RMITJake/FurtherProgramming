@@ -182,7 +182,7 @@ public class DatabaseHandler {
         ){ // inside the try block
             preparedInsert.setInt(2, event.getId());
             preparedInsert.setInt(3, venue.getId());
-            int row = preparedInsert.executeUpdate();
+            preparedInsert.executeUpdate();
         } catch(SQLException ex){
             ex.printStackTrace(System.err);
         } // END of Try-Catch block
