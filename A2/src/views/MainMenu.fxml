@@ -83,7 +83,7 @@
               <CheckBox fx:id="typeCheckbox" mnemonicParsing="false" prefHeight="18.0" prefWidth="183.0" text="Event type" />
               <CheckBox fx:id="categoryCheckbox" mnemonicParsing="false" text="Venue Category" />
               <Button fx:id="filterButton" onMouseClicked="#applyFilters" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Filter Venues" />
-              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Auto Match" />
+              <Button fx:id="autoMatchButton" onMouseClicked="#autoMatch" mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Auto Match" />
           </children>
           <padding>
             <Insets top="3.0" />

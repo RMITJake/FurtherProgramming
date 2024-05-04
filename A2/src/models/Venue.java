@@ -9,6 +9,7 @@ public class Venue{
     private int priceperhour;
     private int compatibilityScore;
 
+    public Venue(){}
     public Venue(String name, int capacity, String suitableFor, String category, int priceperhour){
         this.name = name.trim();
         this.capacity = capacity;

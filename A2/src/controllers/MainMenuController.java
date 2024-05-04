@@ -163,4 +163,23 @@ public class MainMenuController {
             updateBookingTable(DatabaseHandler.readVenueEvents(venue.getName()));
         }
     }
+
+    @FXML private void autoMatch(){
+        DebugHandler.print("in automatch");
+        List<Event> eventList = DatabaseHandler.readEventsTable();
+        List<Venue> venueList = DatabaseHandler.readVenuesTable();
+        List<Booking> bookingList = new ArrayList<>();
+
+        for(Event event : eventList){
+            Booking mostCompatible = new Booking();
+            for(Venue venue : venueList){
+                Booking currentBooking = new Booking(event, venue);
+                if(currentBooking.getCompatibilityScore() > mostCompatible.getCompatibilityScore()){
+                    mostCompatible = currentBooking;
+                }
+            }
+            bookingList.add(mostCompatible);
+            DatabaseHandler.writeBooking(event, mostCompatible.getVenue());
+        }
+    }
 }

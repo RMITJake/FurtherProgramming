@@ -10,6 +10,12 @@ public class Booking{
     private Venue venue;
     private int compatibilityScore;
 
+    public Booking(){
+        this.event = new Event();
+        this.venue = new Venue();
+        this.compatibilityScore = 0;
+    }
+
     public Booking(Event event, Venue venue){
         this.event = event;
         this.venue = venue;
