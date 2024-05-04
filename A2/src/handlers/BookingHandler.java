@@ -1,8 +1,6 @@
 package src.handlers;
 import src.models.Venue;
 import src.models.Event;
-import src.models.Booking;
-import java.util.List;
 
 public class BookingHandler {
 

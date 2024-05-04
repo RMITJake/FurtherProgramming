@@ -13,8 +13,12 @@ public class User{
         this.accountEnabled = accountEnabled;
     }
 
+    public String getUsername(){ return this.username; }
     public void setUsername(String username){ this.username = username; }
+    public String getPassword(){ return this.password; }
     public void setPassword(String password){ this.password = password; }
+    public String getAccountType(){ return this.accountType; }
     public void set(String accountType){ this.accountType = accountType; }
-    public void set(boolean accountEnabled){ this.accountEnabled = accountEnabled; }
+    public boolean getAccountEnabled(){ return this.accountEnabled; }
+    public void setAccountEnabled(boolean accountEnabled){ this.accountEnabled = accountEnabled; }
 }

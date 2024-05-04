@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import src.models.*;
