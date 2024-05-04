@@ -44,6 +44,8 @@ public class MainMenuController {
     @FXML private CheckBox capacityCheckbox;
     @FXML private CheckBox typeCheckbox;
     @FXML private CheckBox categoryCheckbox;
+    // Booking buttons
+    @FXML private Button bookVenueButton;
 
     @FXML private void initialize(){
         DebugHandler.print("IN MAINMENU.initialize");
@@ -149,5 +151,13 @@ public class MainMenuController {
         } else {
             updateVenueTable(venueList);
         }
+    }
+
+    @FXML private void bookVenue(MouseEvent mouseEvent){
+        Event event = requestTable.getSelectionModel().getSelectedItem();
+        Venue venue = venueTable.getSelectionModel().getSelectedItem();
+        DatabaseHandler.writeBooking(event, venue);
+        
+        updateBookingTable(DatabaseHandler.readVenueEvents(venue.getName()));
     }
 }
