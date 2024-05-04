@@ -11,6 +11,7 @@ public class Booking{
         this.event = event;
         this.venue = venue;
         this.compatibilityScore = calculateCompatibilityScore();
+        this.venue.setCompatibilityScore(this.compatibilityScore);
     }
 
     public Booking(Event event, Venue venue, int compatibilityScore){
@@ -26,8 +27,9 @@ public class Booking{
     public int getCompatibilityScore(){ return this.compatibilityScore; }
     public int calculateCompatibilityScore(){
         int score = 0;
-        if(matchCapacity(this.venue, this.event)){ score++; }
-        if(matchCategory(this.venue, this.event)){ score++; }
+        if(matchCapacity()){ score++; }
+        if(matchType()){ score++; }
+        if(matchCategory()){ score++; }
         return score;
     }
 
@@ -59,19 +61,19 @@ public class Booking{
 ////////////////////
 // MATCH CRITERIA //
 ////////////////////
-    public boolean matchCapacity(Venue venue, Event event){ 
+    public boolean matchCapacity(){ 
         // matches event target(capacity)
-        if(venue.getCapacity() >= event.getTarget()){
+        if(this.venue.getCapacity() >= this.event.getTarget()){
             return true;
         }
         return false;
     }
 
-    public boolean matchType(Venue venue, Event event){ 
-        String[] suitableFor = venue.getSuitableFor();
+    public boolean matchType(){ 
+        String[] suitableFor = this.venue.getSuitableFor();
         for(String string : suitableFor){
             try{
-                if(event.getType().toLowerCase().equals(string.toLowerCase())){
+                if(this.event.getType().toLowerCase().equals(string.toLowerCase())){
                     return true;
                 }
             } catch(NullPointerException NPE){
@@ -81,8 +83,8 @@ public class Booking{
         return false;
     }
 
-    public boolean matchCategory(Venue venue, Event event){ 
-        if(venue.getCategory().toLowerCase().contains(event.getCategory().toLowerCase())){
+    public boolean matchCategory(){ 
+        if(this.venue.getCategory().toLowerCase().contains(this.event.getCategory().toLowerCase())){
             return true;
         }
         return false;

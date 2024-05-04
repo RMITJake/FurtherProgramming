@@ -72,20 +72,24 @@
           </columns>
         </TableView><!-- REQUESTS TABLE -->
 <!-- END REQUEST TABLE -->
+<!--=================-->
+<!-- REQUEST FLITERS -->
+<!--=================-->
         <VBox layoutX="659.0" layoutY="1.0" prefHeight="200.0" prefWidth="195.0" spacing="5.0">
           <children>
-              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Show request details" />
-              <CheckBox mnemonicParsing="false" text="Available" />
-              <CheckBox mnemonicParsing="false" text="Sufficient Capacity" />
-              <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="183.0" text="Event type" />
-              <CheckBox mnemonicParsing="false" text="Venue Category" />
-              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Filter Venues" />
+              <Button fx:id="requestDetailsButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Show request details" />
+              <CheckBox fx:id="availableCheckbox" mnemonicParsing="false" text="Available" />
+              <CheckBox fx:id="capacityCheckbox" mnemonicParsing="false" text="Sufficient Capacity" />
+              <CheckBox fx:id="typeCheckbox" mnemonicParsing="false" prefHeight="18.0" prefWidth="183.0" text="Event type" />
+              <CheckBox fx:id="categoryCheckbox" mnemonicParsing="false" text="Venue Category" />
+              <Button fx:id="filterButton" onMouseClicked="#applyFilters" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Filter Venues" />
               <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Auto Match" />
           </children>
           <padding>
             <Insets top="3.0" />
           </padding>
         </VBox>
+<!-- END REQUEST FILTERS -->
       </children>
     </AnchorPane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="235.0" prefWidth="702.0" style="-fx-background-color: lightblue;">

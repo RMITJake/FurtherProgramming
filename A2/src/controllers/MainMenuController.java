@@ -4,6 +4,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import java.util.ArrayList;
@@ -36,6 +38,12 @@ public class MainMenuController {
     @FXML private TableColumn<Event, String> dateColumn;
     @FXML private TableColumn<Event, String> timeColumn;
     @FXML private TableColumn<Event, Integer> bookingRequestNoColumn;
+    // Filter checkboxes
+    @FXML private Button requestDetailsButton;
+    @FXML private CheckBox availableCheckbox;
+    @FXML private CheckBox capacityCheckbox;
+    @FXML private CheckBox typeCheckbox;
+    @FXML private CheckBox categoryCheckbox;
 
     @FXML private void initialize(){
         DebugHandler.print("IN MAINMENU.initialize");
@@ -67,7 +75,6 @@ public class MainMenuController {
         venueNameColumn.setCellValueFactory(new PropertyValueFactory<Venue, String>("name"));
         venueCompatibilityColumn.setCellValueFactory(new PropertyValueFactory<Venue, String>("compatibilityScore"));
 
-        // Collections.sort(venueList, (Venue v1, Venue v2) -> v1.getCompatibilityScore() - v2.getCompatibilityScore());
         Collections.sort(venueList, (Venue v1, Venue v2) -> Integer.compare(v2.getCompatibilityScore(), v1.getCompatibilityScore()));
         venueTable.setItems(FXCollections.observableArrayList(venueList));
     }
@@ -115,5 +122,32 @@ public class MainMenuController {
             DebugHandler.print(String.format("%s %s %s", b.getEvent().getClient(), b.getVenue().getName(), b.getCompatibilityScore()));
         }
         return bookingList;
+    }
+
+    @FXML private void applyFilters(MouseEvent mouseEvent){
+        DebugHandler.print("applying filters");
+        List<Venue> venueList = DatabaseHandler.readVenuesTable();
+        List<Venue> filteredList = new ArrayList<>();
+        Event event = requestTable.getSelectionModel().getSelectedItem();
+
+        for(Venue venue : venueList){
+            Booking booking = new Booking(event, venue);
+            venue.setCompatibilityScore(booking.getCompatibilityScore());
+            if(availableCheckbox.isSelected()){
+                // DebugHandler.print("availability checkedbox checked");
+            } else if(capacityCheckbox.isSelected() && booking.matchCapacity()){
+                filteredList.add(venue);
+            } else if(typeCheckbox.isSelected() && booking.matchType()){
+                filteredList.add(venue);
+            } else if(categoryCheckbox.isSelected() && booking.matchCategory()){
+                filteredList.add(venue);
+            }
+        }
+
+        if(filteredList.size() > 0){
+            updateVenueTable(filteredList);
+        } else {
+            updateVenueTable(venueList);
+        }
     }
 }
