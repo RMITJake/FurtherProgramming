@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import java.util.ArrayList;
 import java.util.List;
 import src.handlers.BookingHandler;
+import java.util.Collections;
 // Local imports
 import src.handlers.DatabaseHandler;
 import src.handlers.DebugHandler;
@@ -66,6 +67,8 @@ public class MainMenuController {
         venueNameColumn.setCellValueFactory(new PropertyValueFactory<Venue, String>("name"));
         venueCompatibilityColumn.setCellValueFactory(new PropertyValueFactory<Venue, String>("compatibilityScore"));
 
+        // Collections.sort(venueList, (Venue v1, Venue v2) -> v1.getCompatibilityScore() - v2.getCompatibilityScore());
+        Collections.sort(venueList, (Venue v1, Venue v2) -> Integer.compare(v2.getCompatibilityScore(), v1.getCompatibilityScore()));
         venueTable.setItems(FXCollections.observableArrayList(venueList));
     }
 

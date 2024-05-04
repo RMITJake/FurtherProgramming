@@ -2,7 +2,6 @@ package src;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-// import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import java.util.List;
@@ -25,7 +24,6 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 		initialize();
 		try {
-			// BorderPane root = new BorderPane();
 			Parent root = FXMLLoader.load(getClass().getResource("views/MainMenu.fxml"));
 			// Throws nullpointerexception
 			Scene scene = new Scene(root,1000,500);
