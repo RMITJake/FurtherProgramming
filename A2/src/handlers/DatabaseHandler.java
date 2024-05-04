@@ -35,9 +35,9 @@ public class DatabaseHandler {
         writeEvent(eventList);
         venueList = readVenuesTable();
         eventList = readEventsTable();
-        writeBooking(eventList.get(1), venueList.get(2));
-        writeBooking(eventList.get(4), venueList.get(5));
-        writeBooking(eventList.get(3), venueList.get(3));
+        // writeBooking(eventList.get(1), venueList.get(2));
+        // writeBooking(eventList.get(4), venueList.get(5));
+        // writeBooking(eventList.get(3), venueList.get(3));
     }
 // END Seed Database Methods //
 
