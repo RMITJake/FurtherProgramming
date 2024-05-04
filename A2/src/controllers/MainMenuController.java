@@ -128,36 +128,39 @@ public class MainMenuController {
 
     @FXML private void applyFilters(MouseEvent mouseEvent){
         DebugHandler.print("applying filters");
-        List<Venue> venueList = DatabaseHandler.readVenuesTable();
-        List<Venue> filteredList = new ArrayList<>();
         Event event = requestTable.getSelectionModel().getSelectedItem();
+        if(event != null){
+            List<Venue> venueList = DatabaseHandler.readVenuesTable();
+            List<Venue> filteredList = new ArrayList<>();
 
-        for(Venue venue : venueList){
-            Booking booking = new Booking(event, venue);
-            venue.setCompatibilityScore(booking.getCompatibilityScore());
-            if(availableCheckbox.isSelected() && booking.matchAvailable()){
-                filteredList.add(venue);
-            } else if(capacityCheckbox.isSelected() && booking.matchCapacity()){
-                filteredList.add(venue);
-            } else if(typeCheckbox.isSelected() && booking.matchType()){
-                filteredList.add(venue);
-            } else if(categoryCheckbox.isSelected() && booking.matchCategory()){
-                filteredList.add(venue);
+            for(Venue venue : venueList){
+                Booking booking = new Booking(event, venue);
+                venue.setCompatibilityScore(booking.getCompatibilityScore());
+                if(availableCheckbox.isSelected() && booking.matchAvailable()){
+                    filteredList.add(venue);
+                } else if(capacityCheckbox.isSelected() && booking.matchCapacity()){
+                    filteredList.add(venue);
+                } else if(typeCheckbox.isSelected() && booking.matchType()){
+                    filteredList.add(venue);
+                } else if(categoryCheckbox.isSelected() && booking.matchCategory()){
+                    filteredList.add(venue);
+                }
             }
-        }
 
-        if(filteredList.size() > 0){
-            updateVenueTable(filteredList);
-        } else {
-            updateVenueTable(venueList);
+            if(filteredList.size() > 0){
+                updateVenueTable(filteredList);
+            } else {
+                updateVenueTable(venueList);
+            }
         }
     }
 
     @FXML private void bookVenue(MouseEvent mouseEvent){
         Event event = requestTable.getSelectionModel().getSelectedItem();
         Venue venue = venueTable.getSelectionModel().getSelectedItem();
-        DatabaseHandler.writeBooking(event, venue);
-        
-        updateBookingTable(DatabaseHandler.readVenueEvents(venue.getName()));
+        if(event != null && venue != null){
+            DatabaseHandler.writeBooking(event, venue);
+            updateBookingTable(DatabaseHandler.readVenueEvents(venue.getName()));
+        }
     }
 }
