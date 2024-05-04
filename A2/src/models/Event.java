@@ -57,6 +57,16 @@ public class Event{
     public String getCategory(){ return this.category; }
     public void setCategory(String category){ this.category = category; }
 
+    public String getDate(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        return this.dateTime.format(formatter);
+    }
+
+    public String getTime(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
+        return this.dateTime.format(formatter);
+    }
+
     public String toString(String input){
         String output = input + "";
         return output;

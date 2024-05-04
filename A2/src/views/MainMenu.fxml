@@ -93,7 +93,7 @@
 <!--=============-->
 <!-- VENUE TABLE -->
 <!--=============-->
-        <TableView fx:id="venueTable" editable="true" layoutX="14.0" layoutY="1.0" prefHeight="200.0" prefWidth="354.0">
+        <TableView fx:id="venueTable" editable="true" layoutX="14.0" layoutY="1.0" onMouseClicked="#selectVenue" prefHeight="200.0" prefWidth="354.0">
           <columns>
             <TableColumn fx:id="venueNoColumn" prefWidth="99.0" text="VenueNo" />
             <TableColumn fx:id="venueNameColumn" prefWidth="102.0" text="Venue Name" />
@@ -113,13 +113,17 @@
                     <Insets top="5.0" />
                   </VBox.margin>
                 </Label>
-                <TableView prefHeight="102.0" prefWidth="209.0">
+<!--===============-->
+<!-- BOOKING TABLE -->
+<!--===============-->
+                <TableView fx:id="bookingTable" prefHeight="102.0" prefWidth="209.0">
                   <columns>
-                    <TableColumn prefWidth="53.0" text="Date" />
-                    <TableColumn prefWidth="56.0" text="Time" />
-                    <TableColumn prefWidth="116.0" text="RequestNo" />
+                    <TableColumn fx:id="dateColumn" prefWidth="53.0" text="Date" />
+                    <TableColumn fx:id="timeColumn" prefWidth="56.0" text="Time" />
+                    <TableColumn fx:id="bookingRequestNoColumn" prefWidth="116.0" text="RequestNo" />
                   </columns>
                 </TableView>
+<!-- END BOOKING TABLE -->
               </children>
               <padding>
                 <Insets top="3.0" />

@@ -28,10 +28,19 @@ public class DatabaseHandler {
         createBookingsTable();
     }
 
+///////////////////////////
+// Seed Database Methods //
+///////////////////////////
     public static void seedDb(List<Venue> venueList, List<Event> eventList){
         writeVenue(venueList);
         writeEvent(eventList);
+        venueList = readVenuesTable();
+        eventList = readEventsTable();
+        writeBooking(eventList.get(1), venueList.get(2));
+        writeBooking(eventList.get(4), venueList.get(5));
+        writeBooking(eventList.get(3), venueList.get(3));
     }
+// END Seed Database Methods //
 
 //////////////////////////
 // Create Table Methods //
@@ -164,6 +173,21 @@ public class DatabaseHandler {
         } // END of Try-Catch block
     } // END of writeVenue
 
+    public static void writeBooking(Event event, Venue venue){
+        DebugHandler.print("Creating booking list to db");
+        String insertStatement = "INSERT INTO bookings VALUES (?, ?, ?)";
+        try(
+            Connection connection = DriverManager.getConnection(connectionString);
+            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
+        ){ // inside the try block
+            preparedInsert.setInt(2, event.getId());
+            preparedInsert.setInt(3, venue.getId());
+            int row = preparedInsert.executeUpdate();
+        } catch(SQLException ex){
+            ex.printStackTrace(System.err);
+        } // END of Try-Catch block
+    }
+
     public static void writeSuitableFor(Connection connection, Venue venue, int id){
         String insertStatement = "INSERT INTO suitablefor VALUES (?, ?, ?)";
         try(
@@ -178,19 +202,6 @@ public class DatabaseHandler {
             ex.printStackTrace();
         }
     } // END of writeSuitableFor
-
-    public static void writeBooking(Connection connection, int eventId, int venueId){
-        String insertStatement = "INSERT INTO suitablefor VALUES (?, ?, ?)";
-        try(
-            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement)
-            ){ // inside the try block
-                preparedInsert.setInt(2, eventId);
-                preparedInsert.setInt(3, venueId);
-                preparedInsert.executeUpdate();
-        } catch(SQLException ex){
-            ex.printStackTrace();
-        }
-    }
 // END Write to DB Methods
 
 //////////////////
@@ -258,7 +269,6 @@ public class DatabaseHandler {
 
     public static List<Booking> readBookingsTable(){
         List<Booking> bookingList = new ArrayList<>();
-        String temp = "select * from bookings inner join events on bookings.eventid = events.id inner join venues on bookings.venueid = venues.id;";
 
         try(
             Connection connection = DriverManager.getConnection(connectionString);
@@ -271,12 +281,66 @@ public class DatabaseHandler {
             DebugHandler.print(result.getString("name"));
 
             while(result.next()){
-                Booking booking = new Booking(
+                Venue venue = new Venue(
+                result.getInt("venues.id"),
+                result.getString("venues.name"),
+                result.getInt("venues.capacity"),
+                result.getString("venues.category"),
+                result.getInt("venues.priceperhour")
                 );
-                bookingList.add(venue);
+                Event event = new Event(
+                result.getInt("events.id"),
+                result.getString("events.client"),
+                result.getString("events.title"),
+                result.getString("events.artist"),
+                result.getString("events.dateTime"),
+                result.getInt("events.target"),
+                result.getInt("events.duration"),
+                result.getString("events.type"),
+                result.getString("events.category")
+                );
+                Booking booking = new Booking(event, venue);
+                bookingList.add(booking);
             }
 
             return bookingList;
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<Event> readVenueEvents(String venueName){
+        DebugHandler.print("inside readVenueEvents with: " + venueName);
+        List<Event> eventList = new ArrayList<>();
+
+        String query = "SELECT e.id, e.client, e.title, e.artist, e.dateTime, e.target, e.duration, e.type, e.category FROM bookings "
+            +"INNER JOIN events as e ON bookings.eventid = e.id "
+            +"INNER JOIN venues ON bookings.venueid = venues.id "
+            +"WHERE venues.name = ?";
+        try(
+            Connection connection = DriverManager.getConnection(connectionString);
+            PreparedStatement preparedQuery = connection.prepareStatement(query);
+        ){ // inside the try block
+            preparedQuery.setString(1, venueName);
+            ResultSet result = preparedQuery.executeQuery();
+
+            while(result.next()){
+                Event event = new Event(
+                result.getInt("id"),
+                result.getString("client"),
+                result.getString("title"),
+                result.getString("artist"),
+                result.getString("dateTime"),
+                result.getInt("target"),
+                result.getInt("duration"),
+                result.getString("type"),
+                result.getString("category")
+                );
+                eventList.add(event);
+            }
+
+            return eventList;
         } catch(SQLException ex){
             ex.printStackTrace();
         }

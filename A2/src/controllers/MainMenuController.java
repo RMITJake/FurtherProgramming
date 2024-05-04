@@ -24,15 +24,22 @@ import src.models.Booking;
 public class MainMenuController {
     BookingHandler bookingHandler = new BookingHandler();
     // FXML
+    // Request Table
     @FXML private TableView<Event> requestTable;
     @FXML private TableColumn requestNoColumn;
     @FXML private TableColumn eventColumn;
     @FXML private TableColumn artistColumn;
     @FXML private TableColumn clientColumn;
+    // Venue Table
     @FXML private TableView<Venue> venueTable;
     @FXML private TableColumn venueNoColumn;
     @FXML private TableColumn venueNameColumn;
     @FXML private TableColumn venueCompatibilityColumn;
+    // Booking Table
+    @FXML private TableView<Event> bookingTable;
+    @FXML private TableColumn dateColumn;
+    @FXML private TableColumn timeColumn;
+    @FXML private TableColumn bookingRequestNoColumn;
 
     @FXML private void initialize(){
         DebugHandler.print("IN MAINMENU.initialize");
@@ -67,6 +74,14 @@ public class MainMenuController {
         venueTable.setItems(FXCollections.observableArrayList(venueList));
     }
 
+    private void updateBookingTable(List<Event> eventList){
+        dateColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("date"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("time"));
+        bookingRequestNoColumn.setCellValueFactory(new PropertyValueFactory<Event, Integer>("id"));
+
+        bookingTable.setItems(FXCollections.observableArrayList(eventList));
+    }
+
     @FXML private void selectEvent(MouseEvent mouseEvent){
         Event event = requestTable.getSelectionModel().getSelectedItem();
         List<Booking> bookingList = new ArrayList();
@@ -83,6 +98,12 @@ public class MainMenuController {
         }
         venueTable.getItems().clear();
         updateVenueTable(updatedVenueList);
+    }
+
+    @FXML private void selectVenue(MouseEvent mouseEvent){
+        Venue venue = venueTable.getSelectionModel().getSelectedItem();
+        List<Event> eventList = DatabaseHandler.readVenueEvents(venue.getName());
+        updateBookingTable(eventList);
     }
 
     private List<Booking> getBookingCompatibility(Event event){
