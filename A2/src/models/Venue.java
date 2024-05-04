@@ -7,6 +7,7 @@ public class Venue{
     private String[] suitableFor;
     private String category;
     private int priceperhour;
+    private int compatibilityScore;
 
     public Venue(String name, int capacity, String suitableFor, String category, int priceperhour){
         this.name = name.trim();
@@ -30,6 +31,8 @@ public class Venue{
     public String[] getSuitableFor(){ return this.suitableFor; }
     public String getCategory(){ return this.category; }
     public int getPricePerHour(){ return this.priceperhour; }
+    public void setCompatibilityScore(int compatibilityScore){ this.compatibilityScore = compatibilityScore; }
+    public int getCompatibilityScore(){ return this.compatibilityScore; }
     
     public String getSuitableForString(){
         String string = "";

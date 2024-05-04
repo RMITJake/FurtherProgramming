@@ -10,15 +10,19 @@ import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ObservableList;
+import src.handlers.BookingHandler;
 // Local imports
 import src.handlers.DatabaseHandler;
 import src.handlers.DebugHandler;
 import src.models.Event;
 import src.models.Venue;
+import src.models.Booking;
 
 public class MainMenuController {
+    BookingHandler bookingHandler = new BookingHandler();
     // FXML
     @FXML private TableView<Event> requestTable;
     @FXML private TableColumn requestNoColumn;
@@ -55,10 +59,41 @@ public class MainMenuController {
         venueTable.setItems(FXCollections.observableArrayList(venueList));
     }
 
+    private void updateVenueTable(List<Venue> venueList){
+        venueNoColumn.setCellValueFactory(new PropertyValueFactory<Venue, Integer>("id"));
+        venueNameColumn.setCellValueFactory(new PropertyValueFactory<Venue, String>("name"));
+        venueCompatibilityColumn.setCellValueFactory(new PropertyValueFactory<Venue, String>("compatibilityScore"));
+
+        venueTable.setItems(FXCollections.observableArrayList(venueList));
+    }
+
     @FXML private void selectEvent(MouseEvent mouseEvent){
         Event event = requestTable.getSelectionModel().getSelectedItem();
+        List<Booking> bookingList = new ArrayList();
         if(event != null){
             DebugHandler.print("clicked " + event.getArtist());
+            bookingList = getBookingCompatibility(event);
         }
+
+        List<Venue> updatedVenueList = new ArrayList();
+        for(Booking booking : bookingList){
+            Venue venue = booking.getVenue();
+            venue.setCompatibilityScore(booking.getCompatibilityScore());
+            updatedVenueList.add(venue);
+        }
+        venueTable.getItems().clear();
+        updateVenueTable(updatedVenueList);
+    }
+
+    private List<Booking> getBookingCompatibility(Event event){
+        List<Booking> bookingList = new ArrayList();
+        List<Venue> venueList = DatabaseHandler.readVenuesTable();
+        for(Venue venue : venueList){
+            bookingList.add(new Booking(event, venue));
+        }
+        for(Booking b : bookingList){
+            DebugHandler.print(String.format("%s %s %s", b.getEvent().getClient(), b.getVenue().getName(), b.getCompatibilityScore()));
+        }
+        return bookingList;
     }
 }
