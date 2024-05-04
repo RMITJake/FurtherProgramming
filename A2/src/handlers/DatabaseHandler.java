@@ -174,11 +174,12 @@ public class DatabaseHandler {
 
     public static void writeBooking(Event event, Venue venue){
         DebugHandler.print("Creating booking list to db");
-        String insertStatement = "INSERT INTO bookings VALUES (?, ?, ?)";
+        String insertStatement = "INSERT OR REPLACE INTO bookings VALUES ((SELECT id FROM bookings WHERE eventid = ?), ?, ?)";
         try(
             Connection connection = DriverManager.getConnection(connectionString);
             PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
         ){ // inside the try block
+            preparedInsert.setInt(1, event.getId());
             preparedInsert.setInt(2, event.getId());
             preparedInsert.setInt(3, venue.getId());
             preparedInsert.executeUpdate();
