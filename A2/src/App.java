@@ -24,7 +24,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 		initialize();
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("views/MainMenu.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/src/views/MainMenu.fxml"));
 			// Throws nullpointerexception
 			Scene scene = new Scene(root,1000,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
