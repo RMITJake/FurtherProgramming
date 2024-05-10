@@ -67,7 +67,7 @@ public class LoginController {
 		
 		signup.setOnAction(event -> {
 			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SignupView.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/view/SignupView.fxml"));
 				
 				// Customize controller instance
 				Callback<Class<?>, Object> controllerFactory = param -> {
