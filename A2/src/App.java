@@ -6,33 +6,40 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.ArrayList;
 import src.handlers.DatabaseHandler;
 import src.handlers.VenueHandler;
 import src.models.Venue;
 import src.models.Event;
 import src.models.Login;
+import src.models.User;
 import src.handlers.RequestHandler;
 import src.controllers.LoginController;
 
 public class App extends Application {
 	private Login login;
 
-	private void initialize(){
+	@Override
+	public void init(){
+		login = new Login();
+
 		VenueHandler venueHandler = new VenueHandler();
 		RequestHandler requestHandler = new RequestHandler();
 		List<Venue> venues = venueHandler.retrieveVenuesFromCSV();
 		List<Event> events = requestHandler.retrieveRequestsFromCSV();
 		DatabaseHandler.seedDb(venues, events);
-	}
 
-	@Override
-	public void init() {
-		login = new Login();
+		User user = new User("Jake", "Pwd123", "admin", true);
+
+		try{
+			login.getUserDao().createUser(user.getUsername(), user.getPassword());
+		} catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import src.handlers.DebugHandler;
 import src.models.Login;
 import src.models.User;
 
@@ -42,6 +43,7 @@ public class SignupController {
 				User user;
 				try {
 					user = login.getUserDao().createUser(username.getText(), password.getText());
+					DebugHandler.print("creating user " + user.getUsername());
 					if (user != null) {
 						status.setText("Created " + user.getUsername());
 						status.setTextFill(Color.GREEN);
