@@ -25,6 +25,7 @@ public class DatabaseHandler {
         createVenuesTable();
         createSuitableForTable();
         createBookingsTable();
+        createUsersTable();
     }
 
 ///////////////////////////
@@ -53,7 +54,7 @@ public class DatabaseHandler {
         ){ // inside the try block
             statement.setQueryTimeout(30);
             statement.executeUpdate(String.format("DROP TABLE IF EXISTS %s", table));
-            statement.executeUpdate(String.format("CREATE TABLE %s (%s)", table, schema));
+            statement.executeUpdate(String.format("CREATE TABLE IF NOT EXISTS %s (%s)", table, schema));
         } catch(SQLException ex){
             ex.printStackTrace(System.err);
         } // END of Try-Catch block
@@ -117,6 +118,20 @@ public class DatabaseHandler {
         createTable("users", schema);
     }
 // END Create Table Methods
+
+/////////////////////
+// Generic Methods //
+/////////////////////
+    public static Connection getConnection(){
+        Connection connection = null;
+        try{
+            connection = DriverManager.getConnection(connectionString);
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return connection;
+    }
+// END  Generic Methods //
     
 /////////////////////////
 // Write to DB Methods //
