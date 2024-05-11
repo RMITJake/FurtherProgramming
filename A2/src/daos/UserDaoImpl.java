@@ -16,12 +16,11 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getUser(String username, String password) throws SQLException {
-		String query = "SELECT * FROM ? WHERE username = ? AND password = ?";
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND password = ?";
 		try (Connection connection = DatabaseHandler.getConnection(); 
 			PreparedStatement statement = connection.prepareStatement(query);) {
-            statement.setString(1, TABLE_NAME);
-			statement.setString(2, username);
-			statement.setString(3, password);
+			statement.setString(1, username);
+			statement.setString(2, password);
 			
 			try (ResultSet rs = statement.executeQuery()) {
 				if (rs.next()) {
