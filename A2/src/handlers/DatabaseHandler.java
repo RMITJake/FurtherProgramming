@@ -108,6 +108,8 @@ public class DatabaseHandler {
         +"id INTEGER PRIMARY KEY AUTOINCREMENT, "
         +"username STRING, "
         +"password STRING, "
+        +"firstname STRING, "
+        +"lastname STRING, "
         +"accountType STRING, "
         +"accountEnabled BOOLEAN";
         createTable("users", schema);

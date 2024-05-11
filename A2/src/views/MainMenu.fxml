@@ -51,7 +51,7 @@
           </items> -->
         </Menu> <!-- END EDIT MENU -->
         <Menu fx:id="accountMenu" mnemonicParsing="false" text="My Account"><!-- ACCOUNT Menu -->
-            <MenuItem fx:id="editAccountDetails" mnemonicParsing="false" text="Edit My Details" />
+            <MenuItem fx:id="editAccountDetails" onAction="#editAccount" mnemonicParsing="false" text="Edit My Details" />
         </Menu><!-- END ACCOUNT Menu -->
         <Menu mnemonicParsing="false" text="Help"> <!-- HELP MENU -->
           <items>

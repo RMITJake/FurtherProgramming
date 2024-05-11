@@ -4,16 +4,20 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.scene.control.TableColumn;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import src.handlers.BookingHandler;
@@ -64,6 +68,7 @@ public class MainMenuController {
         this.stage = new Stage();
         this.parentStage = parentStage;
         this.user = user;
+        DebugHandler.print("user's name: " + user.getFirstname() + user.getLastname());
     }
 
     public void showStage(Pane root){
@@ -78,10 +83,6 @@ public class MainMenuController {
         DebugHandler.print("IN MAINMENU.initialize");
         loadRequestTable();
         loadVenueTable();
-
-        editAccountDetails.setOnAction(event -> {
-            DebugHandler.print("clicked edit menu");
-        });
     }
 
     private void loadRequestTable(){
@@ -214,9 +215,24 @@ public class MainMenuController {
         }
     }
 
-    @FXML private void editAccount(){
-        editAccountDetails.setOnAction(event -> {
-            DebugHandler.print("clicked edit menu");
-        });
+    @FXML private void editAccount(ActionEvent actionEvent){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/views/AccountUpdateView.fxml"));
+            
+            // Customize controller instance
+            Callback<Class<?>, Object> controllerFactory = param -> {
+                return new AccountController(stage, user, user);
+            };
+
+            loader.setControllerFactory(controllerFactory);
+            VBox root = loader.load();
+            
+            AccountController accountController = loader.getController();
+            accountController.showStage(root);
+            
+            stage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        };
     }
 }

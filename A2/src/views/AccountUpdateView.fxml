@@ -16,9 +16,9 @@
             <Label layoutX="60.0" layoutY="46.0" prefHeight="17.0" prefWidth="65.0" text="Username" />
             <TextField fx:id="usernameInput" layoutX="138.0" layoutY="42.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
             <Label layoutX="60.0" layoutY="93.0" prefHeight="17.0" prefWidth="65.0" text="First Name" />
-            <TextField fx:id="firstNameInput" layoutX="138.0" layoutY="89.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
+            <TextField fx:id="firstnameInput" layoutX="138.0" layoutY="89.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
             <Label layoutX="60.0" layoutY="144.0" prefHeight="17.0" prefWidth="65.0" text="Last Name" />
-            <TextField fx:id="lastNameInput" layoutX="138.0" layoutY="140.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
+            <TextField fx:id="lastnameInput" layoutX="138.0" layoutY="140.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
             <Label layoutX="60.0" layoutY="192.0" prefHeight="17.0" prefWidth="65.0" text="Password" />
             <TextField fx:id="passwordInput" layoutX="138.0" layoutY="188.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
             <TitledPane animated="false" layoutX="24.0" layoutY="222.0" prefHeight="127.0" prefWidth="360.0" text="Change Password">
@@ -51,6 +51,7 @@
       <HBox alignment="CENTER" prefHeight="30.0" prefWidth="400.0" spacing="20.0">
          <children>
             <Button id="deleteAccountButton" fx:id="createUser1" mnemonicParsing="false" text="Delete Account" />
+            <Button id="deleteAccountButton" fx:id="createUser11" mnemonicParsing="false" text="Promote Account" />
          </children>
       </HBox>
       <Label fx:id="status" />

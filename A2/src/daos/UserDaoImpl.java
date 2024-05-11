@@ -27,6 +27,8 @@ public class UserDaoImpl implements UserDao {
 					User user = new User();
 					user.setUsername(rs.getString("username"));
 					user.setPassword(rs.getString("password"));
+					user.setFirstname(rs.getString("firstname"));
+					user.setLastname(rs.getString("lastname"));
                     user.setAccountType(rs.getString("accountType"));
                     user.setAccountEnabled(rs.getBoolean("accountEnabled"));
 					return user;
@@ -39,14 +41,16 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User createUser(String username, String password) throws SQLException {
         User newUser = new User(username, password);
-		String query = "INSERT INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DatabaseHandler.getConnection();
 			PreparedStatement statement = connection.prepareStatement(query)) {
             // statement.setString(1, TABLE_NAME);
 			statement.setString(2, newUser.getUsername());
 			statement.setString(3, newUser.getPassword());
-            statement.setString(4, newUser.getAccountType());
-            statement.setBoolean(5, newUser.getAccountEnabled());
+			statement.setString(4, newUser.getFirstname());
+			statement.setString(5, newUser.getLastname());
+            statement.setString(6, newUser.getAccountType());
+            statement.setBoolean(7, newUser.getAccountEnabled());
 
 			statement.executeUpdate();
 			return new User(username, password);
@@ -55,14 +59,16 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User createUser(User newUser) throws SQLException {
-		String query = "INSERT INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DatabaseHandler.getConnection();
 			PreparedStatement statement = connection.prepareStatement(query)) {
             // statement.setString(1, TABLE_NAME);
 			statement.setString(2, newUser.getUsername());
 			statement.setString(3, newUser.getPassword());
-            statement.setString(4, newUser.getAccountType());
-            statement.setBoolean(5, newUser.getAccountEnabled());
+			statement.setString(4, newUser.getFirstname());
+			statement.setString(5, newUser.getLastname());
+            statement.setString(6, newUser.getAccountType());
+            statement.setBoolean(7, newUser.getAccountEnabled());
 
 			statement.executeUpdate();
 			return newUser;
