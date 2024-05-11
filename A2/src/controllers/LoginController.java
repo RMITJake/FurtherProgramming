@@ -48,6 +48,26 @@ public class LoginController {
 						login.setCurrentUser(user);
 						message.setText("Login success for " + user.getUsername());
 						message.setTextFill(Color.GREEN);
+
+						// Successful login, load main menu
+						try{
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/views/MainMenu.fxml"));
+							
+							Callback<Class<?>, Object> controllerFactory = param -> {
+								return new MainMenuController(stage, user);
+							};
+							
+							loader.setControllerFactory(controllerFactory);
+							VBox root = loader.load();
+
+							MainMenuController mainMenuController = loader.getController();
+							mainMenuController.showStage(root);
+
+							stage.close();
+						} catch(IOException ex){
+							ex.printStackTrace();
+						}
+
 					} else {
 						message.setText("Wrong username or password");
 						message.setTextFill(Color.RED);

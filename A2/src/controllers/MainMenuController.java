@@ -3,7 +3,10 @@ package src.controllers;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.fxml.FXML;
@@ -16,6 +19,7 @@ import java.util.Collections;
 import src.handlers.DatabaseHandler;
 import src.handlers.DebugHandler;
 import src.models.Event;
+import src.models.User;
 import src.models.Venue;
 import src.models.Booking;
 
@@ -46,6 +50,24 @@ public class MainMenuController {
     @FXML private CheckBox categoryCheckbox;
     // Booking buttons
     @FXML private Button bookVenueButton;
+
+    private Stage stage;
+    private Stage parentStage;
+    private User user;
+
+    public MainMenuController(Stage parentStage, User user){
+        this.stage = new Stage();
+        this.parentStage = parentStage;
+        this.user = user;
+    }
+
+    public void showStage(Pane root){
+        Scene scene = new Scene(root, 1400, 1000);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("Live Venue Music Matcher");
+        stage.show();
+    }
 
     @FXML private void initialize(){
         DebugHandler.print("IN MAINMENU.initialize");
