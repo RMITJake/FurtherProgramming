@@ -32,10 +32,14 @@ public class App extends Application {
 		List<Event> events = requestHandler.retrieveRequestsFromCSV();
 		DatabaseHandler.seedDb(venues, events);
 
-		User user = new User("Jake", "Pwd123", "admin", true);
+		User user1 = new User("Admin", "rockingandrolling", "admin", true);
+		User user2 = new User("Jake", "Pwd123", "admin", true);
+		User user3 = new User("Staff", "default", "staff", true);
 
 		try{
-			login.getUserDao().createUser(user.getUsername(), user.getPassword());
+			login.getUserDao().createUser(user1);
+			login.getUserDao().createUser(user2);
+			login.getUserDao().createUser(user3);
 		} catch(Exception ex){
 			ex.printStackTrace();
 		}

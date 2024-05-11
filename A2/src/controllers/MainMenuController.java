@@ -9,8 +9,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.MenuItem;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 import src.handlers.BookingHandler;
@@ -50,6 +53,8 @@ public class MainMenuController {
     @FXML private CheckBox categoryCheckbox;
     // Booking buttons
     @FXML private Button bookVenueButton;
+    // Banner Menu Options
+    @FXML private MenuItem editAccountDetails;
 
     private Stage stage;
     private Stage parentStage;
@@ -73,6 +78,10 @@ public class MainMenuController {
         DebugHandler.print("IN MAINMENU.initialize");
         loadRequestTable();
         loadVenueTable();
+
+        editAccountDetails.setOnAction(event -> {
+            DebugHandler.print("clicked edit menu");
+        });
     }
 
     private void loadRequestTable(){
@@ -203,5 +212,11 @@ public class MainMenuController {
             bookingList.add(mostCompatible);
             DatabaseHandler.writeBooking(event, mostCompatible.getVenue());
         }
+    }
+
+    @FXML private void editAccount(){
+        editAccountDetails.setOnAction(event -> {
+            DebugHandler.print("clicked edit menu");
+        });
     }
 }

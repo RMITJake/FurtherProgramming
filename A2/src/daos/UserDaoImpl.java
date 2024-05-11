@@ -52,4 +52,20 @@ public class UserDaoImpl implements UserDao {
 			return new User(username, password);
 		} 
 	}
+
+	@Override
+	public User createUser(User newUser) throws SQLException {
+		String query = "INSERT INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?)";
+		try (Connection connection = DatabaseHandler.getConnection();
+			PreparedStatement statement = connection.prepareStatement(query)) {
+            // statement.setString(1, TABLE_NAME);
+			statement.setString(2, newUser.getUsername());
+			statement.setString(3, newUser.getPassword());
+            statement.setString(4, newUser.getAccountType());
+            statement.setBoolean(5, newUser.getAccountEnabled());
+
+			statement.executeUpdate();
+			return newUser;
+		} 
+	}
 }

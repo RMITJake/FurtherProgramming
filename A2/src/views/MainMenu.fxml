@@ -37,7 +37,7 @@
           </items>
         </Menu> <!-- END FILE MENU -->
         <Menu mnemonicParsing="false" text="Edit"> <!-- EDIT MENU -->
-          <items>
+          <!-- <items>
             <MenuItem mnemonicParsing="false" text="Undo" />
             <MenuItem mnemonicParsing="false" text="Redo" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -48,11 +48,14 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Select All" />
             <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
+          </items> -->
         </Menu> <!-- END EDIT MENU -->
+        <Menu fx:id="accountMenu" mnemonicParsing="false" text="My Account"><!-- ACCOUNT Menu -->
+            <MenuItem fx:id="editAccountDetails" mnemonicParsing="false" text="Edit My Details" />
+        </Menu><!-- END ACCOUNT Menu -->
         <Menu mnemonicParsing="false" text="Help"> <!-- HELP MENU -->
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" text="About Live Music Match Maker" />
           </items>
         </Menu> <!-- END HELP MENU -->
       </menus> <!-- END TOP BANNER MENU -->
