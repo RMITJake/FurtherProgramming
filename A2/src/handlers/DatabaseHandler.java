@@ -382,5 +382,35 @@ public class DatabaseHandler {
         }
         return null;
     }
+
+    public static List<User> readUserTable(){
+        List<User> userList = new ArrayList<>();
+
+        try(
+            Connection connection = DriverManager.getConnection(connectionString);
+            Statement query = connection.createStatement();
+        ){ // inside the try block
+            ResultSet result = query.executeQuery("SELECT * FROM users");
+            DebugHandler.print(result.getString("username"));
+
+            while(result.next()){
+                User user = new User(
+                result.getInt("id"),
+                result.getString("username"),
+                result.getString("password"),
+                result.getString("firstname"),
+                result.getString("lastname"),
+                result.getString("accountType"),
+                result.getBoolean("accountEnabled")
+                );
+                userList.add(user);
+            }
+
+            return userList;
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
 // END Read from DB
 }
