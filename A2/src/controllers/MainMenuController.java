@@ -3,6 +3,7 @@ package src.controllers;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -59,6 +60,7 @@ public class MainMenuController {
     @FXML private Button bookVenueButton;
     // Banner Menu Options
     @FXML private MenuItem editAccountDetails;
+    @FXML private MenuItem userList;
 
     private Stage stage;
     private Stage parentStage;
@@ -75,7 +77,7 @@ public class MainMenuController {
         Scene scene = new Scene(root, 1000, 500);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Live Venue Music Matcher");
+        stage.setTitle("Main Menu - Live Venue Music Matcher");
         stage.show();
     }
 
@@ -229,6 +231,27 @@ public class MainMenuController {
             
             AccountController accountController = loader.getController();
             accountController.showStage(root);
+            
+            stage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        };
+    }
+
+    @FXML private void viewUserList(ActionEvent actionEvent){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/views/UserListView.fxml"));
+            
+            // Customize controller instance
+            Callback<Class<?>, Object> controllerFactory = param -> {
+                return new UserListController(stage, user);
+            };
+
+            loader.setControllerFactory(controllerFactory);
+            AnchorPane root = loader.load();
+            
+            UserListController userListController = loader.getController();
+            userListController.showStage(root);
             
             stage.close();
         } catch (IOException e) {
