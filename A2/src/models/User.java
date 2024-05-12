@@ -16,7 +16,7 @@ public class User{
         this.password = password;
         this.firstname = "";
         this.lastname = "";
-        this.accountType = "user";
+        this.accountType = "staff";
         this.accountEnabled = true;
     }
 
