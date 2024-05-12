@@ -74,4 +74,23 @@ public class UserDaoImpl implements UserDao {
 			return newUser;
 		} 
 	}
+
+	@Override
+	public User updateUser(User user) throws SQLException {
+		String query = "INSERT OR REPLACE INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?, ?, ?)";
+		try (Connection connection = DatabaseHandler.getConnection();
+			PreparedStatement statement = connection.prepareStatement(query)) {
+            // statement.setString(1, TABLE_NAME);
+			statement.setInt(1, user.getId());
+			statement.setString(2, user.getUsername());
+			statement.setString(3, user.getPassword());
+			statement.setString(4, user.getFirstname());
+			statement.setString(5, user.getLastname());
+            statement.setString(6, user.getAccountType());
+            statement.setBoolean(7, user.getAccountEnabled());
+
+			statement.executeUpdate();
+			return user;
+		} 
+	}
 }

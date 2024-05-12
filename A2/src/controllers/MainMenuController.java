@@ -72,7 +72,7 @@ public class MainMenuController {
     }
 
     public void showStage(Pane root){
-        Scene scene = new Scene(root, 1400, 1000);
+        Scene scene = new Scene(root, 1000, 500);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Live Venue Music Matcher");

@@ -1,6 +1,7 @@
 package src.models;
 
 public class User{
+    private int id;
     private String username;
     private String firstname;
     private String lastname;
@@ -28,6 +29,18 @@ public class User{
         this.accountEnabled = accountEnabled;
     }
 
+    public User(int id, String username, String password, String firstname, String lastname, String accountType, boolean accountEnabled){
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.accountType = accountType;
+        this.accountEnabled = accountEnabled;
+    }
+
+    public int getId(){ return this.id; }
+    public void setId(int id){ this.id = id; }
     public String getUsername(){ return this.username; }
     public void setUsername(String username){ this.username = username; }
     public String getPassword(){ return this.password; }
