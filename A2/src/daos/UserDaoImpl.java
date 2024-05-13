@@ -35,6 +35,26 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	public Boolean usernameWithOtherIdExists(String username, int id) throws SQLException {
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND id != ?";
+		DebugHandler.print("checking for " + username);
+		try (Connection connection = DatabaseHandler.getConnection(); 
+			PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setString(1, username);
+			statement.setInt(2, id);
+			
+			try (ResultSet rs = statement.executeQuery()) {
+				if (rs.next()) {
+					DebugHandler.print(username + " found");
+					return true;
+				}
+				DebugHandler.print(username + " not found");
+				return false;
+			} 
+		}
+	}
+
+	@Override
 	public User getUser(String username, String password) throws SQLException {
 		String query = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND password = ?";
 		try (Connection connection = DatabaseHandler.getConnection(); 
@@ -104,6 +124,10 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User updateUser(User user) throws SQLException {
+		if(usernameWithOtherIdExists(user.getUsername(), user.getId())){
+			return null;
+		}
+
 		String query = "INSERT OR REPLACE INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DatabaseHandler.getConnection();
 			PreparedStatement statement = connection.prepareStatement(query)) {
