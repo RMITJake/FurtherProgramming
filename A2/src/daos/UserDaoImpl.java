@@ -93,4 +93,15 @@ public class UserDaoImpl implements UserDao {
 			return user;
 		} 
 	}
+
+	@Override
+	public void deleteUser(User user) throws SQLException {
+		String query = "DELETE FROM " + TABLE_NAME +" WHERE id = (?)";
+		try (Connection connection = DatabaseHandler.getConnection();
+			PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setInt(1, user.getId());
+
+			statement.executeUpdate();
+		}
+	}
 }

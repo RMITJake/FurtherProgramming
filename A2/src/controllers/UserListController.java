@@ -87,9 +87,18 @@ public class UserListController {
             usernameInput.setText(user.getUsername());
             firstnameInput.setText(user.getFirstname());
             lastnameInput.setText(user.getLastname());
+            passwordInput.setText("");
             accountTypeDropdown.setValue(user.getAccountType());
             
-            if(user.getUsername().equals("Admin")){
+            if(user.getUsername() == null){
+                usernameInput.setDisable(false);
+                firstnameInput.setDisable(false);
+                lastnameInput.setDisable(false);
+                accountTypeDropdown.setDisable(false);
+                addAccountButton.setDisable(false);
+                updateAccountButton.setDisable(true);
+                deleteAccountButton.setDisable(true);
+            } else if(user.getUsername().equals("Admin")){
                 usernameInput.setEditable(false);
                 usernameInput.setDisable(true);
                 firstnameInput.setEditable(false);
@@ -115,7 +124,7 @@ public class UserListController {
                 deleteAccountButton.setDisable(false);
             }
 
-            if(user.getAccountType().equals("admin")){
+            if(user.getAccountType() != null && user.getAccountType().equals("admin")){
                 usernameInput.setEditable(false);
                 usernameInput.setDisable(true);
             }
@@ -125,14 +134,27 @@ public class UserListController {
     @FXML private void updateUser(ActionEvent actionEvent){
         this.selectedUser.setUser(userListTable.getSelectionModel().getSelectedItem());
         this.selectedUser.setUsername(usernameInput.getText());
+        this.selectedUser.setFirstname(firstnameInput.getText());
+        this.selectedUser.setLastname(lastnameInput.getText());
+        this.selectedUser.setPassword(passwordInput.getText());
         this.selectedUser.setAccountType(accountTypeDropdown.getValue());
-        DebugHandler.print(this.selectedUser.getUsername());
-        DebugHandler.print(this.accountTypeDropdown.getValue());
         try{
             this.selectedUser.getUserDao().updateUser(this.selectedUser);
         } catch(SQLException ex){
             ex.printStackTrace();
         }
+        loadUserListTable();
+        updateUserInputs(this.selectedUser);
+    }
+
+    @FXML private void deleteUser(ActionEvent actionEvent){
+        this.selectedUser.setUser(userListTable.getSelectionModel().getSelectedItem());
+        try{
+            this.selectedUser.getUserDao().deleteUser(this.selectedUser);
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        this.selectedUser = new User();
         loadUserListTable();
         updateUserInputs(this.selectedUser);
     }
