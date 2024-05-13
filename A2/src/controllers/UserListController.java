@@ -158,4 +158,20 @@ public class UserListController {
         loadUserListTable();
         updateUserInputs(this.selectedUser);
     }
+
+    @FXML private void addUser(ActionEvent actionEvent){
+        this.selectedUser.setUsername(usernameInput.getText());
+        this.selectedUser.setFirstname(firstnameInput.getText());
+        this.selectedUser.setLastname(lastnameInput.getText());
+        this.selectedUser.setPassword(passwordInput.getText());
+        this.selectedUser.setAccountType(accountTypeDropdown.getValue());
+        try{
+            this.selectedUser.getUserDao().createUser(this.selectedUser);
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        this.selectedUser = new User();
+        loadUserListTable();
+        updateUserInputs(this.selectedUser);
+    }
 }
