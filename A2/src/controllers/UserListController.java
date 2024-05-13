@@ -1,6 +1,7 @@
 package src.controllers;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 // JavaFX imports
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -16,15 +17,19 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 // Java System imports
 import java.util.List;
+import java.sql.SQLException;
 import java.util.ArrayList;
 // Local imports
 import src.models.User;
 import src.handlers.DatabaseHandler;
+import src.handlers.DebugHandler;
+import src.daos.UserDao;
 
 public class UserListController {
     private Stage stage;
     private Stage parentStage;
     private User currentUser;
+    private User selectedUser;
 
     // UserList Table
     @FXML private TableView<User> userListTable;
@@ -47,6 +52,7 @@ public class UserListController {
         this.stage = new Stage();
         this.parentStage = parentStage;
         this.currentUser = currentUser;
+        this.selectedUser = new User();
     }
 
     public void showStage(Pane root){
@@ -107,6 +113,19 @@ public class UserListController {
         if(user.getAccountType().equals("admin")){
             usernameInput.setEditable(false);
             usernameInput.setDisable(true);
+        }
+    }
+
+    @FXML private void updateUser(ActionEvent actionEvent){
+        selectedUser.setUser(userListTable.getSelectionModel().getSelectedItem());
+        selectedUser.setUsername(usernameInput.getText());
+        selectedUser.setAccountType(accountTypeDropdown.getValue());
+        DebugHandler.print(selectedUser.getUsername());
+        DebugHandler.print(accountTypeDropdown.getValue());
+        try{
+            selectedUser.getUserDao().updateUser(selectedUser);
+        } catch(SQLException ex){
+            ex.printStackTrace();
         }
     }
 }

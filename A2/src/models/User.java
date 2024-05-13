@@ -1,5 +1,8 @@
 package src.models;
 
+import src.daos.UserDao;
+import src.daos.UserDaoImpl;
+
 public class User{
     private int id;
     private String username;
@@ -9,7 +12,12 @@ public class User{
     private String accountType;
     private boolean accountEnabled;
 
-    public User(){}
+    private UserDao userDao;
+    private User currentUser;
+
+    public User(){
+        userDao = new UserDaoImpl();
+    }
 
     public User(String username, String password){
         this.username = username;
@@ -39,6 +47,29 @@ public class User{
         this.accountEnabled = accountEnabled;
     }
 
+    public void setUser(User user){
+        this.id = user.id;
+        this.username = user.username;
+        this.password = user.password;
+        this.firstname = user.firstname;
+        this.lastname = user.lastname;
+        this.accountType = user.accountType;
+        this.accountEnabled = user.accountEnabled;
+    }
+
+    public UserDao getUserDao(){
+        return userDao;
+    }
+
+    public User getCurrentUser(){
+        return this.currentUser;
+    }
+
+    public void setCurrentUser(User user){
+        currentUser = user;
+    }
+
+// Getters and Setters
     public int getId(){ return this.id; }
     public void setId(int id){ this.id = id; }
     public String getUsername(){ return this.username; }
