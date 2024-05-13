@@ -14,17 +14,16 @@ import src.handlers.DatabaseHandler;
 import src.handlers.VenueHandler;
 import src.models.Venue;
 import src.models.Event;
-import src.models.Login;
 import src.models.User;
 import src.handlers.RequestHandler;
 import src.controllers.LoginController;
 
 public class App extends Application {
-	private Login login;
+	private User login;
 
 	@Override
 	public void init(){
-		login = new Login();
+		login = new User();
 
 		VenueHandler venueHandler = new VenueHandler();
 		RequestHandler requestHandler = new RequestHandler();

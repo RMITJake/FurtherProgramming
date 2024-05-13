@@ -30,10 +30,10 @@ public class LoginController {
 	@FXML
 	private Button signup;
 
-	private Login login;
+	private User login;
 	private Stage stage;
 	
-	public LoginController(Stage stage, Login login) {
+	public LoginController(Stage stage, User login) {
 		this.stage = stage;
 		this.login = login;
 	}

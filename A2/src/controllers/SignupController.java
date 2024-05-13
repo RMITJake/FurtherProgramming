@@ -11,7 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import src.handlers.DebugHandler;
-import src.models.Login;
 import src.models.User;
 
 public class SignupController {
@@ -28,9 +27,9 @@ public class SignupController {
 	
 	private Stage stage;
 	private Stage parentStage;
-	private Login login;
+	private User login;
 	
-	public SignupController(Stage parentStage, Login login) {
+	public SignupController(Stage parentStage, User login) {
 		this.stage = new Stage();
 		this.parentStage = parentStage;
 		this.login = login;
