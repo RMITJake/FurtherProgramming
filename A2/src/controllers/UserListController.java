@@ -87,7 +87,7 @@ public class UserListController {
             usernameInput.setText(user.getUsername());
             firstnameInput.setText(user.getFirstname());
             lastnameInput.setText(user.getLastname());
-            passwordInput.setText("");
+            passwordInput.setText(null);
             accountTypeDropdown.setValue(user.getAccountType());
             
             if(user.getUsername() == null){
@@ -136,7 +136,9 @@ public class UserListController {
         this.selectedUser.setUsername(usernameInput.getText());
         this.selectedUser.setFirstname(firstnameInput.getText());
         this.selectedUser.setLastname(lastnameInput.getText());
-        this.selectedUser.setPassword(passwordInput.getText());
+        if(passwordInput.getText() != null){
+            this.selectedUser.setPassword(passwordInput.getText());
+        }
         this.selectedUser.setAccountType(accountTypeDropdown.getValue());
         try{
             this.selectedUser.getUserDao().updateUser(this.selectedUser);
