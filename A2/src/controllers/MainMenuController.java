@@ -70,7 +70,7 @@ public class MainMenuController {
         this.stage = new Stage();
         this.parentStage = parentStage;
         this.user = user;
-        DebugHandler.print("user's name: " + user.getFirstname() + user.getLastname());
+        DebugHandler.print("main menu user's id: " + user.getId() + user.getLastname());
     }
 
     public void showStage(Pane root){

@@ -2,27 +2,44 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="473.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.SignupController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.SignupController">
    <children>
-      <Pane prefHeight="365.0" prefWidth="400.0">
+      <Pane prefHeight="400.0" prefWidth="400.0">
          <children>
-            <Label layoutX="60.0" layoutY="46.0" prefHeight="17.0" prefWidth="65.0" text="Username" />
-            <TextField fx:id="usernameInput" layoutX="138.0" layoutY="42.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
-            <Label layoutX="60.0" layoutY="93.0" prefHeight="17.0" prefWidth="65.0" text="First Name" />
-            <TextField fx:id="firstnameInput" layoutX="138.0" layoutY="89.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
-            <Label layoutX="60.0" layoutY="144.0" prefHeight="17.0" prefWidth="65.0" text="Last Name" />
-            <TextField fx:id="lastnameInput" layoutX="138.0" layoutY="140.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
-            <Label layoutX="60.0" layoutY="192.0" prefHeight="17.0" prefWidth="65.0" text="Password" />
-            <PasswordField fx:id="passwordInput" layoutX="138.0" layoutY="188.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
-            <TitledPane animated="false" layoutX="24.0" layoutY="222.0" prefHeight="127.0" prefWidth="360.0" text="Change Password">
+            <FlowPane layoutX="60.0" layoutY="14.0" prefHeight="25.0" prefWidth="340.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="65.0" text="Username" />
+                  <TextField fx:id="usernameInput" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="60.0" layoutY="50.0" prefHeight="25.0" prefWidth="340.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="65.0" text="First Name" />
+                  <TextField fx:id="firstnameInput" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="60.0" layoutY="86.0" prefHeight="25.0" prefWidth="340.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="65.0" text="Last Name" />
+                  <TextField fx:id="lastnameInput" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="60.0" layoutY="122.0" prefHeight="25.0" prefWidth="340.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="65.0" text="Password" />
+                  <PasswordField fx:id="passwordInput" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
+               </children>
+            </FlowPane>
+            <TitledPane animated="false" layoutX="24.0" layoutY="148.0" prefHeight="127.0" prefWidth="360.0" text="Change Password">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="101.0" prefWidth="369.0">
                      <children>
@@ -30,31 +47,22 @@
                         <PasswordField fx:id="newPasswordInput" layoutX="119.0" layoutY="14.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
                         <Label layoutX="11.0" layoutY="52.0" prefHeight="17.0" prefWidth="98.0" text="Confirm Password" />
                         <PasswordField fx:id="confirmPasswordInput" layoutX="119.0" layoutY="48.0" maxWidth="250.0" prefHeight="25.0" prefWidth="225.0" />
-                        <Label fx:id="passwordChangeErrorText" layoutX="89.0" layoutY="79.0" prefHeight="17.0" prefWidth="225.0" text="Error Text" />
+                        <Label fx:id="passwordChangeErrorText" layoutX="118.0" layoutY="79.0" prefHeight="17.0" prefWidth="225.0" text="Error Text" />
                      </children>
                   </AnchorPane>
               </content>
             </TitledPane>
+            <FlowPane layoutY="282.0" prefHeight="0.0" prefWidth="400.0">
+               <children>
+                  <Pane prefHeight="17.0" prefWidth="149.0" />
+                  <Label fx:id="updateDetailsErrorText" prefHeight="17.0" prefWidth="242.0" style="-fx-text-alignment: center;" text="Error Text" />
+                  <Pane prefHeight="25.0" prefWidth="150.0" />
+                  <Button id="updateDetailsButton" fx:id="createUser" mnemonicParsing="false" onAction="#updateDetails" prefHeight="25.0" prefWidth="100.0" text="Update Details" />
+               </children>
+            </FlowPane>
+            <Button id="backButton" fx:id="backButton" layoutX="150.0" layoutY="346.0" mnemonicParsing="false" onAction="#mainMenu" prefHeight="25.0" prefWidth="100.0" text="Main Menu" />
          </children>
       </Pane>
-      <HBox prefHeight="0.0" prefWidth="400.0" />
-      <Label fx:id="updateDetailsErrorText" prefHeight="17.0" prefWidth="229.0" text="Error Text" />
-      <HBox prefHeight="64.0" prefWidth="400.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="400.0" spacing="20.0">
-               <children>
-                  <Button id="updateDetailsButton" fx:id="createUser" onAction="#updateDetails" mnemonicParsing="false" text="Update Details" />
-                  <Button id="backButton" fx:id="close" mnemonicParsing="false" text="Back" />
-               </children>
-            </HBox>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="30.0" prefWidth="400.0" spacing="20.0">
-         <children>
-            <Button fx:id="deleteAccountButton" mnemonicParsing="false" text="Delete Account" />
-            <Button fx:id="changeAccountTypeButton" mnemonicParsing="false" text="Change Type" />
-         </children>
-      </HBox>
-      <Label fx:id="status" />
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="400.0" spacing="20.0" style="-fx-padding: 4;" />
    </children>
 </VBox>

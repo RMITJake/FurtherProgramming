@@ -56,7 +56,7 @@ public class UserListController {
     }
 
     public void showStage(Pane root){
-        Scene scene = new Scene(root, 600, 500);
+        Scene scene = new Scene(root, 610, 400);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("User List - Live Venue Music Matcher");

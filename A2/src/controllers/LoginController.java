@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import src.handlers.DebugHandler;
 import src.models.*;
 
 public class LoginController {
@@ -44,6 +45,7 @@ public class LoginController {
 				User user;
 				try {
 					user = login.getUserDao().getUser(name.getText(), password.getText());
+					DebugHandler.print("login users id " + user.getId());
 					if (user != null) {
 						login.setCurrentUser(user);
 						message.setText("Login success for " + user.getUsername());
