@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.UserListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.UserListController">
    <children>
-      <TableView fx:id="userListTable" onMouseClicked="#selectUser" prefHeight="400.0" prefWidth="426.0">
+      <TableView fx:id="userListTable" onMouseClicked="#selectUser" prefHeight="440.0" prefWidth="426.0">
         <columns>
           <TableColumn fx:id="usernameColumn" prefWidth="105.0" text="Username" />
           <TableColumn fx:id="firstnameColumn" prefWidth="113.0" text="First Name" />
@@ -46,9 +46,6 @@
             <PasswordField fx:id="passwordInput" prefHeight="36.0" prefWidth="158.0" text="password" />
          </children>
       </FlowPane>
-      <Button fx:id="addAccountButton" layoutX="438.0" layoutY="299.0" mnemonicParsing="false" onAction="#addUser" prefWidth="162.0" text="Add Account" />
-      <Button fx:id="updateAccountButton" layoutX="438.0" layoutY="334.0" mnemonicParsing="false" onAction="#updateUser" prefWidth="162.0" text="Update Account" />
-      <Button fx:id="deleteAccountButton" layoutX="438.0" layoutY="367.0" mnemonicParsing="false" onAction="#deleteUser" prefWidth="162.0" text="Delete Account" />
       <ComboBox fx:id="accountTypeDropdown" layoutX="438.0" layoutY="267.0" prefHeight="25.0" prefWidth="162.0" promptText="account type">
         <items>
           <FXCollections fx:factory="observableArrayList">
@@ -57,5 +54,9 @@
           </FXCollections>
           </items>
       </ComboBox>
+      <Button fx:id="addAccountButton" layoutX="438.0" layoutY="299.0" mnemonicParsing="false" onAction="#addUser" prefWidth="162.0" text="Add Account" />
+      <Button fx:id="updateAccountButton" layoutX="438.0" layoutY="334.0" mnemonicParsing="false" onAction="#updateUser" prefWidth="162.0" text="Update Account" />
+      <Button fx:id="deleteAccountButton" layoutX="438.0" layoutY="367.0" mnemonicParsing="false" onAction="#deleteUser" prefWidth="162.0" text="Delete Account" />
+      <Button fx:id="mainMenuButton" onAction="#mainMenu" layoutX="438.0" layoutY="412.0" mnemonicParsing="false" prefWidth="162.0" text="Main Menu" />
    </children>
 </AnchorPane>

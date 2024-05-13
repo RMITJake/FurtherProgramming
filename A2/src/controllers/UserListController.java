@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 // JavaFX imports
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -14,9 +15,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+
 // Java System imports
 import java.util.List;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 // Local imports
@@ -56,7 +61,7 @@ public class UserListController {
     }
 
     public void showStage(Pane root){
-        Scene scene = new Scene(root, 610, 400);
+        Scene scene = new Scene(root, 610, 440);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("User List - Live Venue Music Matcher");
@@ -175,5 +180,25 @@ public class UserListController {
         this.selectedUser = new User();
         loadUserListTable();
         updateUserInputs(this.selectedUser);
+    }
+
+    @FXML private void mainMenu(ActionEvent actionEvent){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/views/MainMenu.fxml"));
+            
+            Callback<Class<?>, Object> controllerFactory = param -> {
+                return new MainMenuController(stage, this.currentUser);
+            };
+            
+            loader.setControllerFactory(controllerFactory);
+            VBox root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.showStage(root);
+
+            stage.close();
+        } catch(IOException ex){
+            ex.printStackTrace();
+        }
     }
 }
