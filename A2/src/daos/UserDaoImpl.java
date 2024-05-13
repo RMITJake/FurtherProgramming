@@ -7,12 +7,32 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import src.handlers.DatabaseHandler;
+import src.handlers.DebugHandler;
 import src.models.User;
 
 public class UserDaoImpl implements UserDao {
 	private final String TABLE_NAME = "users";
 
 	public UserDaoImpl() {}
+
+	@Override
+	public Boolean userExists(String username) throws SQLException {
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE username = ?";
+		DebugHandler.print("checking for " + username);
+		try (Connection connection = DatabaseHandler.getConnection(); 
+			PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setString(1, username);
+			
+			try (ResultSet rs = statement.executeQuery()) {
+				if (rs.next()) {
+					DebugHandler.print(username + " found");
+					return true;
+				}
+				DebugHandler.print(username + " not found");
+				return false;
+			} 
+		}
+	}
 
 	@Override
 	public User getUser(String username, String password) throws SQLException {
@@ -41,6 +61,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User createUser(String username, String password) throws SQLException {
+		if(userExists(username)){
+			return null;
+		}
         User newUser = new User(username, password);
 		String query = "INSERT INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DatabaseHandler.getConnection();
@@ -60,6 +83,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User createUser(User newUser) throws SQLException {
+		if(userExists(newUser.getUsername())){
+			return null;
+		}
 		String query = "INSERT INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DatabaseHandler.getConnection();
 			PreparedStatement statement = connection.prepareStatement(query)) {
