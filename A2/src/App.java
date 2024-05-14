@@ -30,7 +30,7 @@ public class App extends Application {
 		List<Event> events = requestHandler.retrieveRequestsFromCSV();
 		DatabaseHandler.seedDb(venues, events);
 
-		User user1 = new User("Admin", "rockingandrolling", "SYSTEM", "ADMIN", "admin", true);
+		User user1 = new User("admin", "rockingandrolling", "SYSTEM", "ADMIN", "admin", true);
 		User user2 = new User("Jake", "pwd123", "Jake", "Kent", "admin", true);
 		User user3 = new User("Staff", "default", "Staff", "Test", "staff", true);
 
