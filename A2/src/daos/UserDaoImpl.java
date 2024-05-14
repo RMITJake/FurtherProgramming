@@ -11,7 +11,7 @@ import src.handlers.DebugHandler;
 import src.models.User;
 
 public class UserDaoImpl implements UserDao {
-	private final String TABLE_NAME = "users";
+	private final String TABLE_NAME = DatabaseHandler.usersTable;
 
 	public UserDaoImpl() {}
 

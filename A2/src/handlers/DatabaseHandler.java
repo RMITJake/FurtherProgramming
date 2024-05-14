@@ -14,6 +14,8 @@ public class DatabaseHandler {
     // Variable to allow different databases to be accessed
     private static String database;
     private static String connectionString;
+    public static final String eventsTable = "events";
+    public static final String usersTable = "users";
 
     // Variable which allows for a test database to be setup
     public static final String testdb = "testdb";
@@ -219,38 +221,7 @@ public class DatabaseHandler {
 //////////////////
 // Read from DB //
 //////////////////
-    public static List<Event> readEventsTable(){
-        List<Event> eventList = new ArrayList<>();
-        try(
-            Connection connection = DriverManager.getConnection(connectionString);
-            Statement query = connection.createStatement();
-        ){ // inside the try block
-            ResultSet result = query.executeQuery("SELECT * FROM events");
-            DebugHandler.print(result.getString("client"));
-
-            while(result.next()){
-                DebugHandler.print(result.getString("client"));
-                Event event = new Event(
-                result.getInt("id"),
-                result.getString("client"),
-                result.getString("title"),
-                result.getString("artist"),
-                result.getString("dateTime"),
-                result.getInt("target"),
-                result.getInt("duration"),
-                result.getString("type"),
-                result.getString("category")
-                );
-                eventList.add(event);
-                DebugHandler.print(String.format("Added event: %s %s", event.getId(), event.getClient()));
-            }
-
-            return eventList;
-        } catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    
 
     public static List<Venue> readVenuesTable(){
         List<Venue> venueList = new ArrayList<>();

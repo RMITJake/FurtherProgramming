@@ -19,8 +19,12 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import src.daos.EventDao;
+import src.daos.EventDaoImpl;
 import src.handlers.BookingHandler;
 import java.util.Collections;
 // Local imports
@@ -65,11 +69,13 @@ public class MainMenuController {
     private Stage stage;
     private Stage parentStage;
     private User currentUser;
+    private EventDao eventDao;
 
     public MainMenuController(Stage parentStage, User user){
         this.stage = new Stage();
         this.parentStage = parentStage;
         this.currentUser = user;
+        this.eventDao = new EventDaoImpl();
         DebugHandler.print("main menu user's id: " + user.getId() + user.getLastname());
     }
 
@@ -96,7 +102,12 @@ public class MainMenuController {
         artistColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("artist"));
         clientColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("client"));
 
-        List<Event> eventList = DatabaseHandler.readEventsTable();
+        List<Event> eventList = new ArrayList<Event>(); 
+        try{
+            eventList = eventDao.readEventsTable();
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
         requestTable.setItems(FXCollections.observableArrayList(eventList));
     }
 
@@ -203,7 +214,14 @@ public class MainMenuController {
 
     @FXML private void autoMatch(){
         DebugHandler.print("in automatch");
-        List<Event> eventList = DatabaseHandler.readEventsTable();
+
+        List<Event> eventList = new ArrayList<Event>(); 
+        try{
+            eventList = eventDao.readEventsTable();
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+
         List<Venue> venueList = DatabaseHandler.readVenuesTable();
         List<Booking> bookingList = new ArrayList<>();
 
