@@ -33,8 +33,6 @@ public class AccountController {
     @FXML private PasswordField passwordInput;
     @FXML private PasswordField newPasswordInput;
     @FXML private PasswordField confirmPasswordInput;
-    @FXML private Button deleteAccountButton;
-    @FXML private Button changeAccountTypeButton;
     @FXML private Label updateDetailsErrorText;
     @FXML private Label passwordChangeErrorText;
     @FXML private Button backButton;
@@ -67,12 +65,6 @@ public class AccountController {
         if(currentUser.getAccountType().equals("admin")){
             usernameInput.setEditable(false);
             usernameInput.setDisable(true);
-        }
-
-        // Disable functions for Staff
-        if(currentUser.getAccountType().equals("staff")){
-            deleteAccountButton.setVisible(false);
-            changeAccountTypeButton.setVisible(false);
         }
     }
 

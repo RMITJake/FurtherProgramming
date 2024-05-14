@@ -64,12 +64,12 @@ public class MainMenuController {
 
     private Stage stage;
     private Stage parentStage;
-    private User user;
+    private User currentUser;
 
     public MainMenuController(Stage parentStage, User user){
         this.stage = new Stage();
         this.parentStage = parentStage;
-        this.user = user;
+        this.currentUser = user;
         DebugHandler.print("main menu user's id: " + user.getId() + user.getLastname());
     }
 
@@ -79,6 +79,9 @@ public class MainMenuController {
         stage.setResizable(false);
         stage.setTitle("Main Menu - Live Venue Music Matcher");
         stage.show();
+        if(this.currentUser.getAccountType().equals("staff")){
+            userList.setVisible(false);
+        }
     }
 
     @FXML private void initialize(){
@@ -223,7 +226,7 @@ public class MainMenuController {
             
             // Customize controller instance
             Callback<Class<?>, Object> controllerFactory = param -> {
-                return new AccountController(stage, user, user);
+                return new AccountController(stage, this.currentUser, this.currentUser);
             };
 
             loader.setControllerFactory(controllerFactory);
@@ -244,7 +247,7 @@ public class MainMenuController {
             
             // Customize controller instance
             Callback<Class<?>, Object> controllerFactory = param -> {
-                return new UserListController(stage, user);
+                return new UserListController(stage, this.currentUser);
             };
 
             loader.setControllerFactory(controllerFactory);
