@@ -31,7 +31,6 @@ import src.daos.VenueDaoImpl;
 import src.handlers.BookingHandler;
 import java.util.Collections;
 // Local imports
-import src.handlers.DatabaseHandler;
 import src.handlers.DebugHandler;
 import src.models.Event;
 import src.models.User;
@@ -70,7 +69,6 @@ public class MainMenuController {
     @FXML private MenuItem userList;
 
     private Stage stage;
-    private Stage parentStage;
     private User currentUser;
     private EventDao eventDao;
     private VenueDao venueDao;
@@ -78,7 +76,6 @@ public class MainMenuController {
 
     public MainMenuController(Stage parentStage, User user){
         this.stage = new Stage();
-        this.parentStage = parentStage;
         this.currentUser = user;
         this.eventDao = new EventDaoImpl();
         this.venueDao = new VenueDaoImpl();
@@ -172,7 +169,12 @@ public class MainMenuController {
 
     @FXML private void selectVenue(MouseEvent mouseEvent){
         Venue venue = venueTable.getSelectionModel().getSelectedItem();
-        List<Event> eventList = DatabaseHandler.readVenueEvents(venue.getName());
+        List<Event> eventList = new ArrayList<Event>(); 
+        try{
+            eventList = this.bookingDao.getEventsByVenue(venue.getName());
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
         updateBookingTable(eventList);
     }
 
@@ -232,7 +234,11 @@ public class MainMenuController {
         Venue venue = venueTable.getSelectionModel().getSelectedItem();
         if(event != null && venue != null){
             bookingDao.createBooking(event, venue);
-            updateBookingTable(DatabaseHandler.readVenueEvents(venue.getName()));
+            try{
+                updateBookingTable(this.bookingDao.getEventsByVenue(venue.getName()));
+            } catch(SQLException ex){
+                ex.printStackTrace();
+            }
         }
     }
 

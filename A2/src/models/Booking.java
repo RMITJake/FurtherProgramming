@@ -1,7 +1,10 @@
 package src.models;
+import java.util.ArrayList;
 import java.util.List;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
-import src.handlers.DatabaseHandler;
+
+import src.daos.BookingDaoImpl;
 
 public class Booking{
     private double discountAmount;
@@ -9,11 +12,13 @@ public class Booking{
     private Event event;
     private Venue venue;
     private int compatibilityScore;
+    private BookingDaoImpl bookingDao;
 
     public Booking(){
         this.event = new Event();
         this.venue = new Venue();
         this.compatibilityScore = 0;
+        this.bookingDao = new BookingDaoImpl();
     }
 
     public Booking(Event event, Venue venue){
@@ -21,12 +26,14 @@ public class Booking{
         this.venue = venue;
         this.compatibilityScore = calculateCompatibilityScore();
         this.venue.setCompatibilityScore(this.compatibilityScore);
+        this.bookingDao = new BookingDaoImpl();
     }
 
     public Booking(Event event, Venue venue, int compatibilityScore){
         this.event = event;
         this.venue = venue;
         this.compatibilityScore = compatibilityScore;
+        this.bookingDao = new BookingDaoImpl();
     }
 
     public Event getEvent(){ return this.event; }
@@ -72,8 +79,14 @@ public class Booking{
 // MATCH CRITERIA //
 ////////////////////
     public boolean matchAvailable(){
-        List<Event> eventList = DatabaseHandler.readVenueEvents(this.venue.getName());
-        // booking list needs to be list of events from one venue
+        bookingDao = new BookingDaoImpl();
+        List<Event> eventList = new ArrayList<Event>();
+        try{
+            eventList = bookingDao.getEventsByVenue(this.venue.getName());
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+
         LocalDateTime eventStart = this.event.getDateTime();
         LocalDateTime eventEnd = this.event.getEventFinish();
 

@@ -22,7 +22,6 @@ import src.daos.UserDaoImpl;
 
 public class AccountController {
     private Stage stage;
-    private Stage parentStage;
     private User currentUser;
     private User user;
 
@@ -39,7 +38,6 @@ public class AccountController {
 
     public AccountController(Stage parentStage, User currentUser, User user){
         this.stage = new Stage();
-        this.parentStage = parentStage;
         this.currentUser = currentUser;
         this.user = user;
         DebugHandler.print("currentuser's id: " + user.getId() + user.getLastname());

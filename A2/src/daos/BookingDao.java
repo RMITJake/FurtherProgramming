@@ -10,4 +10,5 @@ import src.models.Venue;
 public interface BookingDao {
     List<Booking> readBookingsTable() throws SQLException;
     void createBooking(Event event, Venue venue);
+    List<Event> getEventsByVenue(String venueName) throws SQLException;
 }

@@ -26,13 +26,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 // Local imports
 import src.models.User;
-import src.handlers.DatabaseHandler;
-import src.handlers.DebugHandler;
-import src.daos.UserDao;
 
 public class UserListController {
     private Stage stage;
-    private Stage parentStage;
     private User currentUser;
     private User selectedUser;
 
@@ -55,7 +51,6 @@ public class UserListController {
 
     public UserListController(Stage parentStage, User currentUser){
         this.stage = new Stage();
-        this.parentStage = parentStage;
         this.currentUser = currentUser;
         this.selectedUser = new User();
     }

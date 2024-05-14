@@ -79,4 +79,38 @@ public class BookingDaoImpl implements BookingDao{
             ex.printStackTrace(System.err);
         } // END of Try-Catch block
     }
+
+    @Override
+    public List<Event> getEventsByVenue(String venueName) throws SQLException{
+        DebugHandler.print("inside readVenueEvents with: " + venueName);
+        List<Event> eventList = new ArrayList<>();
+
+        String query = "SELECT e.id, e.client, e.title, e.artist, e.dateTime, e.target, e.duration, e.type, e.category FROM " + TABLE_NAME
+        +" INNER JOIN events as e ON bookings.eventid = e.id "
+        +"INNER JOIN venues ON bookings.venueid = venues.id "
+        +"WHERE venues.name = ?";
+
+		try (Connection connection = DatabaseHandler.getConnection(); 
+            PreparedStatement preparedQuery = connection.prepareStatement(query);
+        ){ // inside the try block
+            preparedQuery.setString(1, venueName);
+            ResultSet result = preparedQuery.executeQuery();
+
+            while(result.next()){
+                Event event = new Event(
+                result.getInt("id"),
+                result.getString("client"),
+                result.getString("title"),
+                result.getString("artist"),
+                result.getString("dateTime"),
+                result.getInt("target"),
+                result.getInt("duration"),
+                result.getString("type"),
+                result.getString("category")
+                );
+                eventList.add(event);
+            }
+            return eventList;
+        }
+    }
 }

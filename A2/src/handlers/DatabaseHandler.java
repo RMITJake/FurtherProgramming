@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import src.models.*;
 import src.daos.BookingDaoImpl;
@@ -43,9 +40,6 @@ public class DatabaseHandler {
         createTable(bookingsTable, bookingDao.SCHEMA);
     }
 
-///////////////////////////
-// Seed Database Methods //
-///////////////////////////
     public static void seedDb(List<Venue> venueList, List<Event> eventList){
         try{
             eventDao.createEvent(eventList);
@@ -54,11 +48,7 @@ public class DatabaseHandler {
             ex.printStackTrace();
         }
     }
-// END Seed Database Methods //
 
-//////////////////////////
-// Create Table Methods //
-//////////////////////////
     // Create Table
     public static void createTable(String table, String schema){
         DebugHandler.print("Creating Tables");
@@ -73,11 +63,7 @@ public class DatabaseHandler {
             ex.printStackTrace(System.err);
         } // END of Try-Catch block
     }
-// END Create Table Methods
 
-/////////////////////
-// Generic Methods //
-/////////////////////
     public static Connection getConnection(){
         Connection connection = null;
         try{
@@ -87,47 +73,4 @@ public class DatabaseHandler {
         }
         return connection;
     }
-// END  Generic Methods //
-
-//////////////////
-// Read from DB //
-//////////////////
-
-    public static List<Event> readVenueEvents(String venueName){
-        DebugHandler.print("inside readVenueEvents with: " + venueName);
-        List<Event> eventList = new ArrayList<>();
-
-        String query = "SELECT e.id, e.client, e.title, e.artist, e.dateTime, e.target, e.duration, e.type, e.category FROM bookings "
-            +"INNER JOIN events as e ON bookings.eventid = e.id "
-            +"INNER JOIN venues ON bookings.venueid = venues.id "
-            +"WHERE venues.name = ?";
-        try(
-            Connection connection = DriverManager.getConnection(connectionString);
-            PreparedStatement preparedQuery = connection.prepareStatement(query);
-        ){ // inside the try block
-            preparedQuery.setString(1, venueName);
-            ResultSet result = preparedQuery.executeQuery();
-
-            while(result.next()){
-                Event event = new Event(
-                result.getInt("id"),
-                result.getString("client"),
-                result.getString("title"),
-                result.getString("artist"),
-                result.getString("dateTime"),
-                result.getInt("target"),
-                result.getInt("duration"),
-                result.getString("type"),
-                result.getString("category")
-                );
-                eventList.add(event);
-            }
-
-            return eventList;
-        } catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        return null;
-    }
-// END Read from DB
 }

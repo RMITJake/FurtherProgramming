@@ -70,9 +70,6 @@ public class LoginController {
 							ex.printStackTrace();
 						}
 
-					} else {
-						message.setText("Wrong username or password");
-						message.setTextFill(Color.RED);
 					}
 				} catch (SQLException e) {
 					message.setText(e.getMessage());
