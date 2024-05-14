@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.ArrayList;
 import src.handlers.DatabaseHandler;
 import src.handlers.VenueHandler;
 import src.models.Venue;
