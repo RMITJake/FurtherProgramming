@@ -1,5 +1,6 @@
 package src.daos;
 
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -53,4 +54,32 @@ public class VenueDaoImpl implements VenueDao {
             return venueList;
         }
     }
+
+    @Override
+    public void createVenue(List<Venue> venueList) throws SQLException{
+
+        DebugHandler.print("creating venue");
+        String insertStatement = ""
+        +"INSERT INTO " + TABLE_NAME
+        +" VALUES (?, ?, ?, ?, ?)";
+
+		try (Connection connection = DatabaseHandler.getConnection(); 
+            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
+        ){ // inside the try block
+            DebugHandler.print("venue statement prepped");
+            int rowsAffected = 0;
+            int venueId = 0;
+            for(Venue venue : venueList){
+                venueId++;
+                preparedInsert.setString(2, venue.getName());
+                preparedInsert.setInt(3, venue.getCapacity());
+                preparedInsert.setString(4, venue.getCategory());
+                preparedInsert.setDouble(5, venue.getPricePerHour());
+                int row = preparedInsert.executeUpdate();
+                rowsAffected += row;
+                this.suitableForDao.createSuitableFor(connection, venue, venueId);
+            }
+            DebugHandler.print(String.format("%s rows affected", rowsAffected));
+        } // END of Try-Catch block
+    } // END of writeVenue
 }

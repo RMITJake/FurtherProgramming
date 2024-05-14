@@ -47,10 +47,9 @@ public class DatabaseHandler {
 // Seed Database Methods //
 ///////////////////////////
     public static void seedDb(List<Venue> venueList, List<Event> eventList){
-        writeVenue(venueList);
-        // writeEvent(eventList);
         try{
             eventDao.createEvent(eventList);
+            venueDao.createVenue(venueList);
         } catch(SQLException ex){
             ex.printStackTrace();
         }
@@ -89,52 +88,6 @@ public class DatabaseHandler {
         return connection;
     }
 // END  Generic Methods //
-    
-/////////////////////////
-// Write to DB Methods //
-/////////////////////////
-    
-
-    public static void writeVenue(List<Venue> venueList){
-        DebugHandler.print("Creating venu list to db");
-        String insertStatement = "INSERT INTO venues VALUES (?, ?, ?, ?, ?)";
-        try(
-            Connection connection = DriverManager.getConnection(connectionString);
-            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
-        ){ // inside the try block
-            int rowsAffected = 0;
-            int venueId = 0;
-            for(Venue venue : venueList){
-                venueId++;
-                preparedInsert.setString(2, venue.getName());
-                preparedInsert.setInt(3, venue.getCapacity());
-                preparedInsert.setString(4, venue.getCategory());
-                preparedInsert.setDouble(5, venue.getPricePerHour());
-                int row = preparedInsert.executeUpdate();
-                rowsAffected += row;
-                writeSuitableFor(connection, venue, venueId);
-            }
-            DebugHandler.print(String.format("%s rows affected", rowsAffected));
-        } catch(SQLException ex){
-            ex.printStackTrace(System.err);
-        } // END of Try-Catch block
-    } // END of writeVenue
-
-    public static void writeSuitableFor(Connection connection, Venue venue, int id){
-        String insertStatement = "INSERT INTO suitablefor VALUES (?, ?, ?)";
-        try(
-            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement)
-            ){ // inside the try block
-                for(String genre : venue.getSuitableFor()){
-                    preparedInsert.setInt(2, id);
-                    preparedInsert.setString(3, genre.trim());
-                    preparedInsert.executeUpdate();
-                }
-        } catch(SQLException ex){
-            ex.printStackTrace();
-        }
-    } // END of writeSuitableFor
-// END Write to DB Methods
 
 //////////////////
 // Read from DB //

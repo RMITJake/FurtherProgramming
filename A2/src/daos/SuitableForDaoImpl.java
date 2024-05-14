@@ -38,4 +38,21 @@ public class SuitableForDaoImpl implements SuitableForDao{
             return stringList.toArray(new String[0]);
         }
     }
+
+    @Override
+    public void createSuitableFor(Connection connection, Venue venue, int id) throws SQLException{
+        DebugHandler.print("suitable for loop");
+        String insertStatement = ""
+        +"INSERT INTO " + TABLE_NAME
+        +" VALUES (?, ?, ?)";
+        try(
+            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement)
+            ){ // inside the try block
+                for(String genre : venue.getSuitableFor()){
+                    preparedInsert.setInt(2, id);
+                    preparedInsert.setString(3, genre.trim());
+                    preparedInsert.executeUpdate();
+                }
+        }
+    }
 }

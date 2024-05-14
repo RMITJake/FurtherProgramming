@@ -7,4 +7,5 @@ import src.models.Venue;
 
 public interface VenueDao {
     List<Venue> readVenuesTable() throws SQLException;
+    void createVenue(List<Venue> venueList) throws SQLException;
 }
