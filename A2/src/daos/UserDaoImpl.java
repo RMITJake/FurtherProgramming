@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import src.handlers.DatabaseHandler;
 import src.handlers.DebugHandler;
@@ -12,8 +14,44 @@ import src.models.User;
 
 public class UserDaoImpl implements UserDao {
 	private final String TABLE_NAME = DatabaseHandler.usersTable;
+	public final String SCHEMA = ""
+        +"id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        +"username STRING, "
+        +"password STRING, "
+        +"firstname STRING, "
+        +"lastname STRING, "
+        +"accountType STRING, "
+        +"accountEnabled BOOLEAN";
 
 	public UserDaoImpl() {}
+
+	@Override
+	public List<User> readUserTable() throws SQLException{
+        List<User> userList = new ArrayList<>();
+		String query = "SELECT * FROM " + TABLE_NAME;
+
+		try (Connection connection = DatabaseHandler.getConnection(); 
+            Statement statement = connection.createStatement();
+        ){ // inside the try block
+            ResultSet result = statement.executeQuery(query);
+            DebugHandler.print(result.getString("username"));
+
+            while(result.next()){
+                User user = new User(
+                result.getInt("id"),
+                result.getString("username"),
+                result.getString("password"),
+                result.getString("firstname"),
+                result.getString("lastname"),
+                result.getString("accountType"),
+                result.getBoolean("accountEnabled")
+                );
+                userList.add(user);
+            }
+
+            return userList;
+        }
+    }
 
 	@Override
 	public Boolean userExists(String username) throws SQLException {

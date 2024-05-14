@@ -11,6 +11,7 @@ import java.util.List;
 import src.models.*;
 import src.daos.EventDaoImpl;
 import src.daos.SuitableForDaoImpl;
+import src.daos.UserDaoImpl;
 import src.daos.VenueDaoImpl;
 
 public class DatabaseHandler {
@@ -24,6 +25,7 @@ public class DatabaseHandler {
     private static EventDaoImpl eventDao = new EventDaoImpl();
     private static VenueDaoImpl venueDao = new VenueDaoImpl();
     private static SuitableForDaoImpl suitableForDao = new SuitableForDaoImpl();
+    private static UserDaoImpl userDao = new UserDaoImpl();
 
     // Variable which allows for a test database to be setup
     public static final String testdb = "testdb";
@@ -32,10 +34,10 @@ public class DatabaseHandler {
         database = db;
         connectionString = String.format("jdbc:sqlite:%s.db", database);
         createBookingsTable();
-        createUsersTable();
         createTable(eventsTable, eventDao.SCHEMA);
         createTable(venuesTable, venueDao.SCHEMA);
         createTable(suitableForTable, suitableForDao.SCHEMA);
+        createTable(usersTable, userDao.SCHEMA);
     }
 
 ///////////////////////////
@@ -79,19 +81,6 @@ public class DatabaseHandler {
         +"FOREIGN KEY(eventId) REFERENCES events(id), "
         +"FOREIGN KEY(venueId) REFERENCES venues(id)";
         createTable("bookings", schema);
-    }
-
-    // Users
-    public static void createUsersTable(){
-        String schema = ""
-        +"id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        +"username STRING, "
-        +"password STRING, "
-        +"firstname STRING, "
-        +"lastname STRING, "
-        +"accountType STRING, "
-        +"accountEnabled BOOLEAN";
-        createTable("users", schema);
     }
 // END Create Table Methods
 
@@ -249,36 +238,6 @@ public class DatabaseHandler {
             }
 
             return eventList;
-        } catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public static List<User> readUserTable(){
-        List<User> userList = new ArrayList<>();
-
-        try(
-            Connection connection = DriverManager.getConnection(connectionString);
-            Statement query = connection.createStatement();
-        ){ // inside the try block
-            ResultSet result = query.executeQuery("SELECT * FROM users");
-            DebugHandler.print(result.getString("username"));
-
-            while(result.next()){
-                User user = new User(
-                result.getInt("id"),
-                result.getString("username"),
-                result.getString("password"),
-                result.getString("firstname"),
-                result.getString("lastname"),
-                result.getString("accountType"),
-                result.getBoolean("accountEnabled")
-                );
-                userList.add(user);
-            }
-
-            return userList;
         } catch(SQLException ex){
             ex.printStackTrace();
         }

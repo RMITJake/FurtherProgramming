@@ -78,7 +78,12 @@ public class UserListController {
         lastnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastname"));
         accountTypeColumn.setCellValueFactory(new PropertyValueFactory<User, String>("accountType"));
 
-        List<User> userList = DatabaseHandler.readUserTable();
+        List<User> userList = new ArrayList<User>();
+        try{
+            userList = this.selectedUser.getUserDao().readUserTable();
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
         userListTable.setItems(FXCollections.observableArrayList(userList));
     }
 
