@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.daos.BookingDaoImpl;
 import src.daos.EventDao;
 import src.daos.EventDaoImpl;
 import src.daos.VenueDao;
@@ -73,6 +74,7 @@ public class MainMenuController {
     private User currentUser;
     private EventDao eventDao;
     private VenueDao venueDao;
+    private BookingDaoImpl bookingDao;
 
     public MainMenuController(Stage parentStage, User user){
         this.stage = new Stage();
@@ -80,6 +82,7 @@ public class MainMenuController {
         this.currentUser = user;
         this.eventDao = new EventDaoImpl();
         this.venueDao = new VenueDaoImpl();
+        this.bookingDao = new BookingDaoImpl();
         DebugHandler.print("main menu user's id: " + user.getId() + user.getLastname());
     }
 
@@ -228,7 +231,7 @@ public class MainMenuController {
         Event event = requestTable.getSelectionModel().getSelectedItem();
         Venue venue = venueTable.getSelectionModel().getSelectedItem();
         if(event != null && venue != null){
-            DatabaseHandler.writeBooking(event, venue);
+            bookingDao.createBooking(event, venue);
             updateBookingTable(DatabaseHandler.readVenueEvents(venue.getName()));
         }
     }
@@ -260,7 +263,7 @@ public class MainMenuController {
                 }
             }
             bookingList.add(mostCompatible);
-            DatabaseHandler.writeBooking(event, mostCompatible.getVenue());
+            bookingDao.createBooking(event, mostCompatible.getVenue());
         }
     }
 

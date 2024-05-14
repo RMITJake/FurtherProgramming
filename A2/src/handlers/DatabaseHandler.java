@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import src.models.*;
+import src.daos.BookingDaoImpl;
 import src.daos.EventDaoImpl;
 import src.daos.SuitableForDaoImpl;
 import src.daos.UserDaoImpl;
@@ -22,10 +23,12 @@ public class DatabaseHandler {
     public static final String usersTable = "users";
     public static final String venuesTable = "venues";
     public static final String suitableForTable = "suitablefor";
+    public static final String bookingsTable = "bookings";
     private static EventDaoImpl eventDao = new EventDaoImpl();
     private static VenueDaoImpl venueDao = new VenueDaoImpl();
     private static SuitableForDaoImpl suitableForDao = new SuitableForDaoImpl();
     private static UserDaoImpl userDao = new UserDaoImpl();
+    private static BookingDaoImpl bookingDao = new BookingDaoImpl();
 
     // Variable which allows for a test database to be setup
     public static final String testdb = "testdb";
@@ -33,11 +36,11 @@ public class DatabaseHandler {
     public static void initializeDb(String db){
         database = db;
         connectionString = String.format("jdbc:sqlite:%s.db", database);
-        createBookingsTable();
         createTable(eventsTable, eventDao.SCHEMA);
         createTable(venuesTable, venueDao.SCHEMA);
         createTable(suitableForTable, suitableForDao.SCHEMA);
         createTable(usersTable, userDao.SCHEMA);
+        createTable(bookingsTable, bookingDao.SCHEMA);
     }
 
 ///////////////////////////
@@ -70,17 +73,6 @@ public class DatabaseHandler {
         } catch(SQLException ex){
             ex.printStackTrace(System.err);
         } // END of Try-Catch block
-    }
-
-    // Bookings
-    public static void createBookingsTable(){
-        String schema = ""
-        +"id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        +"eventId, "
-        +"venueId, "
-        +"FOREIGN KEY(eventId) REFERENCES events(id), "
-        +"FOREIGN KEY(venueId) REFERENCES venues(id)";
-        createTable("bookings", schema);
     }
 // END Create Table Methods
 
@@ -128,22 +120,6 @@ public class DatabaseHandler {
         } // END of Try-Catch block
     } // END of writeVenue
 
-    public static void writeBooking(Event event, Venue venue){
-        DebugHandler.print("Creating booking list to db");
-        String insertStatement = "INSERT OR REPLACE INTO bookings VALUES ((SELECT id FROM bookings WHERE eventid = ?), ?, ?)";
-        try(
-            Connection connection = DriverManager.getConnection(connectionString);
-            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
-        ){ // inside the try block
-            preparedInsert.setInt(1, event.getId());
-            preparedInsert.setInt(2, event.getId());
-            preparedInsert.setInt(3, venue.getId());
-            preparedInsert.executeUpdate();
-        } catch(SQLException ex){
-            ex.printStackTrace(System.err);
-        } // END of Try-Catch block
-    }
-
     public static void writeSuitableFor(Connection connection, Venue venue, int id){
         String insertStatement = "INSERT INTO suitablefor VALUES (?, ?, ?)";
         try(
@@ -163,49 +139,6 @@ public class DatabaseHandler {
 //////////////////
 // Read from DB //
 //////////////////
-
-    public static List<Booking> readBookingsTable(){
-        List<Booking> bookingList = new ArrayList<>();
-
-        try(
-            Connection connection = DriverManager.getConnection(connectionString);
-            Statement query = connection.createStatement();
-        ){ // inside the try block
-            ResultSet result = query.executeQuery(""+
-            "SELECT * FROM bookings"
-            +"INNER JOIN events ON bookings.eventid = events.id"
-            +"INNER JOIN venues ON bookings.venueid = venues.id");
-            DebugHandler.print(result.getString("name"));
-
-            while(result.next()){
-                Venue venue = new Venue(
-                result.getInt("venues.id"),
-                result.getString("venues.name"),
-                result.getInt("venues.capacity"),
-                result.getString("venues.category"),
-                result.getInt("venues.priceperhour")
-                );
-                Event event = new Event(
-                result.getInt("events.id"),
-                result.getString("events.client"),
-                result.getString("events.title"),
-                result.getString("events.artist"),
-                result.getString("events.dateTime"),
-                result.getInt("events.target"),
-                result.getInt("events.duration"),
-                result.getString("events.type"),
-                result.getString("events.category")
-                );
-                Booking booking = new Booking(event, venue);
-                bookingList.add(booking);
-            }
-
-            return bookingList;
-        } catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        return null;
-    }
 
     public static List<Event> readVenueEvents(String venueName){
         DebugHandler.print("inside readVenueEvents with: " + venueName);
