@@ -25,6 +25,8 @@ import java.util.List;
 
 import src.daos.EventDao;
 import src.daos.EventDaoImpl;
+import src.daos.VenueDao;
+import src.daos.VenueDaoImpl;
 import src.handlers.BookingHandler;
 import java.util.Collections;
 // Local imports
@@ -70,12 +72,14 @@ public class MainMenuController {
     private Stage parentStage;
     private User currentUser;
     private EventDao eventDao;
+    private VenueDao venueDao;
 
     public MainMenuController(Stage parentStage, User user){
         this.stage = new Stage();
         this.parentStage = parentStage;
         this.currentUser = user;
         this.eventDao = new EventDaoImpl();
+        this.venueDao = new VenueDaoImpl();
         DebugHandler.print("main menu user's id: " + user.getId() + user.getLastname());
     }
 
@@ -116,7 +120,14 @@ public class MainMenuController {
         venueNameColumn.setCellValueFactory(new PropertyValueFactory<Venue, String>("name"));
         // Compatibility column intentionally left blank on first load
 
-        List<Venue> venueList = DatabaseHandler.readVenuesTable();
+        List<Venue> venueList = new ArrayList<Venue>();
+        try{
+            venueList = this.venueDao.readVenuesTable();
+            DebugHandler.print("1first venue " + venueList.get(0));
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        DebugHandler.print("2first venue " + venueList.get(0));
         venueTable.setItems(FXCollections.observableArrayList(venueList));
     }
 
@@ -164,7 +175,12 @@ public class MainMenuController {
 
     private List<Booking> getBookingCompatibility(Event event){
         List<Booking> bookingList = new ArrayList<>();
-        List<Venue> venueList = DatabaseHandler.readVenuesTable();
+        List<Venue> venueList = new ArrayList<Venue>();
+        try{
+            venueList = venueDao.readVenuesTable();
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
         for(Venue venue : venueList){
             bookingList.add(new Booking(event, venue));
         }
@@ -178,7 +194,12 @@ public class MainMenuController {
         DebugHandler.print("applying filters");
         Event event = requestTable.getSelectionModel().getSelectedItem();
         if(event != null){
-            List<Venue> venueList = DatabaseHandler.readVenuesTable();
+            List<Venue> venueList = new ArrayList<Venue>();
+            try{
+                venueList = venueDao.readVenuesTable();
+            } catch(SQLException ex){
+                ex.printStackTrace();
+            }
             List<Venue> filteredList = new ArrayList<>();
 
             for(Venue venue : venueList){
@@ -222,7 +243,12 @@ public class MainMenuController {
             ex.printStackTrace();
         }
 
-        List<Venue> venueList = DatabaseHandler.readVenuesTable();
+        List<Venue> venueList = new ArrayList<Venue>();
+        try{
+            venueList = venueDao.readVenuesTable();
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
         List<Booking> bookingList = new ArrayList<>();
 
         for(Event event : eventList){

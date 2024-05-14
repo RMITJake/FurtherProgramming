@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import src.models.*;
 import src.daos.EventDaoImpl;
+import src.daos.SuitableForDaoImpl;
+import src.daos.VenueDaoImpl;
 
 public class DatabaseHandler {
     // Variable to allow different databases to be accessed
@@ -17,6 +19,11 @@ public class DatabaseHandler {
     private static String connectionString;
     public static final String eventsTable = "events";
     public static final String usersTable = "users";
+    public static final String venuesTable = "venues";
+    public static final String suitableForTable = "suitablefor";
+    private static EventDaoImpl eventDao = new EventDaoImpl();
+    private static VenueDaoImpl venueDao = new VenueDaoImpl();
+    private static SuitableForDaoImpl suitableForDao = new SuitableForDaoImpl();
 
     // Variable which allows for a test database to be setup
     public static final String testdb = "testdb";
@@ -24,11 +31,11 @@ public class DatabaseHandler {
     public static void initializeDb(String db){
         database = db;
         connectionString = String.format("jdbc:sqlite:%s.db", database);
-        // createEventsTable();
-        createVenuesTable();
-        createSuitableForTable();
         createBookingsTable();
         createUsersTable();
+        createTable(eventsTable, eventDao.SCHEMA);
+        createTable(venuesTable, venueDao.SCHEMA);
+        createTable(suitableForTable, suitableForDao.SCHEMA);
     }
 
 ///////////////////////////
@@ -37,9 +44,7 @@ public class DatabaseHandler {
     public static void seedDb(List<Venue> venueList, List<Event> eventList){
         writeVenue(venueList);
         // writeEvent(eventList);
-        EventDaoImpl eventDao = new EventDaoImpl();
         try{
-            createTable(eventsTable, eventDao.SCHEMA);
             eventDao.createEvent(eventList);
         } catch(SQLException ex){
             ex.printStackTrace();
@@ -63,27 +68,6 @@ public class DatabaseHandler {
         } catch(SQLException ex){
             ex.printStackTrace(System.err);
         } // END of Try-Catch block
-    }
-
-    // Venues
-    public static void createVenuesTable(){
-        String schema = ""
-        +"id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        +"name STRING, "
-        +"capacity INTEGER, "
-        +"category STRING, "
-        +"priceperhour DOUBLE";
-        createTable("venues", schema);
-    }
-
-    // SuitableFor
-    public static void createSuitableForTable(){
-        String schema = ""
-        +"id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        +"venueId INTEGER, "
-        +"genre STRING, "
-        +"FOREIGN KEY(venueId) REFERENCES venues(id)";
-        createTable("suitablefor", schema);
     }
 
     // Bookings
@@ -190,58 +174,6 @@ public class DatabaseHandler {
 //////////////////
 // Read from DB //
 //////////////////
-    
-
-    public static List<Venue> readVenuesTable(){
-        List<Venue> venueList = new ArrayList<>();
-        try(
-            Connection connection = DriverManager.getConnection(connectionString);
-            Statement query = connection.createStatement();
-        ){ // inside the try block
-            ResultSet result = query.executeQuery("SELECT * FROM venues");
-            DebugHandler.print(result.getString("name"));
-
-            while(result.next()){
-                Venue venue = new Venue(
-                result.getInt("id"),
-                result.getString("name"),
-                result.getInt("capacity"),
-                result.getString("category"),
-                result.getInt("priceperhour")
-                );
-                venue.setSuitableFor(readSuitableforTable(venue));
-                for(String s : venue.getSuitableFor()){ DebugHandler.print(s); }
-                venueList.add(venue);
-            }
-
-            return venueList;
-        } catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public static String[] readSuitableforTable(Venue venue){
-        List<String> stringList = new ArrayList<>();
-        String query = "SELECT * FROM suitablefor WHERE venueid = ?";
-        try(
-            Connection connection = DriverManager.getConnection(connectionString);
-            PreparedStatement preparedQuery = connection.prepareStatement(query);
-        ){ // inside the try block
-            preparedQuery.setInt(1, venue.getId());
-            ResultSet result = preparedQuery.executeQuery();
-            DebugHandler.print(result.getString("genre"));
-
-            while(result.next()){
-                stringList.add(result.getString("genre"));
-            }
-
-            return stringList.toArray(new String[0]);
-        } catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        return null;
-    }
 
     public static List<Booking> readBookingsTable(){
         List<Booking> bookingList = new ArrayList<>();
