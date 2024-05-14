@@ -5,4 +5,5 @@ import src.models.Event;
 
 public interface EventDao {
     List<Event> readEventsTable() throws SQLException;
+    void createEvent(List<Event> eventList) throws SQLException;
 }

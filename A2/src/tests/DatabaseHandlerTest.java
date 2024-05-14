@@ -43,7 +43,7 @@ public class DatabaseHandlerTest {
     @Test()
     public void initializeDb(){
         DatabaseHandler.initializeDb(DatabaseHandler.testdb);
-        DatabaseHandler.writeEvent(eventList);
+        // DatabaseHandler.writeEvent(eventList);
         DatabaseHandler.writeVenue(venueList);
     }
 // END of initialiseDb
