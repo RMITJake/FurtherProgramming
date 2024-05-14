@@ -18,6 +18,7 @@ public class SuitableForDaoImpl implements SuitableForDao{
         +"genre STRING, "
         +"FOREIGN KEY(venueId) REFERENCES venues(id)";
     
+    @Override
     public String[] readSuitableforTable(Venue venue) throws SQLException{
         DebugHandler.print("venue id is " + venue.getId());
         List<String> stringList = new ArrayList<>();
