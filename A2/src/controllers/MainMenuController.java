@@ -222,7 +222,7 @@ public class MainMenuController {
 
     @FXML private void editAccount(ActionEvent actionEvent){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/views/AccountUpdateView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/views/AccountView.fxml"));
             
             // Customize controller instance
             Callback<Class<?>, Object> controllerFactory = param -> {
