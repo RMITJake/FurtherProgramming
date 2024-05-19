@@ -1,7 +1,6 @@
 package src.controller;
 
 // import local libs
-import src.Debugger;
 import src.daos.AnimalDaoImpl;
 import src.model.Animal;
 import src.model.Cat;
@@ -21,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -29,10 +29,13 @@ import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class AnimalTableController {
+	private String ANIMAL_DETAILS = "/src/view/AnimalDetailsView.fxml";
     private Stage stage;
     private GenericAnimalList<Animal> animalList;
 	private Animal selectedItem;
@@ -51,7 +54,6 @@ public class AnimalTableController {
     @FXML private Button saveToDb;
 
     public AnimalTableController(Stage primaryStage, GenericAnimalList<Animal> animalList){
-        Debugger.PRINT("in AnimalTableController");
         this.stage = primaryStage;
         this.animalList = animalList;
     }
@@ -66,7 +68,7 @@ public class AnimalTableController {
 
     @FXML
     private void initialize(){
-        DatabaseManager.initializeDb("test");
+        DatabaseManager.initializeDb("mypets");
         Cat cat = new Cat();
         Dog dog = new Dog();
         Panda panda = new Panda();

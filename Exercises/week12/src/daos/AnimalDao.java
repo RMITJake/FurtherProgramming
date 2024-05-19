@@ -4,13 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import src.model.Animal;
+import src.model.GenericAnimalList;
 
 public interface AnimalDao {
     void createTable() throws SQLException;
-    void createAnimal(String name, String colour, int age) throws SQLException;
-    void createAnimal(int id, String name, String colour, int age) throws SQLException;
-    void createAnimal(Animal animal) throws SQLException;
-    // List<T> readAnimalTable() throws SQLException;
     void updateAnimal(Animal animal) throws SQLException;
-    void deleteAnimal(Animal animal) throws SQLException;
+    void writeAnimalList(GenericAnimalList<Animal> animalList) throws SQLException;
 }

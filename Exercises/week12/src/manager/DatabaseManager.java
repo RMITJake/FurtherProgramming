@@ -1,7 +1,6 @@
 package src.manager;
 
 // Import local libs
-import src.Debugger;
 
 // Import Java libs
 import java.sql.Connection;
@@ -14,7 +13,6 @@ public class DatabaseManager {
 	private static String database;
 
 	public static void initializeDb(String db){
-        Debugger.PRINT("Initializing DB");
 		database = db;
 		connectionString = String.format("jdbc:sqlite:%s.db", database);
 	}
@@ -24,7 +22,6 @@ public class DatabaseManager {
 	}
 
 	public static void createTable(String table, String schema){
-        Debugger.PRINT("Creating Tables");
         try(
             Statement statement = getConnection().createStatement();
         ){ // inside the try block
