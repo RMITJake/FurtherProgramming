@@ -6,8 +6,9 @@ import java.util.List;
 import src.model.Animal;
 
 public interface AnimalDao {
-    void createTable(String tableName, String schema) throws SQLException;
+    void createTable() throws SQLException;
     void createAnimal(String name, String colour, int age) throws SQLException;
+    void createAnimal(int id, String name, String colour, int age) throws SQLException;
     void createAnimal(Animal animal) throws SQLException;
     // List<T> readAnimalTable() throws SQLException;
     void updateAnimal(Animal animal) throws SQLException;

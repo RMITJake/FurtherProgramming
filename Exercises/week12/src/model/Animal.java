@@ -2,6 +2,8 @@ package src.model;
 
 import java.io.Serializable;
 
+import src.daos.AnimalDaoImpl;
+
 /*
  * ASSESSMENT WEEK 6 TASK 2
  * Animal should now be serializable

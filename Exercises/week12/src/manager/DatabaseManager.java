@@ -13,7 +13,7 @@ public class DatabaseManager {
 	private static String connectionString;
 	private static String database;
 
-	private static void initializeDb(String db){
+	public static void initializeDb(String db){
         Debugger.PRINT("Initializing DB");
 		database = db;
 		connectionString = String.format("jdbc:sqlite:%s.db", database);

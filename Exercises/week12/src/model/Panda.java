@@ -2,29 +2,34 @@ package src.model;
 
 import java.io.Serializable;
 
+import src.daos.PandaDaoImpl;
+
 /*
  * ASSESSMENT WEEK 6 TASK 2
  * Panda should now implement Serializable
  */
 public class Panda extends Animal implements Serializable{
-	public Panda() {
+	private PandaDaoImpl pandaDaoImpl;
+
+	public Panda(){
 		super();
+		pandaDaoImpl = new PandaDaoImpl();
 	}
 
-	public Panda(String name, String colour, int age) {
+	public Panda(String name, String colour, int age){
 		super(name, colour, age);
-		// TODO Auto-generated constructor stub
+		pandaDaoImpl = new PandaDaoImpl();
 	}
 
-	public Panda(int id, String name, String colour, int age) {
+	public Panda(int id, String name, String colour, int age){
 		super(id, name, colour, age);
-		// TODO Auto-generated constructor stub
+		pandaDaoImpl = new PandaDaoImpl();
 	}
 
 	@Override
-	public void makeSound() {
-		// TODO Auto-generated method stub
+	public void makeSound(){}
 
+	public PandaDaoImpl getPandaDaoImpl(){
+		return this.pandaDaoImpl;
 	}
-
 }

@@ -3,31 +3,47 @@ package src.daos;
 import src.manager.DatabaseManager;
 import src.model.Animal;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AnimalDaoImpl<T extends Animal> implements AnimalDao {
     private String TABLE_NAME;
-    private String SCHEMA = ""
-    +"id INTEGER PRIMARY KEY AUTOINCREMENT"
-    +"name STRING"
-    +"colour STRING"
+    public static final String SCHEMA = ""
+    +"id INTEGER PRIMARY KEY AUTOINCREMENT, "
+    +"name STRING, "
+    +"colour STRING, "
     +"age INTEGER";
 
-    public void createTable(String tableName, String schema) throws SQLException{
-        try(Statement statement = DatabaseManager.getConnection().createStatement()){
-            statement.executeUpdate(String.format("DROP TABLE IF EXISTS (%s)", tableName));
-            statement.executeUpdate(String.format("CREATE TABLE IF NOT EXISTS %s (%s)", tableName, schema));
+    public void setTableName(String tableName){
+        this.TABLE_NAME = tableName;
+    }
+
+    public void createTable() throws SQLException{
+        try(Statement statement = DatabaseManager.getConnection().createStatement();
+        ){
+        // try(Statement statement = DatabaseManager.getConnection().createStatement()){
+            statement.executeUpdate(String.format("DROP TABLE IF EXISTS %s", TABLE_NAME));
+            statement.executeUpdate(String.format("CREATE TABLE IF NOT EXISTS %s (%s)", TABLE_NAME, SCHEMA));
         }
     }
 
     public void createAnimal(String name, String colour, int age) throws SQLException{
         String query = "INSERT INTO " + TABLE_NAME + " VALUES (?, ?, ?, ?)";
         try(PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(query)){
+            statement.setString(2, name);
+            statement.setString(3, colour);
+            statement.setInt(4, age);
+            statement.executeUpdate();
+        }
+    }
+
+    public void createAnimal(int id, String name, String colour, int age) throws SQLException{
+        String query = "INSERT INTO " + TABLE_NAME + " VALUES (?, ?, ?, ?)";
+        try(PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(query)){
+            statement.setInt(1, id);
             statement.setString(2, name);
             statement.setString(3, colour);
             statement.setInt(4, age);

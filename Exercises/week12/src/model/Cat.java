@@ -1,17 +1,15 @@
-/**
- * 
- */
 package src.model;
 
-/**
- * @author dipto
- *
- */
-public class Cat extends Animal{
+import src.daos.CatDaoImpl;
 
-	/**
-	 * Constructor for Cat
-	 */
+public class Cat extends Animal{
+	private CatDaoImpl catDaoImpl;
+
+	public Cat(){
+		super();
+		this.catDaoImpl = new CatDaoImpl();
+	}
+
 	public Cat(String name, String colour, int age) {
 		super(name, colour, age);
 	}
@@ -25,5 +23,9 @@ public class Cat extends Animal{
 	public void makeSound() {
 		// TODO Auto-generated method stub
 		System.out.println("miaw");
+	}
+
+	public CatDaoImpl getCatDaoImpl(){
+		return this.catDaoImpl;
 	}
 }
