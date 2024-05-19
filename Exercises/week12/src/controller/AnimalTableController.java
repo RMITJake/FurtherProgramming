@@ -2,41 +2,58 @@ package src.controller;
 
 // import local libs
 import src.Debugger;
+import src.daos.AnimalDaoImpl;
 import src.model.Animal;
 import src.model.Cat;
 import src.model.Dog;
-import src.model.Fish;
+import src.model.GenericAnimalList;
 import src.model.Panda;
 import src.manager.DatabaseManager;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import javafx.collections.FXCollections;
+import javax.swing.Action;
+
+import org.sqlite.core.DB;
+
 // Import JavaFX libs
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class AnimalTableController {
     private Stage stage;
-    private DatabaseManager dbManager;
+    private GenericAnimalList<Animal> animalList;
+	private Animal selectedItem;
+    private AnimalDaoImpl animalDaoImpl = new AnimalDaoImpl();
 
     // FXML variables
     @FXML private TableView<Animal> animalTable;
     @FXML private TableColumn<Animal, String> nameColumn;
     @FXML private TableColumn<Animal, String> colourColumn;
     @FXML private TableColumn<Animal, Integer> ageColumn;
+    @FXML private TextArea nameInput;
+    @FXML private TextArea colourInput;
+    @FXML private TextArea ageInput;
+    @FXML private Button addToList;
+    @FXML private Button removeFromList;
+    @FXML private Button saveToDb;
 
-    public AnimalTableController(Stage primaryStage){
+    public AnimalTableController(Stage primaryStage, GenericAnimalList<Animal> animalList){
         Debugger.PRINT("in AnimalTableController");
         this.stage = primaryStage;
-        this.dbManager = new DatabaseManager();
+        this.animalList = animalList;
     }
 
     public void showStage(Pane root){
@@ -54,38 +71,45 @@ public class AnimalTableController {
         Dog dog = new Dog();
         Panda panda = new Panda();
         try{
-            panda.getPandaDaoImpl().createTable();
-            panda.getPandaDaoImpl().createAnimal(1, "Puma", "black white blue", 7);
-            panda.getPandaDaoImpl().createAnimal(2, "Kioma", "black grey orange", 5);
-            panda.getPandaDaoImpl().createAnimal(3, "Simba", "white grey blue", 9);
-
-            cat.getCatDaoImpl().createTable();
-            cat.getCatDaoImpl().createAnimal(1, "Hello Kitty", "white", 15);
-            cat.getCatDaoImpl().createAnimal(2, "Garfield", "orange", 20);
-            cat.getCatDaoImpl().createAnimal(3, "Grumpy cat", "brown and white", 7);
-
-            dog.getDogDaoImpl().createTable();
-            dog.getDogDaoImpl().createAnimal("Goofy", "yellow", 99);
+            panda.getAnimalDaoImpl().createTable();
+            cat.getAnimalDaoImpl().createTable();
+            dog.getAnimalDaoImpl().createTable();
 
         } catch(SQLException ex){
             ex.printStackTrace();
         }
-        loadAnimalTable();
+        
+        loadAnimalTable(animalList);
     }
 
-    private void loadAnimalTable(){
-        // Generate list
-        List<Panda> pandas = new ArrayList<Panda>();
-		pandas.add(new Panda(1, "Puma", "black white blue", 7));
-		pandas.add(new Panda(2, "Kioma", "black grey orange", 5));
-		pandas.add(new Panda(3, "Simba", "white grey blue", 9));
-
+    private void loadAnimalTable(GenericAnimalList<Animal> animalList){
         // Setup Table
         nameColumn.setCellValueFactory(new PropertyValueFactory<Animal, String>("name"));
         colourColumn.setCellValueFactory(new PropertyValueFactory<Animal, String>("colour"));
         ageColumn.setCellValueFactory(new PropertyValueFactory<Animal, Integer>("age"));
 
         // Add list to table
-        animalTable.setItems(FXCollections.observableArrayList(pandas));
+        animalTable.setItems(FXCollections.observableArrayList(animalList.getList()));
+    }
+
+    @FXML private void addToList(ActionEvent actionEvent){
+        String name = nameInput.getText();
+        String colour = colourInput.getText();
+        int age = Integer.parseInt(ageInput.getText());
+        Cat aCat = new Cat(name, colour, age);
+        animalList.addAnAnimal(aCat);
+        loadAnimalTable(animalList);
+    }
+
+    @FXML private void removeFromList(ActionEvent actionEvent){
+		TableViewSelectionModel<Animal> selectionModel = animalTable.getSelectionModel();
+		Animal selectedItem = selectionModel.getSelectedItem();
+        animalList.getList().remove(selectedItem);
+        animalTable.getItems().clear();
+        loadAnimalTable(animalList);
+    }
+
+    @FXML private void saveToDb(ActionEvent actionEvent) throws SQLException{
+        animalDaoImpl.writeAnimalList(animalList);
     }
 }

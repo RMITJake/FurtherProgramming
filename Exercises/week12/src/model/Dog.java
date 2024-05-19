@@ -1,21 +1,23 @@
 package src.model;
-import src.daos.DogDaoImpl;
+
+import src.daos.AnimalDaoImpl;
 
 public class Dog extends Animal{
-	private DogDaoImpl dogDaoImpl;
+	private AnimalDaoImpl animalDaoImpl;
 
 	public Dog(){
 		super();
-		this.dogDaoImpl = new DogDaoImpl();
+		this.animalDaoImpl = new AnimalDaoImpl();
 	}
-
 
 	public Dog(String name, String colour, int age){
 		super(name, colour, age);
+		this.animalDaoImpl = new AnimalDaoImpl();
 	}
 
 	public Dog(int id, String name, String colour, int age){
 		super(id, name, colour, age);
+		this.animalDaoImpl = new AnimalDaoImpl();
 	}
 
 	@Override
@@ -24,7 +26,7 @@ public class Dog extends Animal{
 		System.out.println("woof");
 	}
 
-	public DogDaoImpl getDogDaoImpl(){
-		return this.dogDaoImpl;
-	}
+	public AnimalDaoImpl getAnimalDaoImpl(){
+        return this.animalDaoImpl;
+    }
 }

@@ -2,24 +2,20 @@ package src.daos;
 
 import src.manager.DatabaseManager;
 import src.model.Animal;
+import src.model.GenericAnimalList;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AnimalDaoImpl<T extends Animal> implements AnimalDao {
-    private String TABLE_NAME;
+public class AnimalDaoImpl implements AnimalDao {
+    private String TABLE_NAME = "pets";
     public static final String SCHEMA = ""
     +"id INTEGER PRIMARY KEY AUTOINCREMENT, "
     +"name STRING, "
     +"colour STRING, "
     +"age INTEGER";
-
-    public void setTableName(String tableName){
-        this.TABLE_NAME = tableName;
-    }
 
     public void createTable() throws SQLException{
         try(Statement statement = DatabaseManager.getConnection().createStatement();
@@ -62,14 +58,6 @@ public class AnimalDaoImpl<T extends Animal> implements AnimalDao {
         }
     }
 
-    public List<T> readAnimalTable() throws SQLException{
-        return null;
-    }
-
-    public T getAnimal() throws SQLException{
-        return null;
-    }
-
     public void updateAnimal(Animal animal) throws SQLException{
         String query = "INSERT OR REPLACE INTO " + TABLE_NAME + " VALUES (?, ?, ?, ?)";
         try(PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(query)){
@@ -87,5 +75,21 @@ public class AnimalDaoImpl<T extends Animal> implements AnimalDao {
 			statement.setInt(1, animal.getID());
 			statement.executeUpdate();
 		}
+    }
+
+    public void writeAnimalList(GenericAnimalList<Animal> animalList) throws SQLException{
+        String query = "insert into pets values (?, ?, ?, ?)";
+		try (PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(query)) {
+            for(Animal animal : animalList.getList()){
+                statement.setString(2, animal.getName());
+                statement.setString(3, animal.getColour());
+                statement.setInt(4, animal.getAge());
+                statement.executeUpdate();
+            }
+        }
+    }
+
+    public AnimalDaoImpl getAnimalDaoImpl(){
+        return this;
     }
 }

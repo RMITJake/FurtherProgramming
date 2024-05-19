@@ -14,6 +14,7 @@ public abstract class Animal implements Serializable{
 	protected String name;
 	protected String colour;
 	protected int age;
+	private AnimalDaoImpl animalDaoImpl;
 
 	/*
 	 * Animal default constructor that has no parameter.
@@ -25,6 +26,7 @@ public abstract class Animal implements Serializable{
 		this.name = "new animal";
 		colour = "";
 		age = 0;
+		this.animalDaoImpl = new AnimalDaoImpl();
 	}
 	
 	/*
@@ -35,6 +37,7 @@ public abstract class Animal implements Serializable{
 		this.name = name;
 		this.colour = colour;
 		this.age = age;
+		this.animalDaoImpl = new AnimalDaoImpl();
 	}
 	
 	/*
@@ -47,6 +50,7 @@ public abstract class Animal implements Serializable{
 		this.name = name;
 		this.colour = colour;
 		this.age = age;
+		this.animalDaoImpl = new AnimalDaoImpl();
 	}
 	
 	public abstract void makeSound();
