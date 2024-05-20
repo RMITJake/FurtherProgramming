@@ -18,6 +18,13 @@ public class AnimalDaoImpl<T extends Animal> implements AnimalDao {
     +"colour STRING"
     +"age INTEGER";
 
+    public void createTable(String tableName, String schema) throws SQLException{
+        try(Statement statement = DatabaseManager.getConnection().createStatement()){
+            statement.executeUpdate(String.format("DROP TABLE IF EXISTS (%s)", tableName));
+            statement.executeUpdate(String.format("CREATE TABLE IF NOT EXISTS %s (%s)", tableName, schema));
+        }
+    }
+
     public void createAnimal(String name, String colour, int age) throws SQLException{
         String query = "INSERT INTO " + TABLE_NAME + " VALUES (?, ?, ?, ?)";
         try(PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(query)){
