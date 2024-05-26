@@ -1,6 +1,7 @@
 package src.daos;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import src.handlers.DatabaseHandler;
 import src.handlers.DebugHandler;
+import src.models.SuitableFor;
 import src.models.Venue;
 
 public class SuitableForDaoImpl implements SuitableForDao{
@@ -17,9 +19,31 @@ public class SuitableForDaoImpl implements SuitableForDao{
         +"venueId INTEGER, "
         +"genre STRING, "
         +"FOREIGN KEY(venueId) REFERENCES venues(id)";
+
+    @Override
+    public List<SuitableFor> readSuitableForTable() throws SQLException{
+        List<SuitableFor> suitableForList = new ArrayList<SuitableFor>();
+		String query = "SELECT * FROM " + TABLE_NAME;
+
+		try (Connection connection = DatabaseHandler.getConnection(); 
+            Statement statement = connection.createStatement();
+        ){ // inside the try block
+            ResultSet result = statement.executeQuery(query);
+
+            while(result.next()){
+                SuitableFor suitableFor = new SuitableFor(
+                result.getInt("id"),
+                result.getInt("venueId"),
+                result.getString("genre")
+                );
+                suitableForList.add(suitableFor);
+            }
+            return suitableForList;
+        }
+    }
     
     @Override
-    public String[] readSuitableforTable(Venue venue) throws SQLException{
+    public String[] readSuitableForTable(Venue venue) throws SQLException{
         DebugHandler.print("venue id is " + venue.getId());
         List<String> stringList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE venueid = ?";

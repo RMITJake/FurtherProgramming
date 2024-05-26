@@ -1,9 +1,11 @@
 package src.models;
 
+import java.io.Serializable;
+
 import src.daos.UserDao;
 import src.daos.UserDaoImpl;
 
-public class User{
+public class User implements Serializable{
     private int id;
     private String username;
     private String firstname;

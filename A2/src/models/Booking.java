@@ -1,12 +1,13 @@
 package src.models;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import src.daos.BookingDaoImpl;
 
-public class Booking{
+public class Booking implements Serializable{
     private double discountAmount;
     private int priceperhour;
     private Event event;

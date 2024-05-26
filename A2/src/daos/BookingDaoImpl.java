@@ -31,8 +31,8 @@ public class BookingDaoImpl implements BookingDao{
         ){ // inside the try block
             ResultSet result = query.executeQuery(""
             +"SELECT * FROM " + TABLE_NAME
-            +"INNER JOIN events ON bookings.eventid = events.id"
-            +"INNER JOIN venues ON bookings.venueid = venues.id");
+            +" INNER JOIN events ON bookings.eventid = events.id"
+            +" INNER JOIN venues ON bookings.venueid = venues.id");
             DebugHandler.print(result.getString("name"));
 
             while(result.next()){
@@ -86,9 +86,9 @@ public class BookingDaoImpl implements BookingDao{
         List<Event> eventList = new ArrayList<>();
 
         String query = "SELECT e.id, e.client, e.title, e.artist, e.dateTime, e.target, e.duration, e.type, e.category FROM " + TABLE_NAME
-        +" INNER JOIN events as e ON bookings.eventid = e.id "
-        +"INNER JOIN venues ON bookings.venueid = venues.id "
-        +"WHERE venues.name = ?";
+        +" INNER JOIN events as e ON bookings.eventid = e.id"
+        +" INNER JOIN venues ON bookings.venueid = venues.id"
+        +" WHERE venues.name = ?";
 
 		try (Connection connection = DatabaseHandler.getConnection(); 
             PreparedStatement preparedQuery = connection.prepareStatement(query);

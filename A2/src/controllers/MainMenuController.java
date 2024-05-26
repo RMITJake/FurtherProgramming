@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-
 import java.io.FileInputStream;
 // Java library imports
 import java.io.FileNotFoundException;
@@ -30,14 +29,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 // Local imports
+import src.daos.BookingDao;
 import src.daos.BookingDaoImpl;
 import src.daos.EventDao;
 import src.daos.EventDaoImpl;
+import src.daos.SuitableForDao;
+import src.daos.SuitableForDaoImpl;
 import src.daos.VenueDao;
 import src.daos.VenueDaoImpl;
+import src.daos.UserDao;
+import src.daos.UserDaoImpl;
 import src.handlers.BookingHandler;
 import src.handlers.DebugHandler;
 import src.models.Event;
+import src.models.SuitableFor;
 import src.models.User;
 import src.models.Venue;
 import src.models.Booking;
@@ -78,7 +83,9 @@ public class MainMenuController {
     private User currentUser;
     private EventDao eventDao;
     private VenueDao venueDao;
-    private BookingDaoImpl bookingDao;
+    private SuitableForDao suitableForDao;
+    private BookingDao bookingDao;
+    private UserDao userDao;
     private String dataBackup = "transactiondata.lmvm";
 
     public MainMenuController(Stage parentStage, User user){
@@ -86,7 +93,9 @@ public class MainMenuController {
         this.currentUser = user;
         this.eventDao = new EventDaoImpl();
         this.venueDao = new VenueDaoImpl();
+        this.suitableForDao = new SuitableForDaoImpl();
         this.bookingDao = new BookingDaoImpl();
+        this.userDao = new UserDaoImpl();
         DebugHandler.print("main menu user's id: " + user.getId() + user.getLastname());
     }
 
@@ -317,19 +326,18 @@ public class MainMenuController {
 
     @FXML private void saveLists(ActionEvent actionEvent) throws FileNotFoundException, IOException, SQLException{
         ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(dataBackup));
-        List<Object> outputList = new ArrayList<>();
-        List<Venue> venueList = new ArrayList<Venue>();
-        venueList = venueDao.readVenuesTable();
-        outputList.add(venueList);
+        List<Venue> venueList = venueDao.readVenuesTable();
+        List<Event> eventList = eventDao.readEventsTable();
+        List<SuitableFor> suitableForList = suitableForDao.readSuitableForTable();
+        List<Booking> bookingList = bookingDao.readBookingsTable();
+        List<User> userList = userDao.readUserTable();
 
-        List<Event> eventList = new ArrayList<Event>(); 
-        eventList = eventDao.readEventsTable();
-        outputList.add(eventList);
 
-        List<Booking> bookingList = new ArrayList<Booking>();
-        bookingList = bookingDao.readBookingsTable();
-        outputList.add(bookingList);
-
+        outStream.writeObject(venueList);
+        outStream.writeObject(eventList);
+        outStream.writeObject(suitableForList);
+        outStream.writeObject(bookingList);
+        outStream.writeObject(userList);
         outStream.close();
 
         try{
@@ -339,10 +347,18 @@ public class MainMenuController {
 
     private void importBackup() throws FileNotFoundException, IOException, ClassNotFoundException{
         ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(dataBackup));
-        ArrayList<Object> objectList = (ArrayList<Object>) inStream.readObject();
+        List<Venue> venueList = (ArrayList<Venue>) inStream.readObject();
+        List<Event> eventList = (ArrayList<Event>) inStream.readObject();
+        List<SuitableFor> suitableForList = (ArrayList<SuitableFor>) inStream.readObject();
+        List<Booking> bookingList = (ArrayList<Booking>) inStream.readObject();
+        List<User> userList = (ArrayList<User>) inStream.readObject();
         inStream.close();
         DebugHandler.print("PRINTING IMPORT");
-        inStream.readObject();
+        System.out.println(venueList);
+        System.out.println(eventList);
+        System.out.println(suitableForList);
+        System.out.println(bookingList);
+        System.out.println(userList);
         DebugHandler.print("IMPORT PRINTED");
     }
 }

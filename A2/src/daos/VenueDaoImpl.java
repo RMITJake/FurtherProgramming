@@ -46,7 +46,7 @@ public class VenueDaoImpl implements VenueDao {
                 result.getInt("priceperhour")
                 );
                 DebugHandler.print("before suitable");
-                venue.setSuitableFor(this.suitableForDao.readSuitableforTable(venue));
+                venue.setSuitableFor(this.suitableForDao.readSuitableForTable(venue));
                 DebugHandler.print("after suitable");
                 for(String s : venue.getSuitableFor()){ DebugHandler.print(s); }
                 venueList.add(venue);

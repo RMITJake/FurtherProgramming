@@ -1,8 +1,9 @@
 package src.models;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event{
+public class Event implements Serializable{
     private int id;
     private String client;
     private String title;
