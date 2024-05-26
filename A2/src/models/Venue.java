@@ -1,6 +1,7 @@
 package src.models;
+import java.io.Serializable;
 
-public class Venue{
+public class Venue implements Serializable{
     private int id;
     private String name;
     private int capacity;
