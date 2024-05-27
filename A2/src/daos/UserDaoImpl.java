@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import src.handlers.DatabaseHandler;
-import src.handlers.DebugHandler;
 import src.models.User;
 
 public class UserDaoImpl implements UserDao {

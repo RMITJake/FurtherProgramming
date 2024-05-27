@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import src.handlers.DebugHandler;
 import src.models.User;
 
 public class SignupController {

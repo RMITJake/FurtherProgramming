@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import src.models.Event;
 import src.handlers.DatabaseHandler;
-import src.handlers.DebugHandler;
 
 public class EventDaoImpl implements EventDao {
 	private final String TABLE_NAME = DatabaseHandler.eventsTable;
@@ -56,7 +55,6 @@ public class EventDaoImpl implements EventDao {
 		try (Connection connection = DatabaseHandler.getConnection(); 
             PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
         ){ // inside the try block
-            int rowsAffected = 0;
             for(Event event : eventList){
                 preparedInsert.setString(2, event.getClient());
                 preparedInsert.setString(3, event.getTitle().trim());
@@ -66,11 +64,8 @@ public class EventDaoImpl implements EventDao {
                 preparedInsert.setInt(7, event.getDuration());
                 preparedInsert.setString(8, event.getType());
                 preparedInsert.setString(9, event.getCategory());
-                int row = preparedInsert.executeUpdate();
-                rowsAffected += row;
+                preparedInsert.executeUpdate();
             }
-        } catch(SQLException ex){
-            ex.printStackTrace(System.err);
-        } // END of Try-Catch block
+        } 
     } // END of createEvent
 }

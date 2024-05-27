@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.handlers.DatabaseHandler;
-import src.handlers.DebugHandler;
 import src.models.Venue;
 
 public class VenueDaoImpl implements VenueDao {
@@ -60,7 +59,6 @@ public class VenueDaoImpl implements VenueDao {
 		try (Connection connection = DatabaseHandler.getConnection(); 
             PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
         ){ // inside the try block
-            int rowsAffected = 0;
             int venueId = 0;
             for(Venue venue : venueList){
                 venueId++;
@@ -68,8 +66,7 @@ public class VenueDaoImpl implements VenueDao {
                 preparedInsert.setInt(3, venue.getCapacity());
                 preparedInsert.setString(4, venue.getCategory());
                 preparedInsert.setDouble(5, venue.getPricePerHour());
-                int row = preparedInsert.executeUpdate();
-                rowsAffected += row;
+                preparedInsert.executeUpdate();
                 this.suitableForDao.createSuitableFor(connection, venue, venueId);
             }
         } // END of Try-Catch block

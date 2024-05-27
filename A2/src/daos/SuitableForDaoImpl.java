@@ -6,9 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 import src.handlers.DatabaseHandler;
-import src.handlers.DebugHandler;
 import src.models.SuitableFor;
 import src.models.Venue;
 

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;
 import src.handlers.DatabaseHandler;
-import src.handlers.DebugHandler;
 import src.models.Booking;
 import src.models.Event;
 import src.models.Venue;

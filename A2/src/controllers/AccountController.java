@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import src.handlers.DebugHandler;
 import src.models.User;
 import src.daos.UserDaoImpl;
 
