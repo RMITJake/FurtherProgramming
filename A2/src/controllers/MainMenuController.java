@@ -164,15 +164,17 @@ public class MainMenuController {
         updateVenueTable(updatedVenueList);
     }
 
-    @FXML private void selectVenue(MouseEvent mouseEvent){
+    @FXML private void selectVenue(MouseEvent mouseEvent) throws SQLException, NullPointerException{
         Venue venue = venueTable.getSelectionModel().getSelectedItem();
-        List<Event> eventList = new ArrayList<Event>(); 
-        try{
-            eventList = this.bookingDao.getEventsByVenue(venue.getName());
-        } catch(SQLException ex){
-            ex.printStackTrace();
+        if(venue != null){
+            List<Event> eventList = new ArrayList<Event>(); 
+            try{
+                eventList = this.bookingDao.getEventsByVenue(venue.getName());
+            } catch(SQLException ex){
+                ex.printStackTrace();
+            }
+            updateBookingTable(eventList);
         }
-        updateBookingTable(eventList);
     }
 
     private List<Booking> getBookingCompatibility(Event event){
