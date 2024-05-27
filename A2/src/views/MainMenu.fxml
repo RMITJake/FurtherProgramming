@@ -22,18 +22,8 @@
       <menus> <!-- Top Banner Menu -->
         <Menu mnemonicParsing="false" text="File"> <!-- FILE MENU -->
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <!-- <Menu mnemonicParsing="false" text="Open Recent" /> -->
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem fx:id="saveMenuItem" onAction="#saveLists" mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem fx:id="importBackupMenuItem" onAction="#importBackup" mnemonicParsing="false" text="Import Backup" />
+            <MenuItem fx:id="exportBackupMenuItem" onAction="#exportBackup" mnemonicParsing="false" text="Export Backup" />
           </items>
         </Menu> <!-- END FILE MENU -->
         <Menu fx:id="accountMenu" mnemonicParsing="false" text="My Account"><!-- ACCOUNT Menu -->

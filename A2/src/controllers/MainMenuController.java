@@ -300,7 +300,7 @@ public class MainMenuController {
         };
     }
 
-    @FXML private void saveLists(ActionEvent actionEvent) throws FileNotFoundException, IOException, SQLException{
+    @FXML private void exportBackup(ActionEvent actionEvent) throws FileNotFoundException, IOException, SQLException{
         BackupHandler.exportBackup();
     }
 

@@ -11,6 +11,7 @@ import src.handlers.DatabaseHandler;
 import src.models.Booking;
 import src.models.Event;
 import src.models.Venue;
+import src.models.ShortBooking;
 
 public class BookingDaoImpl implements BookingDao{
     private final String TABLE_NAME = DatabaseHandler.bookingsTable;
@@ -22,37 +23,21 @@ public class BookingDaoImpl implements BookingDao{
     +"FOREIGN KEY(venueId) REFERENCES venues(id)";
     
     @Override
-    public List<Booking> readBookingsTable() throws SQLException{
-        List<Booking> bookingList = new ArrayList<>();
+    public List<ShortBooking> readBookingsTable() throws SQLException{
+        List<ShortBooking> bookingList = new ArrayList<>();
 
 		try (Connection connection = DatabaseHandler.getConnection(); 
             Statement query = connection.createStatement();
         ){ // inside the try block
             ResultSet result = query.executeQuery(""
-            +"SELECT * FROM " + TABLE_NAME
-            +" INNER JOIN events ON bookings.eventid = events.id"
-            +" INNER JOIN venues ON bookings.venueid = venues.id");
+            +"SELECT * FROM " + TABLE_NAME);
 
             while(result.next()){
-                Venue venue = new Venue(
-                result.getInt("venues.id"),
-                result.getString("venues.name"),
-                result.getInt("venues.capacity"),
-                result.getString("venues.category"),
-                result.getInt("venues.priceperhour")
+                ShortBooking booking = new ShortBooking(
+                    result.getInt("id"),
+                    result.getInt("eventId"),
+                    result.getInt("venueId")
                 );
-                Event event = new Event(
-                result.getInt("events.id"),
-                result.getString("events.client"),
-                result.getString("events.title"),
-                result.getString("events.artist"),
-                result.getString("events.dateTime"),
-                result.getInt("events.target"),
-                result.getInt("events.duration"),
-                result.getString("events.type"),
-                result.getString("events.category")
-                );
-                Booking booking = new Booking(event, venue);
                 bookingList.add(booking);
             }
             return bookingList;

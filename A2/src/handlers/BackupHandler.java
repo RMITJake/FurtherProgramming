@@ -12,6 +12,7 @@ import java.util.List;
 // Local imports
 import src.models.*;
 import src.daos.*;
+import src.handlers.DebugHandler;
 
 public class BackupHandler{
   private static String dataBackup = "transactiondata.lmvm";
@@ -26,7 +27,7 @@ public class BackupHandler{
     List<Venue> venueList = venueDao.readVenuesTable();
     List<Event> eventList = eventDao.readEventsTable();
     List<SuitableFor> suitableForList = suitableForDao.readSuitableForTable();
-    List<Booking> bookingList = bookingDao.readBookingsTable();
+    List<ShortBooking> bookingList = bookingDao.readBookingsTable();
     List<User> userList = userDao.readUserTable();
     outStream.writeObject(venueList);
     outStream.writeObject(eventList);
@@ -41,15 +42,15 @@ public class BackupHandler{
     List<Venue> venueList = (ArrayList<Venue>) inStream.readObject();
     List<Event> eventList = (ArrayList<Event>) inStream.readObject();
     List<SuitableFor> suitableForList = (ArrayList<SuitableFor>) inStream.readObject();
-    List<Booking> bookingList = (ArrayList<Booking>) inStream.readObject();
+    List<ShortBooking> bookingList = (ArrayList<ShortBooking>) inStream.readObject();
     List<User> userList = (ArrayList<User>) inStream.readObject();
     inStream.close();
-    DebugHandler.print("PRINTING IMPORT");
+    DebugHandler.PRINT("PRINTING IMPORT");
     System.out.println(venueList);
     System.out.println(eventList);
     System.out.println(suitableForList);
     System.out.println(bookingList);
     System.out.println(userList);
-    DebugHandler.print("IMPORT PRINTED");
+    DebugHandler.PRINT("IMPORT PRINTED");
   }
 }
