@@ -49,6 +49,17 @@ public class DatabaseHandler {
         }
     }
 
+    public static void seedDb(List<Venue> venueList, List<Event> eventList, List<User> userList, List<ShortBooking> bookingList){
+        try{
+            eventDao.createEvent(eventList);
+            venueDao.createVenue(venueList);
+            userDao.createUser(userList);
+            bookingDao.createBooking(bookingList);
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
     // Create Table
     public static void createTable(String table, String schema){
         try(

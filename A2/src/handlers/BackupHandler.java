@@ -45,12 +45,8 @@ public class BackupHandler{
     List<ShortBooking> bookingList = (ArrayList<ShortBooking>) inStream.readObject();
     List<User> userList = (ArrayList<User>) inStream.readObject();
     inStream.close();
-    DebugHandler.PRINT("PRINTING IMPORT");
-    System.out.println(venueList);
-    System.out.println(eventList);
-    System.out.println(suitableForList);
-    System.out.println(bookingList);
-    System.out.println(userList);
-    DebugHandler.PRINT("IMPORT PRINTED");
+
+    DatabaseHandler.initializeDb("livemusicvenuematchmaker");
+    DatabaseHandler.seedDb(venueList, eventList, userList, bookingList);
   }
 }

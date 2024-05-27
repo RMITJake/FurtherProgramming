@@ -63,6 +63,24 @@ public class BookingDaoImpl implements BookingDao{
     }
 
     @Override
+    public void createBooking(List<ShortBooking> bookingList) throws SQLException{
+        String insertStatement = ""
+        +"INSERT OR REPLACE INTO " + TABLE_NAME
+        +" VALUES ((SELECT id FROM bookings WHERE eventid = ?), ?, ?)";
+
+		try (Connection connection = DatabaseHandler.getConnection(); 
+            PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
+        ){ // inside the try block
+            for(ShortBooking booking : bookingList){
+                preparedInsert.setInt(1, booking.getId());
+                preparedInsert.setInt(2, booking.getId());
+                preparedInsert.setInt(3, booking.getId());
+                preparedInsert.executeUpdate();
+            }
+        } // END of Try-Catch block
+    }
+
+    @Override
     public List<Event> getEventsByVenue(String venueName) throws SQLException{
         List<Event> eventList = new ArrayList<>();
 

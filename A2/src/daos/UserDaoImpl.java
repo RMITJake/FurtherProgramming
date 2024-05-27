@@ -152,6 +152,25 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	public void createUser(List<User> userList) throws SQLException {
+		String query = "INSERT INTO " + TABLE_NAME +" VALUES (?, ?, ?, ?, ?, ?, ?)";
+		try (Connection connection = DatabaseHandler.getConnection();
+			PreparedStatement statement = connection.prepareStatement(query)) {
+			for(User user : userList){
+				statement.setInt(1, user.getId());
+				statement.setString(2, user.getUsername());
+				statement.setString(3, user.getPassword());
+				statement.setString(4, user.getFirstname());
+				statement.setString(5, user.getLastname());
+				statement.setString(6, user.getAccountType());
+				statement.setBoolean(7, user.getAccountEnabled());
+
+				statement.executeUpdate();
+			}
+		} 
+	}
+
+	@Override
 	public User updateUser(User user) throws SQLException {
 		if(usernameWithOtherIdExists(user.getUsername(), user.getId())){
 			return null;

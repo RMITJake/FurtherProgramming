@@ -308,5 +308,6 @@ public class MainMenuController {
 
     @FXML private void importBackup() throws FileNotFoundException, IOException, ClassNotFoundException{
         BackupHandler.importBackup();
+        initialize();
     }
 }
