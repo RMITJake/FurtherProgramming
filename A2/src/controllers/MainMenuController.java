@@ -39,6 +39,7 @@ import src.daos.VenueDao;
 import src.daos.VenueDaoImpl;
 import src.daos.UserDao;
 import src.daos.UserDaoImpl;
+import src.handlers.BackupHandler;
 import src.handlers.BookingHandler;
 import src.handlers.DebugHandler;
 import src.models.Event;
@@ -86,7 +87,6 @@ public class MainMenuController {
     private SuitableForDao suitableForDao;
     private BookingDao bookingDao;
     private UserDao userDao;
-    private String dataBackup = "transactiondata.lmvm";
 
     public MainMenuController(Stage parentStage, User user){
         this.stage = new Stage();
@@ -324,41 +324,11 @@ public class MainMenuController {
         };
     }
 
-    @FXML private void saveLists(ActionEvent actionEvent) throws FileNotFoundException, IOException, SQLException{
-        ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(dataBackup));
-        List<Venue> venueList = venueDao.readVenuesTable();
-        List<Event> eventList = eventDao.readEventsTable();
-        List<SuitableFor> suitableForList = suitableForDao.readSuitableForTable();
-        List<Booking> bookingList = bookingDao.readBookingsTable();
-        List<User> userList = userDao.readUserTable();
-
-
-        outStream.writeObject(venueList);
-        outStream.writeObject(eventList);
-        outStream.writeObject(suitableForList);
-        outStream.writeObject(bookingList);
-        outStream.writeObject(userList);
-        outStream.close();
-
-        try{
-            importBackup();
-        } catch(Exception ex){}
+    @FXML private void exportBackup(ActionEvent actionEvent) throws FileNotFoundException, IOException, SQLException{
+        BackupHandler.exportBackup();
     }
 
-    private void importBackup() throws FileNotFoundException, IOException, ClassNotFoundException{
-        ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(dataBackup));
-        List<Venue> venueList = (ArrayList<Venue>) inStream.readObject();
-        List<Event> eventList = (ArrayList<Event>) inStream.readObject();
-        List<SuitableFor> suitableForList = (ArrayList<SuitableFor>) inStream.readObject();
-        List<Booking> bookingList = (ArrayList<Booking>) inStream.readObject();
-        List<User> userList = (ArrayList<User>) inStream.readObject();
-        inStream.close();
-        DebugHandler.print("PRINTING IMPORT");
-        System.out.println(venueList);
-        System.out.println(eventList);
-        System.out.println(suitableForList);
-        System.out.println(bookingList);
-        System.out.println(userList);
-        DebugHandler.print("IMPORT PRINTED");
+    @FXML private void importBackup(ActionEvent actionEvent) throws FileNotFoundException, IOException, SQLException, ClassNotFoundException{
+        BackupHandler.importBackup();
     }
 }
