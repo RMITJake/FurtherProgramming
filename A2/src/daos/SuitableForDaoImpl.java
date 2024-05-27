@@ -44,7 +44,6 @@ public class SuitableForDaoImpl implements SuitableForDao{
     
     @Override
     public String[] readSuitableForTable(Venue venue) throws SQLException{
-        DebugHandler.print("venue id is " + venue.getId());
         List<String> stringList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE venueid = ?";
 
@@ -53,7 +52,6 @@ public class SuitableForDaoImpl implements SuitableForDao{
         ){ // inside the try block
             preparedQuery.setInt(1, venue.getId());
             ResultSet result = preparedQuery.executeQuery();
-            DebugHandler.print(result.getString("genre"));
 
             while(result.next()){
                 stringList.add(result.getString("genre"));
@@ -65,7 +63,6 @@ public class SuitableForDaoImpl implements SuitableForDao{
 
     @Override
     public void createSuitableFor(Connection connection, Venue venue, int id) throws SQLException{
-        DebugHandler.print("suitable for loop");
         String insertStatement = ""
         +"INSERT INTO " + TABLE_NAME
         +" VALUES (?, ?, ?)";

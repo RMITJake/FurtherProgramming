@@ -51,7 +51,6 @@ public class DatabaseHandler {
 
     // Create Table
     public static void createTable(String table, String schema){
-        DebugHandler.print("Creating Tables");
         try(
             Connection connection = DriverManager.getConnection(connectionString);
             Statement statement = connection.createStatement();

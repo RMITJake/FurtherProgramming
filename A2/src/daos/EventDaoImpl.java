@@ -32,10 +32,8 @@ public class EventDaoImpl implements EventDao {
             Statement statement = connection.createStatement();
         ){ // inside the try block
             ResultSet result = statement.executeQuery(query);
-            DebugHandler.print(result.getString("client"));
 
             while(result.next()){
-                DebugHandler.print(result.getString("client"));
                 Event event = new Event(
                 result.getInt("id"),
                 result.getString("client"),
@@ -48,14 +46,12 @@ public class EventDaoImpl implements EventDao {
                 result.getString("category")
                 );
                 eventList.add(event);
-                DebugHandler.print(String.format("Added event: %s %s", event.getId(), event.getClient()));
             }
             return eventList;
         }
     }
 
     public void createEvent(List<Event> eventList) throws SQLException{
-        DebugHandler.print("Adding event list to db");
         String insertStatement = "INSERT INTO " + TABLE_NAME + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DatabaseHandler.getConnection(); 
             PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
@@ -73,7 +69,6 @@ public class EventDaoImpl implements EventDao {
                 int row = preparedInsert.executeUpdate();
                 rowsAffected += row;
             }
-            DebugHandler.print(String.format("%s rows affected", rowsAffected));
         } catch(SQLException ex){
             ex.printStackTrace(System.err);
         } // END of Try-Catch block

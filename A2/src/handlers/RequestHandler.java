@@ -44,7 +44,6 @@ public class RequestHandler extends FileHandler{
     public List<Event> retrieveRequestsFromCSV(){ return retrieveRequestsFromCSV(new ArrayList<Event>()); }
 
     public static List<Event> eventResultToList(ResultSet result){
-        DebugHandler.print("IN RH.eventResultToList");
         List<Event> eventList = new ArrayList<Event>();
         try{
             while(result.next()){
@@ -60,7 +59,6 @@ public class RequestHandler extends FileHandler{
                 result.getString("category")
                 );
                 eventList.add(event);
-                DebugHandler.print(String.format("Added event: %s %s", event.getId(), event.getClient()));
             }
         } catch(SQLException ex){
             ex.printStackTrace();

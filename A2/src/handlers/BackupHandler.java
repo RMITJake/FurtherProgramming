@@ -12,7 +12,6 @@ import java.util.List;
 // Local imports
 import src.models.*;
 import src.daos.*;
-import src.handlers.DatabaseHandler;
 
 public class BackupHandler{
   private static String dataBackup = "transactiondata.lmvm";

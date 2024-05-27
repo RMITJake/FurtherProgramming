@@ -43,7 +43,6 @@ public class SignupController {
 				try {
 					user = login.getUserDao().createUser(username.getText(), password.getText());
 					if (user != null) {
-						DebugHandler.print("creating user " + user.getUsername());
 						status.setText("Created " + user.getUsername());
 						status.setTextFill(Color.GREEN);
 					} else {

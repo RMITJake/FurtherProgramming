@@ -35,7 +35,6 @@ public class VenueDaoImpl implements VenueDao {
             Statement statement = connection.createStatement();
         ){ // inside the try block
             ResultSet result = statement.executeQuery(query);
-            DebugHandler.print("read venues table " + result.getString("name"));
 
             while(result.next()){
                 Venue venue = new Venue(
@@ -45,10 +44,7 @@ public class VenueDaoImpl implements VenueDao {
                 result.getString("category"),
                 result.getInt("priceperhour")
                 );
-                DebugHandler.print("before suitable");
                 venue.setSuitableFor(this.suitableForDao.readSuitableForTable(venue));
-                DebugHandler.print("after suitable");
-                for(String s : venue.getSuitableFor()){ DebugHandler.print(s); }
                 venueList.add(venue);
             }
             return venueList;
@@ -57,8 +53,6 @@ public class VenueDaoImpl implements VenueDao {
 
     @Override
     public void createVenue(List<Venue> venueList) throws SQLException{
-
-        DebugHandler.print("creating venue");
         String insertStatement = ""
         +"INSERT INTO " + TABLE_NAME
         +" VALUES (?, ?, ?, ?, ?)";
@@ -66,7 +60,6 @@ public class VenueDaoImpl implements VenueDao {
 		try (Connection connection = DatabaseHandler.getConnection(); 
             PreparedStatement preparedInsert = connection.prepareStatement(insertStatement);
         ){ // inside the try block
-            DebugHandler.print("venue statement prepped");
             int rowsAffected = 0;
             int venueId = 0;
             for(Venue venue : venueList){
@@ -79,7 +72,6 @@ public class VenueDaoImpl implements VenueDao {
                 rowsAffected += row;
                 this.suitableForDao.createSuitableFor(connection, venue, venueId);
             }
-            DebugHandler.print(String.format("%s rows affected", rowsAffected));
         } // END of Try-Catch block
     } // END of writeVenue
 }

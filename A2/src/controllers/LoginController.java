@@ -45,7 +45,6 @@ public class LoginController {
 				User user;
 				try {
 					user = login.getUserDao().getUser(name.getText(), password.getText());
-					DebugHandler.print("login users id " + user.getId());
 					if (user != null) {
 						login.setCurrentUser(user);
 						message.setText("Login success for " + user.getUsername());

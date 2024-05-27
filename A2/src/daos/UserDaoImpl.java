@@ -34,7 +34,6 @@ public class UserDaoImpl implements UserDao {
             Statement statement = connection.createStatement();
         ){ // inside the try block
             ResultSet result = statement.executeQuery(query);
-            DebugHandler.print(result.getString("username"));
 
             while(result.next()){
                 User user = new User(
@@ -56,17 +55,14 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Boolean userExists(String username) throws SQLException {
 		String query = "SELECT * FROM " + TABLE_NAME + " WHERE username = ?";
-		DebugHandler.print("checking for " + username);
 		try (Connection connection = DatabaseHandler.getConnection(); 
 			PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, username);
 			
 			try (ResultSet rs = statement.executeQuery()) {
 				if (rs.next()) {
-					DebugHandler.print(username + " found");
 					return true;
 				}
-				DebugHandler.print(username + " not found");
 				return false;
 			} 
 		}
@@ -75,7 +71,6 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Boolean usernameWithOtherIdExists(String username, int id) throws SQLException {
 		String query = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND id != ?";
-		DebugHandler.print("checking for " + username);
 		try (Connection connection = DatabaseHandler.getConnection(); 
 			PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, username);
@@ -83,10 +78,8 @@ public class UserDaoImpl implements UserDao {
 			
 			try (ResultSet rs = statement.executeQuery()) {
 				if (rs.next()) {
-					DebugHandler.print(username + " found");
 					return true;
 				}
-				DebugHandler.print(username + " not found");
 				return false;
 			} 
 		}

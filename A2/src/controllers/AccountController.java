@@ -40,7 +40,6 @@ public class AccountController {
         this.stage = new Stage();
         this.currentUser = currentUser;
         this.user = user;
-        DebugHandler.print("currentuser's id: " + user.getId() + user.getLastname());
     }
 
     public void showStage(Pane root){
@@ -52,7 +51,6 @@ public class AccountController {
     }
 
     @FXML private void initialize(){
-        DebugHandler.print("user's name: " + user.getFirstname() + user.getLastname());
         usernameInput.setText(user.getUsername());
         firstnameInput.setText(user.getFirstname());
         lastnameInput.setText(user.getLastname());

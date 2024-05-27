@@ -39,7 +39,6 @@ import src.daos.VenueDao;
 import src.daos.VenueDaoImpl;
 import src.daos.UserDao;
 import src.daos.UserDaoImpl;
-import src.handlers.BackupHandler;
 import src.handlers.BookingHandler;
 import src.handlers.DebugHandler;
 import src.models.Event;
@@ -87,6 +86,7 @@ public class MainMenuController {
     private SuitableForDao suitableForDao;
     private BookingDao bookingDao;
     private UserDao userDao;
+    private String dataBackup = "transactiondata.lmvm";
 
     public MainMenuController(Stage parentStage, User user){
         this.stage = new Stage();
@@ -96,7 +96,6 @@ public class MainMenuController {
         this.suitableForDao = new SuitableForDaoImpl();
         this.bookingDao = new BookingDaoImpl();
         this.userDao = new UserDaoImpl();
-        DebugHandler.print("main menu user's id: " + user.getId() + user.getLastname());
     }
 
     public void showStage(Pane root){
@@ -111,7 +110,6 @@ public class MainMenuController {
     }
 
     @FXML private void initialize(){
-        DebugHandler.print("IN MAINMENU.initialize");
         loadRequestTable();
         loadVenueTable();
     }
@@ -139,11 +137,9 @@ public class MainMenuController {
         List<Venue> venueList = new ArrayList<Venue>();
         try{
             venueList = this.venueDao.readVenuesTable();
-            DebugHandler.print("1first venue " + venueList.get(0));
         } catch(SQLException ex){
             ex.printStackTrace();
         }
-        DebugHandler.print("2first venue " + venueList.get(0));
         venueTable.setItems(FXCollections.observableArrayList(venueList));
     }
 
@@ -169,7 +165,6 @@ public class MainMenuController {
         Event event = requestTable.getSelectionModel().getSelectedItem();
         List<Booking> bookingList = new ArrayList<>();
         if(event != null){
-            DebugHandler.print("clicked " + event.getArtist());
             bookingList = getBookingCompatibility(event);
         }
 
@@ -206,13 +201,11 @@ public class MainMenuController {
             bookingList.add(new Booking(event, venue));
         }
         for(Booking b : bookingList){
-            DebugHandler.print(String.format("%s %s %s", b.getEvent().getClient(), b.getVenue().getName(), b.getCompatibilityScore()));
         }
         return bookingList;
     }
 
     @FXML private void applyFilters(MouseEvent mouseEvent){
-        DebugHandler.print("applying filters");
         Event event = requestTable.getSelectionModel().getSelectedItem();
         if(event != null){
             List<Venue> venueList = new ArrayList<Venue>();
@@ -259,7 +252,6 @@ public class MainMenuController {
     }
 
     @FXML private void autoMatch() throws SQLException{
-        DebugHandler.print("in automatch");
 
         List<Event> eventList = new ArrayList<Event>(); 
         eventList = eventDao.readEventsTable();
@@ -324,11 +316,34 @@ public class MainMenuController {
         };
     }
 
-    @FXML private void exportBackup(ActionEvent actionEvent) throws FileNotFoundException, IOException, SQLException{
-        BackupHandler.exportBackup();
+    @FXML private void saveLists(ActionEvent actionEvent) throws FileNotFoundException, IOException, SQLException{
+        ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(dataBackup));
+        List<Venue> venueList = venueDao.readVenuesTable();
+        List<Event> eventList = eventDao.readEventsTable();
+        List<SuitableFor> suitableForList = suitableForDao.readSuitableForTable();
+        List<Booking> bookingList = bookingDao.readBookingsTable();
+        List<User> userList = userDao.readUserTable();
+
+
+        outStream.writeObject(venueList);
+        outStream.writeObject(eventList);
+        outStream.writeObject(suitableForList);
+        outStream.writeObject(bookingList);
+        outStream.writeObject(userList);
+        outStream.close();
+
+        try{
+            importBackup();
+        } catch(Exception ex){}
     }
 
-    @FXML private void importBackup(ActionEvent actionEvent) throws FileNotFoundException, IOException, SQLException, ClassNotFoundException{
-        BackupHandler.importBackup();
+    private void importBackup() throws FileNotFoundException, IOException, ClassNotFoundException{
+        ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(dataBackup));
+        List<Venue> venueList = (ArrayList<Venue>) inStream.readObject();
+        List<Event> eventList = (ArrayList<Event>) inStream.readObject();
+        List<SuitableFor> suitableForList = (ArrayList<SuitableFor>) inStream.readObject();
+        List<Booking> bookingList = (ArrayList<Booking>) inStream.readObject();
+        List<User> userList = (ArrayList<User>) inStream.readObject();
+        inStream.close();
     }
 }

@@ -33,7 +33,6 @@ public class BookingDaoImpl implements BookingDao{
             +"SELECT * FROM " + TABLE_NAME
             +" INNER JOIN events ON bookings.eventid = events.id"
             +" INNER JOIN venues ON bookings.venueid = venues.id");
-            DebugHandler.print(result.getString("name"));
 
             while(result.next()){
                 Venue venue = new Venue(
@@ -63,7 +62,6 @@ public class BookingDaoImpl implements BookingDao{
 
     @Override
     public void createBooking(Event event, Venue venue){
-        DebugHandler.print("Creating booking list to db");
         String insertStatement = ""
         +"INSERT OR REPLACE INTO " + TABLE_NAME
         +" VALUES ((SELECT id FROM bookings WHERE eventid = ?), ?, ?)";
@@ -82,7 +80,6 @@ public class BookingDaoImpl implements BookingDao{
 
     @Override
     public List<Event> getEventsByVenue(String venueName) throws SQLException{
-        DebugHandler.print("inside readVenueEvents with: " + venueName);
         List<Event> eventList = new ArrayList<>();
 
         String query = "SELECT e.id, e.client, e.title, e.artist, e.dateTime, e.target, e.duration, e.type, e.category FROM " + TABLE_NAME
