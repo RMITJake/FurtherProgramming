@@ -20,7 +20,7 @@
 <!--=============-->
     <MenuBar style="-fx-background-color: lightblue;" VBox.vgrow="NEVER">
       <menus> <!-- Top Banner Menu -->
-        <Menu mnemonicParsing="false" text="File"> <!-- FILE MENU -->
+        <Menu fx:id="backupMenu" mnemonicParsing="false" text="Backup"> <!-- FILE MENU -->
           <items>
             <MenuItem fx:id="importBackupMenuItem" onAction="#importBackup" mnemonicParsing="false" text="Import Backup" />
             <MenuItem fx:id="exportBackupMenuItem" onAction="#exportBackup" mnemonicParsing="false" text="Export Backup" />
@@ -30,11 +30,6 @@
             <MenuItem fx:id="editAccountDetails" onAction="#editAccount" mnemonicParsing="false" text="Edit My Details" />
             <MenuItem fx:id="userList" onAction="#viewUserList" mnemonicParsing="false" text="View User List" />
         </Menu><!-- END ACCOUNT Menu -->
-        <Menu mnemonicParsing="false" text="Help"> <!-- HELP MENU -->
-          <items>
-            <MenuItem mnemonicParsing="false" text="About Live Music Match Maker" />
-          </items>
-        </Menu> <!-- END HELP MENU -->
       </menus> <!-- END TOP BANNER MENU -->
     </MenuBar>
 <!-- END BANNER MENU -->

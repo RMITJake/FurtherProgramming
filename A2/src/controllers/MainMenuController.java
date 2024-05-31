@@ -67,6 +67,7 @@ public class MainMenuController {
     // Booking buttons
     @FXML private Button bookVenueButton;
     // Banner Menu Options
+    @FXML private MenuItem backupMenu;
     @FXML private MenuItem editAccountDetails;
     @FXML private MenuItem userList;
 
@@ -91,6 +92,7 @@ public class MainMenuController {
         stage.setTitle("Main Menu - Live Venue Music Matcher");
         stage.show();
         if(this.currentUser.getAccountType().equals("staff")){
+            backupMenu.setVisible(false);
             userList.setVisible(false);
         }
     }
